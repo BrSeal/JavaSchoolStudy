@@ -18,14 +18,14 @@
     </button>
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="#">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Price List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link active" href="#">About</a>
             </li>
         </ul>
 
@@ -34,7 +34,7 @@
                 <a class="nav-link" href="signUp"><span class="fas fa-user"></span> Sign Up</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login"><span class="fas fa-sign-in-alt"></span> Login</a>
+                <a class="nav-link" href="/login"><span class="fas fa-sign-in-alt"></span> Login</a>
             </li>
         </ul>
     </div>

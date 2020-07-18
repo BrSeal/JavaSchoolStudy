@@ -7,13 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DefaultController {
 
     @RequestMapping("/")
-    public String helloWorld() {
+    public String showIndexPage() {
         return "index";
     }
 
-    @RequestMapping("/sign-in")
-    public String signIn(){
-        return "signIn";
+    @RequestMapping("/signUp")
+    public String showSignIn(){
+        return "signUp";
+    }
+
+    @RequestMapping("/logIn")
+    public String showLogInPage(){
+        return "logIn";
+    }
+
+    @RequestMapping("/about")
+    public String showAboutInPage(){
+        return "about";
+    }
+
+    @RequestMapping("/priceList")
+    public String showPriceListPage(){
+        return "priceList";
     }
 }
 
