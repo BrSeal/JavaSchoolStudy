@@ -1,21 +1,19 @@
 package main.model.users;
 
+import lombok.*;
 import main.model.IdClass;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.logistic.Vehicle;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "drivers")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Driver extends IdClass {
@@ -30,17 +28,18 @@ public class Driver extends IdClass {
     private int hoursWorked;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "enum")
+    @Column(name = "status")
     private DriverStatus status;
 
-    @Column(name = "current_vehicle")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "current_vehicle")
     private Vehicle currentVehicle;
 
-    @Column(name = "current_city")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @ManyToOne (cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "current_order_id")
+    private Order currentOrder;
 }

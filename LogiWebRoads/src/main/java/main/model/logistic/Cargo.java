@@ -21,6 +21,8 @@ public class Cargo extends IdClass {
     private int weight;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "enum")
+    @Column(name = "status")
     private CargoStatus status;
+
+
 }

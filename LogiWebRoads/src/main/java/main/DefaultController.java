@@ -10,25 +10,5 @@ public class DefaultController {
     public String showIndexPage() {
         return "index";
     }
-
-    @RequestMapping("/signUp")
-    public String showSignIn(){
-        return "signUp";
-    }
-
-    @RequestMapping("/logIn")
-    public String showLogInPage(){
-        return "logIn";
-    }
-
-    @RequestMapping("/about")
-    public String showAboutInPage(){
-        return "about";
-    }
-
-    @RequestMapping("/priceList")
-    public String showPriceListPage(){
-        return "priceList";
-    }
 }
 

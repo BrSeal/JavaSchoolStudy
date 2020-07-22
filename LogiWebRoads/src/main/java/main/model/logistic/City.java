@@ -18,9 +18,9 @@ public class City extends IdClass {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Driver.class, mappedBy = "current_city", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Driver.class, mappedBy = "currentCity", cascade = CascadeType.ALL)
     private List<Driver> drivers;
 
-    @OneToMany(targetEntity = Vehicle.class, mappedBy = "current_city", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Vehicle.class, mappedBy = "currentCity", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;
 }

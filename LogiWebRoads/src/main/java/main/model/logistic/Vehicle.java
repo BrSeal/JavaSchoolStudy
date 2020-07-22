@@ -27,14 +27,13 @@ public class Vehicle extends IdClass {
     @Column(name = "is_ok")
     private boolean isOk;
 
-    @Column(name = "current_city")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @OneToMany(targetEntity = Driver.class, mappedBy = "current_city", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "currentVehicle")
     private List<Driver> driversOnDuty;
 
-    @Column(name = "current_order")
-    @OneToOne
+    @OneToOne(mappedBy = "assignedVehicle")
     private Order currentOrder;
 }

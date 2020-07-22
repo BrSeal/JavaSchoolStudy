@@ -19,13 +19,18 @@ public class Order extends IdClass {
     @Column(name = "is_completed")
     private boolean isCompleted;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "currentOrder")
     private List<Driver> driversInOrder;
 
-    @Column(name = "assigned_vehicle")
-    @OneToOne
+    @OneToOne(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH
+    })
+    @JoinColumn(name = "assigned_vehicle_id")
     private Vehicle assignedVehicle;
 
-    @OneToMany(targetEntity = Waypoint.class, mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
 }
