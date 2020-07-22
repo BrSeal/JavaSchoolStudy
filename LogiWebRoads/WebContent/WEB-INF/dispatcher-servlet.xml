@@ -18,7 +18,7 @@
 	<mvc:annotation-driven/>
 
 	<!-- Step 5: Define Spring MVC view resolver -->
-	<mvc:resources mapping="/resources/**" location="/WEB-INF/web-res/" />
+	<mvc:resources  location="WEB-INF/web-res/" mapping="/resources/**" />
 
 	<!-- JSTL resolver -->
 	<bean id="viewResolver"

@@ -10,7 +10,7 @@
     <title>LogiWeb</title>
 </head>
 
-<body style="background-image:  url(WEB-INF/web-res/pic/back.jpg)">
+<body style="background-image:  url(../web-res/pic/back.jpg)">
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
     <a class="navbar-brand" href="#">LogiWeb</a>
@@ -59,8 +59,8 @@
 </footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="resources/js/jquery-3.5.1.slim.min.js"></script>
-<script src="resources/js/popper.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
+<script src="../web-res/js/jquery-3.5.1.slim.min.js"></script>
+<script src="../web-res/js/popper.min.js"></script>
+<script src="../web-res/js/bootstrap.min.js"></script>
 </body>
 </html>
