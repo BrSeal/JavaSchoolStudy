@@ -24,7 +24,7 @@ public class HibernateConnector {
     }
 
     private static void init() {
-        StandardServiceRegistry reg = new StandardServiceRegistryBuilder().configure("config/hibernate.cfg.xml").build();
+        StandardServiceRegistry reg = new StandardServiceRegistryBuilder().configure("config/hibernate.cfg.xml.bac").build();
         Metadata metadata = new MetadataSources(reg).getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();
         session = sessionFactory.openSession();
