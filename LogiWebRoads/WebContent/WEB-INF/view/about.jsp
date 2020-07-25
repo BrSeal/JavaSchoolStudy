@@ -3,7 +3,6 @@
 <html>
 <head>
 
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -11,7 +10,7 @@
     <title>LogiWeb</title>
 </head>
 
-<body style="background-image: url('<spring:url value="resources/pic/back.jpg"/>'); background-position:50% 0%">
+<body style="background-image: url('<spring:url value="resources/pic/back.jpg"/>'); background-position:50%  -15%">
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
     <a class="navbar-brand" href="#">LogiWeb</a>
@@ -34,11 +33,10 @@
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">
     <div class="container-flexible">
-        <span>LogiWeb: Long, expensive poor & quality</span>
+        <span>LogiWeb: Roads</span>
     </div>
 </footer>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 <script src='<spring:url value="resources/js/jquery-3.5.1.slim.min.js"/>'></script>
 <script src='<spring:url value="resources/js/popper.min.js"/>'></script>
 <script src='<spring:url value="resources/js/bootstrap.min.js"/>'></script>
