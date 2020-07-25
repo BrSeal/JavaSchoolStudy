@@ -1,9 +1,7 @@
 package main.repository;
 
 import main.model.users.Employee;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +13,12 @@ public class EmployeeRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
-    private final Session session=sessionFactory.getCurrentSession();
-    Query<Employee> query;
 
     @Transactional
-    public List<Employee> getAll(){
-        query=session.createQuery("from Employee ",Employee.class);
-        return query.getResultList();
+    public List<Employee> getAll() {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Employee ", Employee.class)
+                .getResultList();
     }
 
 //
