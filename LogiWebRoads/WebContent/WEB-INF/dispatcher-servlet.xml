@@ -12,7 +12,7 @@
 
 	<mvc:annotation-driven/>
 
-	<mvc:resources  location="WEB-INF/web-res/" mapping="/resources/**" />
+	<mvc:resources location="resources/" mapping="/resources/**" />
 
 	<bean id="viewResolver"
 		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -37,6 +37,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>

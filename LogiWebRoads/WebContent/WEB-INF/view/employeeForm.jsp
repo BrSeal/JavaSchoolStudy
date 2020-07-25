@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href='../resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
-    <title>LogiWeb</title>
+    <title>LogiWeb Add new Employee</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="../index">Home</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="../about">About</a>
             </li>
         </ul>
@@ -31,26 +31,28 @@
 </nav>
 
 <div id="content">
-    <div id="wrapper">
-        <div id="Header">
-            <h2>Employees list</h2>
-        </div>
-    </div>
-   <input type="button" value="Add employee" onclick="window.location.href='employeeForm';return false;"/>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Login</th>
-            <th>Password</th>
-        </tr>
-        <c:forEach var="employee" items="${employees}">
+    <h3>Save new employee form</h3>
+   <form:form action="saveEmployee" modelAttribute="employee" method="POST">
+        <table>
+            <tbody>
             <tr>
-                <td>${employee.id}</td>
-                <td>${employee.login}</td>
-                <td>${employee.password}</td>
+            <td><label>Login</label></td>
+            <td><form:input path="login"/></td>
             </tr>
-        </c:forEach>
-    </table>
+            <tr>
+                <td><label>Password</label></td>
+                <td><form:input path="password"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Save"/></td>
+                <td> <input type="button" value="Back to list" onclick="window.location.href='/employees/';return false;"/></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+   </form:form>
 </div>
 
 <footer class="footer mt-auto py-3"
