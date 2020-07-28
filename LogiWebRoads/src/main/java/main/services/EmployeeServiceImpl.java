@@ -25,4 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getById(int id) {
         return repository.getById(id);
     }
+
+    @Override
+    public int save(Employee e) {
+        return repository.save(e);
+    }
 }

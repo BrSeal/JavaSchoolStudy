@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td><input type="submit" value="Save"/></td>
-                <td> <input type="button" value="Back to list" onclick="window.location.href='/employees/';return false;"/></td>
+                <td> <input type="button" value="Back to list" onclick="location.href='../employees/';return false;"/></td>
 
             </tr>
             </tbody>

@@ -35,4 +35,11 @@ public class EmployeeController {
 
         return "employeeForm";
     }
+
+    @PostMapping("/saveEmployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+        service.save(employee);
+
+        return "redirect:/employees/";
+    }
 }
