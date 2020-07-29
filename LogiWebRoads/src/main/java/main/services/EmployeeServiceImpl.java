@@ -30,4 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public int save(Employee e) {
         return repository.save(e);
     }
+
+    @Override
+    public Employee deleteById(int id) {
+        return repository.deleteById(id);
+    }
 }

@@ -32,7 +32,8 @@
 
 <div id="content">
     <h3>Save new employee form</h3>
-   <form:form action="saveEmployee" modelAttribute="employee" method="POST">
+   <form:form action="save" modelAttribute="employee" method="POST">
+       <form:hidden path="id"/>
         <table>
             <tbody>
             <tr>

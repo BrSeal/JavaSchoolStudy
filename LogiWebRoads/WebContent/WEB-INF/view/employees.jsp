@@ -36,18 +36,29 @@
             <h2>Employees list</h2>
         </div>
     </div>
-   <input type="button" value="Add employee" onclick="window.location.href='employeeForm';return false;"/>
+   <input type="button" value="Add employee" onclick="window.location.href='createEmployee';return false;"/>
     <table>
         <tr>
             <th>Id</th>
             <th>Login</th>
             <th>Password</th>
+            <th>Action</th>
         </tr>
         <c:forEach var="employee" items="${employees}">
+            <c:url var="updateLink" value="/employees/update">
+                <c:param name="employeeId" value="${employee.id}"/>
+            </c:url>
+            <c:url var="deleteLink" value="/employees/delete">
+                <c:param name="employeeId" value="${employee.id}"/>
+            </c:url>
             <tr>
                 <td>${employee.id}</td>
                 <td>${employee.login}</td>
                 <td>${employee.password}</td>
+                <td><a href="${updateLink}">Update</a>
+                    <a href="${deleteLink}" onclick="if (!(confirm('Please confirm deleting employee id=${employee.id}'))) return false">Delete</a>
+                </td>
+
             </tr>
         </c:forEach>
     </table>

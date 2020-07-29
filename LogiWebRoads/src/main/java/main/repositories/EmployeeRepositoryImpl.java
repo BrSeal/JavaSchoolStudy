@@ -3,7 +3,6 @@ package main.repositories;
 import main.model.users.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,21 +21,21 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
 
     public List<Employee> getAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session
+        return sessionFactory.getCurrentSession()
                 .createQuery("from Employee ", Employee.class)
-                .getResultList();
+                .list();
     }
 
     public Employee getById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Employee> query = session.createQuery("from Employee where id=" + id, Employee.class);
-        return query.getResultList().get(0);
+        return sessionFactory.getCurrentSession()
+                .get(Employee.class, id);
     }
 
     @Override
     public int save(Employee e) {
-        return (int) sessionFactory.getCurrentSession().save(e);
+        sessionFactory.getCurrentSession()
+                .saveOrUpdate(e);
+        return e.getId();
     }
 
     @Override
@@ -46,6 +45,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee deleteById(int id) {
-        return null;
+        Session session=sessionFactory.getCurrentSession();
+        Employee e=session.get(Employee.class,id);
+        session.delete(e);
+        return e;
     }
 }

@@ -27,19 +27,37 @@ public class EmployeeController {
         return "employees";
     }
 
-    //TODO BackToList Button!!!!
-    @GetMapping("/employeeForm")
-    public String showEmployeeForm(Model model) {
-        Employee employee=new Employee();
+    @GetMapping("/create")
+    public String createEmployee(Model model) {
+        Employee employee = new Employee();
         model.addAttribute("employee", employee);
 
         return "employeeForm";
     }
 
-    @PostMapping("/saveEmployee")
-    public String saveEmployee(@ModelAttribute("employee") Employee employee){
+    @PostMapping("/save")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         service.save(employee);
+        return "redirect:/employees/";
+    }
+
+    //TODO сделать PUT-метод
+    @GetMapping("/update")
+    public String updateEmployee(@RequestParam("employeeId") int id, Model model) {
+        Employee e = service.getById(id);
+        model.addAttribute("employee", e);
+
+        return "employeeForm";
+    }
+
+
+    //TODO сделать Delete-метод
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam("employeeId") int id){
+
+         service.deleteById(id);
 
         return "redirect:/employees/";
     }
+
 }
