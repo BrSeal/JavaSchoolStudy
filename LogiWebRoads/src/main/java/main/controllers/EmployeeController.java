@@ -44,7 +44,7 @@ public class EmployeeController {
     //TODO сделать PUT-метод
     @GetMapping("/update")
     public String updateEmployee(@RequestParam("employeeId") int id, Model model) {
-        Employee e = service.getById(id);
+        Employee e = service.get(id);
         model.addAttribute("employee", e);
 
         return "employeeForm";
@@ -55,7 +55,7 @@ public class EmployeeController {
     @GetMapping("/delete")
     public String deleteEmployee(@RequestParam("employeeId") int id){
 
-         service.deleteById(id);
+         service.delete(id);
 
         return "redirect:/employees/";
     }

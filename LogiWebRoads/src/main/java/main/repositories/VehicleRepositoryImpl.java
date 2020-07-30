@@ -1,6 +1,6 @@
 package main.repositories;
 
-import main.model.users.Employee;
+import main.model.logistic.Vehicle;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,46 +8,45 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
-public class EmployeeRepositoryImpl implements EmployeeRepository {
+public class VehicleRepositoryImpl implements VehicleRepository{
+
     private final SessionFactory sessionFactory;
 
     @Autowired
-    public EmployeeRepositoryImpl(SessionFactory sessionFactory) {
+    public VehicleRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
 
-    public List<Employee> getAll() {
+    public List<Vehicle> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Employee ", Employee.class)
+                .createQuery("from Vehicle ", Vehicle.class)
                 .list();
     }
 
-    public Employee get(int id) {
+    public Vehicle get(int id) {
         return sessionFactory.getCurrentSession()
-                .get(Employee.class, id);
+                .get(Vehicle.class, id);
     }
 
     @Override
-    public int save(Employee e) {
+    public int save(Vehicle vehicle) {
         sessionFactory.getCurrentSession()
-                .saveOrUpdate(e);
-        return e.getId();
+                .saveOrUpdate(vehicle);
+        return vehicle.getId();
     }
 
     @Override
-    public Employee delete(int id) {
+    public Vehicle delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        Employee e = session.get(Employee.class, id);
+        Vehicle e = session.get(Vehicle.class, id);
         session.delete(e);
         return e;
     }
 
-    @Override
-    public Employee delete(Employee employee) {
-        sessionFactory.getCurrentSession().delete(employee);
-        return employee;
+    public Vehicle delete(Vehicle vehicle) {
+        sessionFactory.getCurrentSession().delete(vehicle);
+        return vehicle;
     }
 }

@@ -7,9 +7,11 @@ import java.util.List;
 public interface EmployeeService {
     List<Employee> getAll();
 
-    Employee getById(int id);
+    Employee get(int id);
 
     int save(Employee e);
 
-    Employee deleteById(int id);
+    Employee delete(int id);
+
+    Employee delete(Employee employee);
 }

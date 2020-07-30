@@ -36,7 +36,7 @@
             <h2>Employees list</h2>
         </div>
     </div>
-   <input type="button" value="Add employee" onclick="window.location.href='createEmployee';return false;"/>
+   <input type="button" value="Add employee" onclick="window.location.href='create';return false;"/>
     <table>
         <tr>
             <th>Id</th>

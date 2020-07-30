@@ -1,7 +1,7 @@
 package main.services;
 
-import main.model.users.Employee;
-import main.repositories.EmployeeRepository;
+import main.model.users.Driver;
+import main.repositories.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,37 +10,37 @@ import java.util.List;
 
 @Service
 @Transactional
-public class EmployeeServiceImpl implements EmployeeService {
+public class DriverServiceImpl implements DriverService {
 
-    private final EmployeeRepository repository;
+    private final DriverRepository repository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository repository) {
+    public DriverServiceImpl(DriverRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Driver> getAll() {
         return repository.getAll();
     }
 
     @Override
-    public Employee get(int id) {
+    public Driver get(int id) {
         return repository.get(id);
     }
 
     @Override
-    public int save(Employee e) {
-        return repository.save(e);
+    public int save(Driver driver) {
+        return repository.save(driver);
     }
 
     @Override
-    public Employee delete(int id) {
+    public Driver delete(int id) {
         return repository.delete(id);
     }
 
     @Override
-    public Employee delete(Employee employee) {
-        return repository.delete(employee);
+    public Driver delete(Driver driver) {
+        return repository.delete(driver);
     }
 }

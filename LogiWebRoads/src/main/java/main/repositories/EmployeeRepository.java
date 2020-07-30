@@ -7,11 +7,11 @@ import java.util.List;
 public interface EmployeeRepository {
     List<Employee> getAll();
 
-    Employee getById(int id);
+    Employee get(int id);
 
     int save(Employee e);
 
-    boolean edit(int id,Employee changes);
+    Employee delete(int id);
 
-    Employee deleteById(int id);
+    Employee delete(Employee employee);
 }
