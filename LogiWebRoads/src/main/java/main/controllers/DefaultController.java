@@ -7,9 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DefaultController {
 
-    @RequestMapping({"/","/index"})
+    @RequestMapping({"/","/loginPage"})
     public ModelAndView showIndexPage() {
-        return new ModelAndView("index");
+        return new ModelAndView("loginPage");
     }
 
     @RequestMapping({"/about"})

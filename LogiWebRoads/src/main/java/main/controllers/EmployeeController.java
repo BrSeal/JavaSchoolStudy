@@ -1,7 +1,9 @@
 package main.controllers;
 
+import main.model.logistic.Order;
 import main.model.users.Employee;
 import main.services.EmployeeService;
+import main.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +15,22 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeService service;
+    private final EmployeeService employeeService;
+
+    private final OrderService orderService;
 
     @Autowired
-    public EmployeeController(EmployeeService service) {
-        this.service = service;
+    public EmployeeController(EmployeeService employeeService, OrderService orderService) {
+
+        this.employeeService = employeeService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/")
     public String listEmployees(Model model) {
-        List<Employee> employeeList = service.getAll();
+        List<Employee> employeeList = employeeService.getAll();
         model.addAttribute("employees", employeeList);
-        return "employees";
+        return "employee/CRUD/employees";
     }
 
     @GetMapping("/create")
@@ -32,22 +38,22 @@ public class EmployeeController {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
 
-        return "employeeForm";
+        return "employee/CRUD/employeeForm";
     }
 
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-        service.save(employee);
+        employeeService.save(employee);
         return "redirect:/employees/";
     }
 
     //TODO сделать PUT-метод
     @GetMapping("/update")
     public String updateEmployee(@RequestParam("employeeId") int id, Model model) {
-        Employee e = service.get(id);
+        Employee e = employeeService.get(id);
         model.addAttribute("employee", e);
 
-        return "employeeForm";
+        return "employee/CRUD/employeeForm";
     }
 
 
@@ -55,9 +61,17 @@ public class EmployeeController {
     @GetMapping("/delete")
     public String deleteEmployee(@RequestParam("employeeId") int id){
 
-         service.delete(id);
+         employeeService.delete(id);
 
         return "redirect:/employees/";
+    }
+
+    @GetMapping("/employeeDesk")
+    public String showEmployeeDesk(Model model){
+        List<Order> orders=orderService.getAll();
+        model.addAttribute("orders",orders);
+
+        return "employee/desktop/employeeDesk";
     }
 
 }

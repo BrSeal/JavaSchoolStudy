@@ -21,7 +21,7 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../index">Home</a>
+                <a class="nav-link" href="../loginPage">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../about">About</a>
@@ -36,7 +36,7 @@
             <h2>Employees list</h2>
         </div>
     </div>
-   <input type="button" value="Add employee" onclick="window.location.href='create';return false;"/>
+    <input type="button" value="Add employee" onclick="window.location.href='create';return false;"/>
     <table>
         <tr>
             <th>Id</th>
@@ -53,10 +53,11 @@
             </c:url>
             <tr>
                 <td>${employee.id}</td>
-                <td>${employee.login}</td>
+                <td><a href="${pageContext.request.contextPath}/employees/employeeDesk">${employee.login}</a></td>
                 <td>${employee.password}</td>
                 <td><a href="${updateLink}">Update</a>
-                    <a href="${deleteLink}" onclick="if (!(confirm('Please confirm deleting employee id=${employee.id}'))) return false">Delete</a>
+                    <a href="${deleteLink}"
+                       onclick="if (!(confirm('Please confirm deleting employee id=${employee.id}'))) return false">Delete</a>
                 </td>
 
             </tr>
@@ -71,8 +72,8 @@
     </div>
 </footer>
 
-<script src='../resources/js/jquery-3.5.1.slim.min.js'></script>
-<script src='../resources/js/popper.min.js'></script>
-<script src='../resources/js/bootstrap.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.slim.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
 </body>
 </html>

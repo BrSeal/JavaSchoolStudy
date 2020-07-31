@@ -21,7 +21,7 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../index">Home</a>
+                <a class="nav-link" href="../loginPage">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../about">About</a>
@@ -46,7 +46,7 @@
             </tr>
             <tr>
                 <td><input type="submit" value="Save"/></td>
-                <td> <input type="button" value="Back to list" onclick="location.href='../employees/';return false;"/></td>
+                <td> <input type="button" value="Back to list" onclick="location.href='../../../..';return false;"/></td>
 
             </tr>
             </tbody>
