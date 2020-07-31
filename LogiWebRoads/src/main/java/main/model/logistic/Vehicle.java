@@ -1,6 +1,9 @@
 package main.model.logistic;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import main.model.IdClass;
 import main.model.users.Driver;
 
@@ -31,9 +34,17 @@ public class Vehicle extends IdClass {
     @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @OneToMany(mappedBy = "currentVehicle")
+    @OneToMany(mappedBy = "currentVehicle", cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH})
     private List<Driver> driversOnDuty;
 
-    @OneToOne(mappedBy = "assignedVehicle")
+    @OneToOne(mappedBy = "assignedVehicle", cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.DETACH})
     private Order currentOrder;
 }

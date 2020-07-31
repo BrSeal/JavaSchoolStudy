@@ -21,17 +21,17 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="loginPage">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginPage">Home</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="about">About</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div id="content">
-
+Placeholder
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">

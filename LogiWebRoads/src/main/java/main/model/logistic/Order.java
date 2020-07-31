@@ -31,6 +31,6 @@ public class Order extends IdClass {
     @JoinColumn(name = "assigned_vehicle_id")
     private Vehicle assignedVehicle;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
 }

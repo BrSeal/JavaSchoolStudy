@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href='../resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
-    <title>LogiWeb</title>
+    <title>LogiWeb Add new Employee</title>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../index">Home</a>
+                <a class="nav-link" href="../loginPage">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../about">About</a>
@@ -31,37 +31,35 @@
 </nav>
 
 <div id="content">
-    <div id="wrapper">
-        <div id="Header">
-            <h2>Employees list</h2>
-        </div>
-    </div>
-   <input type="button" value="Add employee" onclick="window.location.href='create';return false;"/>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Login</th>
-            <th>Password</th>
-            <th>Action</th>
-        </tr>
-        <c:forEach var="employee" items="${employees}">
-            <c:url var="updateLink" value="/employees/update">
-                <c:param name="employeeId" value="${employee.id}"/>
-            </c:url>
-            <c:url var="deleteLink" value="/employees/delete">
-                <c:param name="employeeId" value="${employee.id}"/>
-            </c:url>
+    <h3>Save new employee form</h3>
+    <form:form action="save" modelAttribute="driver" method="POST">
+        <!--TODO add to model param cities List<City> -->
+
+        <form:hidden path="id"/>
+        <table>
+            <tbody>
             <tr>
-                <td>${employee.id}</td>
-                <td>${employee.login}</td>
-                <td>${employee.password}</td>
-                <td><a href="${updateLink}">Update</a>
-                    <a href="${deleteLink}" onclick="if (!(confirm('Please confirm deleting employee id=${employee.id}'))) return false">Delete</a>
-                </td>
+                <td><label>First name</label></td>
+                <td><form:input path="firstName"/></td>
+            </tr>
+            <tr>
+                <td><label>Last name</label></td>
+                <td><form:input path="lastName"/></td>
+            </tr>
+            <tr>
+                <td><label>City</label></td>
+                <td><form:input path="currentCity"/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Save"/></td>
+                <td> <input type="button" value="Back to list" onclick="location.href='${pageContext.request.contextPath}/employees/drivers';return false;"/></td>
 
             </tr>
-        </c:forEach>
-    </table>
+            </tbody>
+        </table>
+
+
+    </form:form>
 </div>
 
 <footer class="footer mt-auto py-3"

@@ -40,5 +40,9 @@ public class Waypoint extends IdClass {
     private City city;
 
     @Column(name = "isDone")
-    private boolean isDone;
+    private boolean isDone=false;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    Order order;
 }

@@ -29,14 +29,14 @@ public class Driver extends IdClass {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private DriverStatus status;
+    private DriverStatus status= DriverStatus.ON_REST;
 
     @ManyToOne
     @JoinColumn(name = "current_vehicle")
     private Vehicle currentVehicle;
 
     @ManyToOne
-    @JoinColumn(name = "current_city_id")
+    @JoinColumn(name = "current_city_id", nullable = false)
     private City currentCity;
 
     @ManyToOne
