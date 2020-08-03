@@ -53,7 +53,7 @@
             </c:url>
             <tr>
                 <td>${employee.id}</td>
-                <td><a href="${pageContext.request.contextPath}/employees/employeeOrders">${employee.login}</a></td>
+                <td><a href="${pageContext.request.contextPath}/employees/employeeDesk">${employee.login}</a></td>
                 <td>${employee.password}</td>
                 <td><a href="${updateLink}">Update</a>
                     <a href="${deleteLink}"

@@ -69,12 +69,12 @@ public class EmployeeController {
         return "redirect:/employees/";
     }
 
-    @GetMapping("/employeeOrders")
+    @GetMapping("/employeeDesk")
     public String showEmployeeDesk(Model model) {
         List<Order> orders = orderService.getAll();
         List<Driver> drivers = driverService.getAll();
         List<Vehicle> vehicles = vehicleService.getAll();
 
-        return "employeeOrders";
+        return "employee/desktop/employeeDesk";
     }
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href='${pageContext.request.contextPath}/resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
+
     <title>LogiWeb</title>
 </head>
 
@@ -24,7 +25,7 @@
                 <a class="nav-link" href="#">Employee Desk</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/loginPage">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
@@ -33,36 +34,20 @@
     </div>
 </nav>
 
-<div id="content" class="container">
-    <!-- TODO добавить динамический вывод инфы на страничку-->
-    <div class="row">
-        <div id="orders" class="col-6">
-            <h1>Orders</h1>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Creation time</th>
-                    <th>Status</th>
-                </tr>
-                <c:forEach var="order" items="${orders}">
-                <c:url var="detailsLink" value="/orders/details">
-                    <c:param name="orderId" value="${order.id}"/>
-                </c:url>
-                <tr>
-                    <td>${order.id}</td>
-                    <td>${order.creationDate}</td>
-                    <td>${order.status}</td>
-                </tr>
-            </table>
-        </div>
-        <div  id="drivers" class="col-sm">
-            <h1>Drivers</h1>
-        </div>
-        <div  id="vehicles" class="col-sm">
-            <h1>Vehicles</h1>
-        </div>
+<div class="container">
+
+    <div id="buttons">
+        <button id="orders-btn" onclick="showOrders()">Orders</button>
+        <button id="Drivers-btn" onclick="showDrivers()">Drivers</button>
+        <button id="Vehicles-btn" onclick="showVehicles()">Vehicles</button>
     </div>
+
+    <div id="content" class="container">
+
+    </div>
+
 </div>
+
 
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">
@@ -74,5 +59,8 @@
 <script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.slim.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
+<script src="${pageContext.request.contextPath}/resources/js/react.development.js" crossorigin></script>
+<script src="${pageContext.request.contextPath}/resources/js/react-dom.development.js" crossorigin></script>
+<script type="text/jsx" src="${pageContext.request.contextPath}/resources/js/employeeDesk.js"  ></script>
 </body>
 </html>
