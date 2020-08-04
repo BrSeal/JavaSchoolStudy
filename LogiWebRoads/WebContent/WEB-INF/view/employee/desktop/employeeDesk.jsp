@@ -41,11 +41,18 @@
         <button id="Drivers-btn" onclick="showDrivers()">Drivers</button>
         <button id="Vehicles-btn" onclick="showVehicles()">Vehicles</button>
     </div>
-
-    <div id="content" class="container">
+    <div id="add-button-holder" class="row">
 
     </div>
+    <div class="row">
+        <div id="content" class="row col-8">
 
+        </div>
+
+        <div id="details" class="col-4">
+
+        </div>
+    </div>
 </div>
 
 
@@ -56,11 +63,13 @@
     </div>
 </footer>
 
+
 <script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.slim.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
 <script src="${pageContext.request.contextPath}/resources/js/react.development.js" crossorigin></script>
 <script src="${pageContext.request.contextPath}/resources/js/react-dom.development.js" crossorigin></script>
-<script type="text/jsx" src="${pageContext.request.contextPath}/resources/js/employeeDesk.js"  ></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/employeeDesk.js" type="text/babel"></script>
 </body>
 </html>
