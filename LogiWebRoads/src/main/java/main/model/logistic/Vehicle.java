@@ -34,17 +34,6 @@ public class Vehicle extends IdClass {
     @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @OneToMany(mappedBy = "currentVehicle", cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH})
-    private List<Driver> driversOnDuty;
-
-    @OneToOne(mappedBy = "assignedVehicle", cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH})
+    @OneToOne
     private Order currentOrder;
 }

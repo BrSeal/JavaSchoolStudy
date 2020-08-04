@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href='../resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
+    <link href='${pageContext.request.contextPath}/resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
     <title>LogiWeb Add new Employee</title>
 </head>
 
@@ -21,10 +21,10 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../loginPage">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/loginPage">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../about">About</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
             </li>
         </ul>
     </div>
@@ -63,8 +63,8 @@
     </div>
 </footer>
 
-<script src='../resources/js/jquery-3.5.1.slim.min.js'></script>
-<script src='../resources/js/popper.min.js'></script>
-<script src='../resources/js/bootstrap.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
 </body>
 </html>

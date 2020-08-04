@@ -34,42 +34,39 @@ const showVehicles = function (vehicles) {
  * Order currentOrder;
  */
 
-const showDrivers = function (drivers) {
-    const getDriverInfo=function(){
+const showDrivers = function () {
         $.ajax({
             method: "GET",
-            url: '/drivers/',
+            url: '../driver/',
             success: function(response){
-                return response;
+                alert(response[0].firstName);
             }
         });
-        return false;
-    }
-    const toTable = function (drivers) {
-        let driversList = drivers.map((driver) =>
-            <tr>
-                <td>{driver.id}</td>
-                <td>{driver.firstName}</td>
-                <td>{driver.lastName}</td>
-                <td>{driver.currentOrder.id}</td>
-                <button id='showInfo' onClick={renderDetails(getDriverInfo(driver))}>Details</button>
-            </tr>
-        );
-        return (<table>
-            <tbody>
-            <tr>
-                <th>Id</th>
-                <th>firstName</th>
-                <th>lastName</th>
-                <th>currentOrder</th>
-            </tr>
-            {driversList}
-            </tbody>
-        </table>)
     }
 
-    renderContent(toTable(drivers));
-}
+    // const toTable = function (props) {
+    //     let driversList = this.props.drivers.map((driver) =>
+    //         <tr>
+    //             <td>{driver.id}</td>
+    //             <td>{driver.firstName}</td>
+    //             <td>{driver.lastName}</td>
+    //             <td>{driver.currentOrder.id}</td>
+    //             <button id='showInfo' onClick={renderDetails(getDriverInfo(driver))}>Details</button>
+    //         </tr>
+    //     );
+    //     return (<table>
+    //         <tbody>
+    //         <tr>
+    //             <th>Id</th>
+    //             <th>firstName</th>
+    //             <th>lastName</th>
+    //             <th>currentOrder</th>
+    //         </tr>
+    //         {driversList}
+    //         </tbody>
+    //     </table>)
+   // }
+  //  renderContent(toTable(drivers));
 
 // <h1>Orders</h1>
 // <a href="${pageContext.request.contextPath}/order/new">New Order</a>

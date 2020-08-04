@@ -8,13 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class DefaultController {
 
     @RequestMapping({"/","/loginPage"})
-    public ModelAndView showIndexPage() {
-        return new ModelAndView("loginPage");
+    public String showLoginPage() {
+        System.out.println("Default controller in action");
+        return "loginPage";
     }
 
     @RequestMapping({"/about"})
-    public ModelAndView showAbout() {
-        return new ModelAndView("about");
+    public String showAbout() {
+        return "about";
     }
 }
 

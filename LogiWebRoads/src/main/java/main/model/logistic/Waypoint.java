@@ -41,8 +41,4 @@ public class Waypoint extends IdClass {
 
     @Column(name = "isDone")
     private boolean isDone=false;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    Order order;
 }
