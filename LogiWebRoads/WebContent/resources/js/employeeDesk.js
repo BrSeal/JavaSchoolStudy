@@ -41,7 +41,7 @@ class TableDrivers extends React.Component {
                 <td>{driver.lastName}</td>
                 <td>{driver.currentOrder === null ? 'none' : driver.currentOrder.id}</td>
                 <td>
-                    <InfoButton driver={driver}/>
+                    <InfoButton key={driver.id} driver={driver}/>
                 </td>
             </tr>
         );
@@ -53,6 +53,7 @@ class TableDrivers extends React.Component {
                     <th scope="col">firstName</th>
                     <th scope="col">lastName</th>
                     <th scope="col">currentOrder</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,33 +64,35 @@ class TableDrivers extends React.Component {
 }
 
 class InfoButton extends React.Component {
-    driver=this.props.driver;
-    showDetails(){
-        renderDetails(<DriverDetails driver={this.driver}/>)
-    }
+
 
     render() {
+        let drv=this.props.driver;
+       const  showDetails=function(){
+            renderDetails(<DriverDetails driver={drv}/>)
+        }
         return (
             <button className="detailsButton"
-                    onClick={this.showDetails}>Details</button>
+                    onClick={showDetails}>Details</button>
         );
     }
 }
 
 class DriverDetails extends React.Component {
     render() {
+        let driver = this.props.driver;
         return (
             <div>
-                <h2>Driver № {this.props.driver.id}</h2>
-                <label><b>First name: </b>{this.props.driver.firstName}</label><br/>
-                <label><b>Last name:</b> {this.props.driver.lastName}</label><br/>
-                <label><b>Hours worked:</b> {this.props.driver.hoursWorked}</label><br/>
-                <label><b>Location:</b> {this.props.driver.currentCity.name}</label><br/>
+                <h2>Driver № {driver.id}</h2>
+                <label><b>First name: </b>{driver.firstName}</label><br/>
+                <label><b>Last name:</b> {driver.lastName}</label><br/>
+                <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
+                <label><b>Location:</b> {driver.currentCity.name}</label><br/>
                 <label><b>Current
-                    order:</b> {(this.props.driver.currentOrder === null) ? 'none' : this.props.driver.currentOrder.name}
+                    order:</b> {(driver.currentOrder === null) ? 'none' : driver.currentOrder.name}
                 </label><br/>
                 <label><b>Current
-                    vehicle:</b> {(this.props.driver.currentVehicle === null) ? 'none' : this.props.driver.currentVehicle.id}
+                    vehicle:</b> {(driver.currentVehicle === null) ? 'none' : driver.currentVehicle.id}
                 </label><br/>
 
             </div>
