@@ -14,74 +14,85 @@ const renderAddButtonHolder = function (props) {
     )
 }
 
-
-
 const showOrders = function (orders) {
-    renderContent(orders);
+    renderContent('orders');
 }
 
 const showVehicles = function (vehicles) {
-    renderContent(vehicles);
+    renderContent('vehicles');
 }
-/**
- * Driver
- * String firstName;
- * String lastName;
- * int hoursWorked;
- * DriverStatus status;
- * Vehicle currentVehicle;
- * City currentCity;
- * Order currentOrder;
- */
 
 const showDrivers = function () {
-        $.ajax({
-            method: "GET",
-            url: '../driver/',
-            success: function(response){
-                alert(response[0].firstName);
-            }
-        });
+    $.ajax({
+        method: "GET",
+        url: '../driver/',
+        success: function (response) {
+            renderContent(<TableDrivers drivers={response}/>);
+        }
+    })
+}
+
+class TableDrivers extends React.Component {
+    render() {
+        let driversResult = this.props.drivers.map(driver =>
+            <tr>
+                <th scope="row">{driver.id}</th>
+                <td>{driver.firstName}</td>
+                <td>{driver.lastName}</td>
+                <td>{driver.currentOrder === null ? 'none' : driver.currentOrder.id}</td>
+                <td>
+                    <InfoButton driver={driver}/>
+                </td>
+            </tr>
+        );
+        return (
+            <table className="table">
+                <thead className="thead-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">firstName</th>
+                    <th scope="col">lastName</th>
+                    <th scope="col">currentOrder</th>
+                </tr>
+                </thead>
+                <tbody>
+                {driversResult}
+                </tbody>
+            </table>)
+    }
+}
+
+class InfoButton extends React.Component {
+    driver=this.props.driver;
+    showDetails(){
+        renderDetails(<DriverDetails driver={this.driver}/>)
     }
 
-    // const toTable = function (props) {
-    //     let driversList = this.props.drivers.map((driver) =>
-    //         <tr>
-    //             <td>{driver.id}</td>
-    //             <td>{driver.firstName}</td>
-    //             <td>{driver.lastName}</td>
-    //             <td>{driver.currentOrder.id}</td>
-    //             <button id='showInfo' onClick={renderDetails(getDriverInfo(driver))}>Details</button>
-    //         </tr>
-    //     );
-    //     return (<table>
-    //         <tbody>
-    //         <tr>
-    //             <th>Id</th>
-    //             <th>firstName</th>
-    //             <th>lastName</th>
-    //             <th>currentOrder</th>
-    //         </tr>
-    //         {driversList}
-    //         </tbody>
-    //     </table>)
-   // }
-  //  renderContent(toTable(drivers));
+    render() {
+        return (
+            <button className="detailsButton"
+                    onClick={this.showDetails}>Details</button>
+        );
+    }
+}
 
-// <h1>Orders</h1>
-// <a href="${pageContext.request.contextPath}/order/new">New Order</a>
-// <table>
-//     <tr>
-//     <th>Id</th>
-//     <th>Status</th>
-//     <th>Action</th>
-//     </tr>
-//     <c:forEach var="order" items="${orders}">
-//         <tr>
-//             <td>${order.id}</td>
-//             <td>${order.status}</td>
-//             <!-- TODO при нажатии на кнопу обновляется инфа справа (orderInfo)-->
-//             <td><button id="showOrderInfo" >Details</button></td>
-//         </tr>
-//     </c:forEach>
-// </table>
+class DriverDetails extends React.Component {
+    render() {
+        return (
+            <div>
+                <h2>Driver № {this.props.driver.id}</h2>
+                <label><b>First name: </b>{this.props.driver.firstName}</label><br/>
+                <label><b>Last name:</b> {this.props.driver.lastName}</label><br/>
+                <label><b>Hours worked:</b> {this.props.driver.hoursWorked}</label><br/>
+                <label><b>Location:</b> {this.props.driver.currentCity.name}</label><br/>
+                <label><b>Current
+                    order:</b> {(this.props.driver.currentOrder === null) ? 'none' : this.props.driver.currentOrder.name}
+                </label><br/>
+                <label><b>Current
+                    vehicle:</b> {(this.props.driver.currentVehicle === null) ? 'none' : this.props.driver.currentVehicle.id}
+                </label><br/>
+
+            </div>
+        );
+    }
+}

@@ -9,7 +9,6 @@ public class DefaultController {
 
     @RequestMapping({"/","/loginPage"})
     public String showLoginPage() {
-        System.out.println("Default controller in action");
         return "loginPage";
     }
 

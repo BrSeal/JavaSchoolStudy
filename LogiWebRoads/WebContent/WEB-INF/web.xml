@@ -6,6 +6,11 @@
 
 	<display-name>spring-mvc-demo</display-name>
 
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
+
 	<absolute-ordering />
 
 	<servlet>

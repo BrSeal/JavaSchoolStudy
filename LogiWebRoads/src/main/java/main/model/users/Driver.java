@@ -35,11 +35,11 @@ public class Driver extends IdClass {
     @JoinColumn(name = "current_vehicle")
     private Vehicle currentVehicle;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "current_city_id", nullable = false)
     private City currentCity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "current_order_id")
     private Order currentOrder;
 }
