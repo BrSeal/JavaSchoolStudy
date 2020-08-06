@@ -1,7 +1,7 @@
-package main.controllers;
+package main.controllers.REST;
 
-import main.model.users.Driver;
-import main.services.DriverService;
+import main.model.logistic.Order;
+import main.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,42 +9,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/driver")
-public class DriverController {
-
-    private final DriverService service;
+@RequestMapping("/order")
+public class OrderController {
+    private final OrderService service;
 
     @Autowired
-    public DriverController(DriverService service) {
-        this.service = service;
+    public OrderController(OrderService orderService) {
+        this.service = orderService;
     }
 
     @GetMapping("/")
     @ResponseBody
-    public List<Driver> getDrivers() {
+    public List<Order> getDrivers() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Driver getDriverById(@PathVariable int id) {
+    public Order getDriverById(@PathVariable int id) {
         return service.get(id);
     }
 
     @PostMapping("/new/")
     @ResponseBody
-    public int getDriverById(@RequestBody Driver driver) {
+    public int getOrderById(@RequestBody Order driver) {
         return service.save(driver);
     }
 
     @PutMapping("/update/")
     @ResponseBody
-    public int updateDriverById(@RequestBody Driver driverToUpdate) {
+    public int updateOrderById(@RequestBody Order driverToUpdate) {
         return service.save(driverToUpdate);
     }
 
     @DeleteMapping("delete/{id}")
-    public Driver deleteDriver(@PathVariable int id) {
+    @ResponseBody
+    public Order deleteOrder(@PathVariable int id) {
         return service.delete(id);
     }
 }

@@ -70,6 +70,8 @@
 <script src="${pageContext.request.contextPath}/resources/js/react.development.js" crossorigin></script>
 <script src="${pageContext.request.contextPath}/resources/js/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/employeeDesk.js" type="text/babel"></script>
+<script src="${pageContext.request.contextPath}/resources/js/employeeDesc/driverLogic.js" type="text/babel"></script>
+<script src="${pageContext.request.contextPath}/resources/js/employeeDesc/vehicleLogic.js" type="text/babel"></script>
+<script src="${pageContext.request.contextPath}/resources/js/employeeDesc/orderLogic.js" type="text/babel"></script>
 </body>
 </html>

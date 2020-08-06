@@ -1,33 +1,16 @@
-const renderContent = function (content) {
-    ReactDOM.render(content,
-        document.getElementById('content')
-    )
-}
-const renderDetails = function (details) {
-    ReactDOM.render(details,
-        document.getElementById('details')
-    )
-}
 const renderAddButtonHolder = function (props) {
     ReactDOM.render(props,
         document.getElementById('add-button-holder')
     )
 }
-
-const showOrders = function (orders) {
-    renderContent('orders');
-}
-
-const showVehicles = function (vehicles) {
-    renderContent('vehicles');
-}
-
 const showDrivers = function () {
     $.ajax({
         method: "GET",
         url: '../driver/',
         success: function (response) {
-            renderContent(<TableDrivers drivers={response}/>);
+            ReactDOM.render(<TableDrivers drivers={response}/>, document.getElementById('content'));
+            ReactDOM.render('', document.getElementById('detaills'));
+            ReactDOM.render(<AddDriverButton/>, document.getElementById('add-button-holder'));
         }
     })
 }
@@ -53,7 +36,7 @@ class TableDrivers extends React.Component {
                     <th scope="col">firstName</th>
                     <th scope="col">lastName</th>
                     <th scope="col">currentOrder</th>
-                    <th scope="col"></th>
+                    <th scope="col"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,12 +47,12 @@ class TableDrivers extends React.Component {
 }
 
 class InfoButton extends React.Component {
-
-
     render() {
-        let drv=this.props.driver;
-       const  showDetails=function(){
-            renderDetails(<DriverDetails driver={drv}/>)
+        let drv = this.props.driver;
+        const showDetails = function () {
+            ReactDOM.render(<DriverDetails driver={drv}/>,
+                document.getElementById('details')
+            )
         }
         return (
             <button className="detailsButton"
@@ -98,4 +81,35 @@ class DriverDetails extends React.Component {
             </div>
         );
     }
+}
+
+class AddDriverButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.showForm = this.showForm.bind(this);
+    }
+
+    showForm=function(driver){
+        ReactDOM.render(<DriverForm driver={driver}/>, document.getElementById('detaills'));
+    }
+    render() {
+        return (
+            <button className='addButton'
+                    onClick={this.showForm()}>Details</button>
+        );
+    }
+}
+
+//Проверка на существование поля
+//TODO сделать форму для добавления и изменения водителя
+// typeof test.friendslist !== 'undefined'
+class DriverForm extends React.Component{
+    render() {
+        return (
+            <div>
+
+            </div>
+        );
+    }
+
 }
