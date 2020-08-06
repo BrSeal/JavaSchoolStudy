@@ -36,16 +36,16 @@
 
 <div class="container">
 
-    <div id="buttons">
-        <button id="orders-btn" onclick="showOrders()">Orders</button>
-        <button id="Drivers-btn" onclick="showDrivers()">Drivers</button>
-        <button id="Vehicles-btn" onclick="showVehicles()">Vehicles</button>
+    <div id="buttons" class="btn-group row" role="group">
+        <button id="orders-btn" class="btn btn-primary" onclick="showOrders()">Orders</button>
+        <button id="Drivers-btn" class="btn btn-primary" onclick="showDrivers()">Drivers</button>
+        <button id="Vehicles-btn" class="btn btn-primary" onclick="showVehicles()">Vehicles</button>
     </div>
     <div id="add-button-holder" class="row">
 
     </div>
     <div class="row">
-        <div id="content" class="row col-8">
+        <div id="content" class="col-8 p-0">
 
         </div>
 

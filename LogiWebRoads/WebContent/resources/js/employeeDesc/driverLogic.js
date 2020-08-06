@@ -1,15 +1,10 @@
-const renderAddButtonHolder = function (props) {
-    ReactDOM.render(props,
-        document.getElementById('add-button-holder')
-    )
-}
 const showDrivers = function () {
     $.ajax({
         method: "GET",
         url: '../driver/',
         success: function (response) {
             ReactDOM.render(<TableDrivers drivers={response}/>, document.getElementById('content'));
-            ReactDOM.render('', document.getElementById('detaills'));
+            ReactDOM.render('', document.getElementById('details'));
             ReactDOM.render(<AddDriverButton/>, document.getElementById('add-button-holder'));
         }
     })
@@ -29,7 +24,7 @@ class TableDrivers extends React.Component {
             </tr>
         );
         return (
-            <table className="table">
+            <table className="table table-striped">
                 <thead className="thead-light">
                 <tr>
                     <th scope="col">Id</th>
@@ -55,7 +50,7 @@ class InfoButton extends React.Component {
             )
         }
         return (
-            <button className="detailsButton"
+            <button className="detailsButton btn btn-sm btn-secondary"
                     onClick={showDetails}>Details</button>
         );
     }
@@ -84,31 +79,103 @@ class DriverDetails extends React.Component {
 }
 
 class AddDriverButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.showForm = this.showForm.bind(this);
-    }
-
-    showForm=function(driver){
-        ReactDOM.render(<DriverForm driver={driver}/>, document.getElementById('detaills'));
-    }
     render() {
+        const showForm = function (driver) {
+            ReactDOM.render(<DriverForm driver={driver}/>, document.getElementById('details'));
+        }
         return (
-            <button className='addButton'
-                    onClick={this.showForm()}>Details</button>
+            <button className='addButton btn btn-sm btn-primary'
+                    onClick={showForm}>Add driver</button>
         );
     }
 }
 
 //Проверка на существование поля
-//TODO сделать форму для добавления и изменения водителя
-// typeof test.friendslist !== 'undefined'
-class DriverForm extends React.Component{
+//TODO добавить загрузку списка городов из базы  по запросу формы
+
+class DriverForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName:'',
+            lastName:'',
+            currentCity:''
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit =this.handleSubmit.bind(this)
+    }
+
+    handleInputChange(e) {
+        const target = e.target;
+        const name = target.name;
+        let value;
+        switch (target.name) {
+            case 'firstName':
+                value = target.value;
+                this.setState({
+                    firstName:value
+                });
+                break;
+            case 'lastName':
+                value = target.value;
+                this.setState({
+                    lastName:value
+                });
+                break;
+            case 'select':
+                value = target.value;
+                this.setState({
+                    currentCity:value
+                });
+        }
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        //TODO после первого выбора не работает выбор по выпадающему списку!!
+        alert(this.state.firstName+'\n'+this.state.lastName+'\n'+this.state.currentCity);
+    }
     render() {
         return (
-            <div>
-
-            </div>
+            <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                <label>
+                    First name:
+                </label>
+                <input
+                    className="form-control"
+                    name="firstName"
+                    type="text"
+                    value={this.state.firstName!=='undefined'?this.state.firstName:''}
+                    onChange={this.handleInputChange}/>
+                <br/>
+                <label>
+                   Last name:
+                </label>
+                <input
+                    className="form-control"
+                    name="lastName"
+                    type="text"
+                    value={this.state.lastName!=='undefined'?this.state.lastName:''}
+                    onChange={this.handleInputChange}/>
+                <br/>
+                <label>
+                    Location:
+                </label>
+                <select
+                    class="form-control"
+                    name="currentCity"
+                    value={this.state.currentCity}
+                    onChange={this.handleInputChange}>
+                    <option value="grapefruit">Грейпфрут</option>
+                    <option value="lime">Лайм</option>
+                    <option value="coconut">Кокос</option>
+                    <option value="mango">Манго</option>
+                </select>
+                    <input type="submit" value="Save" />
+                </div>
+            </form>
         );
     }
 
