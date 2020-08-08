@@ -1,7 +1,10 @@
 package main.model.logistic;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import main.model.IdClass;
 import main.model.users.Driver;
 
@@ -22,5 +25,10 @@ public class Order extends IdClass {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
 
+    @OneToOne
+    private Vehicle assignedVehicle;
 
+    @OneToMany
+    @JoinColumn(name = "assigned_order")
+    private List<Driver> assignedDrivers;
 }

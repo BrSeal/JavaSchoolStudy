@@ -1,9 +1,10 @@
 package main.model.users;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import main.model.IdClass;
-
-
 import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.logistic.Vehicle;
@@ -29,17 +30,9 @@ public class Driver extends IdClass {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private DriverStatus status= DriverStatus.ON_REST;
-
-    @ManyToOne
-    @JoinColumn(name = "current_vehicle")
-    private Vehicle currentVehicle;
+    private DriverStatus status = DriverStatus.ON_REST;
 
     @ManyToOne
     @JoinColumn(name = "current_city_id", nullable = false)
     private City currentCity;
-
-    @ManyToOne
-    @JoinColumn(name = "current_order_id")
-    private Order currentOrder;
 }

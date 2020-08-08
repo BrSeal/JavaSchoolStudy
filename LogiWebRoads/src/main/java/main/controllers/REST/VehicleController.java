@@ -30,6 +30,13 @@ public class VehicleController {
         return service.get(id);
     }
 
+    @GetMapping("/available")
+    @ResponseBody
+    public List<Vehicle> getAvailableVehicles(){
+        return service.getAvailable();
+    }
+
+
     @PostMapping("/new/")
     @ResponseBody
     public int getVehicleById(@RequestBody Vehicle driver) {
@@ -47,4 +54,12 @@ public class VehicleController {
     public Vehicle deleteVehicle(@PathVariable int id) {
         return service.delete(id);
     }
+
+    @DeleteMapping("delete/")
+    @ResponseBody
+    public Vehicle deleteVehicle(@RequestBody Vehicle v) {
+        return service.delete(v);
+    }
+
+
 }

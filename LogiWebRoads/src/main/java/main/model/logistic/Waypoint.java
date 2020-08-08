@@ -40,5 +40,5 @@ public class Waypoint extends IdClass {
     private City city;
 
     @Column(name = "isDone")
-    private boolean isDone=false;
+    private boolean isDone = false;
 }

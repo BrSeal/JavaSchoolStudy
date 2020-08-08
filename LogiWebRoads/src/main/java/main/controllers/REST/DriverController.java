@@ -32,8 +32,8 @@ public class DriverController {
 
     @PostMapping("/new/")
     @ResponseBody
-    public int getDriverById(@RequestBody Driver driver) {
-        return service.save(driver);
+    public int saveDriver(@RequestBody Driver d) {
+        return service.save(d);
     }
 
     @PutMapping("/update/")
@@ -46,5 +46,11 @@ public class DriverController {
     @ResponseBody
     public Driver deleteDriver(@PathVariable int id) {
         return service.delete(id);
+    }
+
+    @DeleteMapping("delete/")
+    @ResponseBody
+    public Driver deleteDriver(@RequestBody Driver d) {
+        return service.delete(d);
     }
 }

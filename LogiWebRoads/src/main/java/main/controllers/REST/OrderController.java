@@ -20,31 +20,37 @@ public class OrderController {
 
     @GetMapping("/")
     @ResponseBody
-    public List<Order> getDrivers() {
+    public List<Order> getOrders() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Order getDriverById(@PathVariable int id) {
+    public Order getOrderById(@PathVariable int id) {
         return service.get(id);
     }
 
     @PostMapping("/new/")
     @ResponseBody
-    public int getOrderById(@RequestBody Order driver) {
-        return service.save(driver);
+    public int getOrderById(@RequestBody Order o) {
+        return service.save(o);
     }
 
     @PutMapping("/update/")
     @ResponseBody
-    public int updateOrderById(@RequestBody Order driverToUpdate) {
-        return service.save(driverToUpdate);
+    public int updateOrderById(@RequestBody Order orderToUpdate) {
+        return service.save(orderToUpdate);
     }
 
     @DeleteMapping("delete/{id}")
     @ResponseBody
     public Order deleteOrder(@PathVariable int id) {
         return service.delete(id);
+    }
+
+    @DeleteMapping("delete/")
+    @ResponseBody
+    public Order deleteOrder(@RequestBody Order o) {
+        return service.delete(o);
     }
 }

@@ -11,10 +11,13 @@ public class HibernateConnector {
     private static Session session;
     private static SessionFactory sessionFactory;
 
-    private HibernateConnector() {}
+    private HibernateConnector() {
+    }
 
     public static Session getSession() {
-        if (session == null) {  init(); }
+        if (session == null) {
+            init();
+        }
         return session;
     }
 

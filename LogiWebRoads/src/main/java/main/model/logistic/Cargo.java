@@ -1,7 +1,10 @@
 package main.model.logistic;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import main.model.IdClass;
 
 import javax.persistence.*;

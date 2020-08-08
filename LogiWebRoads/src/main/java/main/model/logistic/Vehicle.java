@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
-import main.model.users.Driver;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "vehicles")
@@ -33,7 +31,4 @@ public class Vehicle extends IdClass {
     @ManyToOne
     @JoinColumn(name = "current_city_id")
     private City currentCity;
-
-    @OneToOne
-    private Order currentOrder;
 }

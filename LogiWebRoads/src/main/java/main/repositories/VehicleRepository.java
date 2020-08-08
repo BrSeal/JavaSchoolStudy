@@ -14,4 +14,6 @@ public interface VehicleRepository {
     Vehicle delete(int id);
 
     Vehicle delete(Vehicle Vehicle);
+
+    List<Vehicle> getAvailable();
 }

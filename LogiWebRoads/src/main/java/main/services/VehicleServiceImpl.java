@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
-    
+
     private final VehicleRepository repository;
 
     @Autowired
@@ -22,6 +22,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public List<Vehicle> getAvailable(){
+       return repository.getAvailable();
     }
 
     @Override

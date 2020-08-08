@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VehicleRepositoryImpl implements VehicleRepository{
+public class VehicleRepositoryImpl implements VehicleRepository {
 
     private final SessionFactory sessionFactory;
 
@@ -45,8 +45,21 @@ public class VehicleRepositoryImpl implements VehicleRepository{
         return e;
     }
 
+    @Override
     public Vehicle delete(Vehicle vehicle) {
         sessionFactory.getCurrentSession().delete(vehicle);
         return vehicle;
+    }
+
+
+    //TODO сделать поиск подходящих под заказ авто
+    @Override
+    public List<Vehicle> getAvailable() {
+
+       return sessionFactory
+               .getCurrentSession()
+               .createQuery("from Vehicle where Vehicle.isOk",Vehicle.class)
+               .list();
+
     }
 }
