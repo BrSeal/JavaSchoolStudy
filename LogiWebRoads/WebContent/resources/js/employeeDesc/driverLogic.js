@@ -89,7 +89,7 @@ class UpdateButton extends React.Component {
                 method: "GET",
                 url: '../city/',
                 success: function (response) {
-                    ReactDOM.render(<DriverForm driver={driver} cities={response} method={'PUT'} url={'update/'}/>,
+                    ReactDOM.render(<DriverForm driver={driver} cities={response} url={'update/'}/>,
                         document.getElementById('details'));
                 }
             });
@@ -136,7 +136,7 @@ class AddDriverButton extends React.Component {
                 success: function (response) {
                     ReactDOM.render('',
                         document.getElementById('details'));
-                    ReactDOM.render(<DriverForm driver={driver} cities={response} method={'POST'} url={'new/'}/>,
+                    ReactDOM.render(<DriverForm driver={driver} cities={response} url={'new/'}/>,
                         document.getElementById('details'));
                 }
             });
@@ -152,9 +152,7 @@ class DriverForm extends React.Component {
     drv= this.props.driver;
     constructor(props) {
         super(props);
-
         this.state = {driver: this.drv};
-
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -178,7 +176,7 @@ class DriverForm extends React.Component {
         e.preventDefault();
         let data =this.state.driver;
         $.ajax({
-            method: this.props.method,
+            method: 'POST',
             url: '../driver/'+this.props.url,
             data:data,
             headers: {
