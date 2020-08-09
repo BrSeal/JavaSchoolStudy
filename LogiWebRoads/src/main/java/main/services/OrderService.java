@@ -13,5 +13,7 @@ public interface OrderService {
 
     Order delete(int id);
 
-    Order delete(Order waypoint);
+    Order delete(Order order);
+
+    void update(Order order);
 }

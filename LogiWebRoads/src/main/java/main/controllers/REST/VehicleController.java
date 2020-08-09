@@ -24,7 +24,7 @@ public class VehicleController {
         return service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @ResponseBody
     public Vehicle getVehicleById(@PathVariable int id) {
         return service.get(id);
@@ -45,8 +45,8 @@ public class VehicleController {
 
     @PutMapping("/update/")
     @ResponseBody
-    public int updateVehicleById(@RequestBody Vehicle vehicleToUpdate) {
-        return service.save(vehicleToUpdate);
+    public void updateVehicleById(@RequestBody Vehicle vehicleToUpdate) {
+         service.update(vehicleToUpdate);
     }
 
     @DeleteMapping("delete/{id}")

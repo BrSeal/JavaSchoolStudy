@@ -32,9 +32,8 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public int save(Vehicle vehicle) {
-        sessionFactory.getCurrentSession()
-                .saveOrUpdate(vehicle);
-        return vehicle.getId();
+       return (int) sessionFactory.getCurrentSession()
+                .save(vehicle);
     }
 
     @Override
@@ -61,5 +60,10 @@ public class VehicleRepositoryImpl implements VehicleRepository {
                .createQuery("from Vehicle where Vehicle.isOk",Vehicle.class)
                .list();
 
+    }
+
+    @Override
+    public void update(Vehicle vehicle) {
+        sessionFactory.getCurrentSession().update(vehicle);
     }
 }

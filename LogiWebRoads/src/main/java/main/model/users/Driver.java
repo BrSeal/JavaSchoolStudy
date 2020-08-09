@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
 import main.model.logistic.City;
-import main.model.logistic.Order;
-import main.model.logistic.Vehicle;
 
 import javax.persistence.*;
 
@@ -33,6 +31,6 @@ public class Driver extends IdClass {
     private DriverStatus status = DriverStatus.ON_REST;
 
     @ManyToOne
-    @JoinColumn(name = "current_city_id", nullable = false)
+    @JoinColumn(name = "current_city_id")
     private City currentCity;
 }

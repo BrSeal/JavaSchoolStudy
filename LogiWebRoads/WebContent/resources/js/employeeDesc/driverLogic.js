@@ -12,7 +12,6 @@ const showDrivers = function () {
 
 class TableDrivers extends React.Component {
     render() {
-        let driversLength = this.props.drivers.length;
         let driversResult = this.props.drivers.map(driver =>
             <tr>
                 <th scope="row">{driver.id}</th>
@@ -21,7 +20,6 @@ class TableDrivers extends React.Component {
                 <td>{driver.status}</td>
                 <td>
                     <InfoButton key={driver.id} driver={driver}/>
-                    <UpdateButton key={driver.id + driversLength} driver={driver}/>
                 </td>
             </tr>
         );
@@ -43,6 +41,28 @@ class TableDrivers extends React.Component {
     }
 }
 
+class DeleteButton extends React.Component{
+    render() {
+        let driverId=this.props.driverId;
+        const deleteDriver = function () {
+            $.ajax({
+                method: "DELETE",
+                url: '../driver/delete/'+driverId,
+                success: function (response) {
+                    alert('Driver #'+response.id+' was deleted');
+                    showDrivers();
+
+                }
+            });
+        }
+        return (
+            <button className="deleteButton btn btn-sm btn-secondary"
+                    onClick={deleteDriver}>Delete</button>
+
+        );
+    }
+}
+
 class InfoButton extends React.Component {
     render() {
         let drv = this.props.driver;
@@ -61,17 +81,18 @@ class InfoButton extends React.Component {
 class UpdateButton extends React.Component {
 
     render() {
-        let drv = this.props.driver;
+
         const showForm = () => {
+            let driver = this.props.driver;
+            driver.currentCity=driver.currentCity.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
                 success: function (response) {
-                    ReactDOM.render(<DriverForm driver={drv} cities={response}/>,
+                    ReactDOM.render(<DriverForm driver={driver} cities={response} method={'PUT'} url={'update/'}/>,
                         document.getElementById('details'));
                 }
             });
-
         }
         return (
             <button className="updateButton btn btn-sm btn-secondary"
@@ -91,19 +112,20 @@ class DriverDetails extends React.Component {
                 <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
                 <label><b>Location:</b> {driver.currentCity.name}</label><br/>
                 <label><b>Status:</b> {driver.status}</label>
+                <UpdateButton driver={driver}/>
+                <DeleteButton driverId={driver.id}/>
             </div>
         );
     }
 }
 
 class AddDriverButton extends React.Component {
-
     render() {
 
         let driver = {
             firstName: '',
             lastName: '',
-            CurrentCity: null,
+            CurrentCity: 1,
             hoursWorked: 0,
             status: 'ON_REST'
         }
@@ -112,7 +134,9 @@ class AddDriverButton extends React.Component {
                 method: "GET",
                 url: '../city/',
                 success: function (response) {
-                    ReactDOM.render(<DriverForm driver={driver} cities={response}/>,
+                    ReactDOM.render('',
+                        document.getElementById('details'));
+                    ReactDOM.render(<DriverForm driver={driver} cities={response} method={'POST'} url={'new/'}/>,
                         document.getElementById('details'));
                 }
             });
@@ -131,6 +155,7 @@ class DriverForm extends React.Component {
 
         this.state = {driver: this.drv};
 
+
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -138,7 +163,7 @@ class DriverForm extends React.Component {
     handleInputChange(e) {
         const target = e.target;
         const name = target.name;
-        const value = name!=='currentCity'?target.value:JSON.parse(target.value);
+        const value=target.value;
 
         let drv = this.state.driver;
 
@@ -151,27 +176,26 @@ class DriverForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // $.ajax({
-        //     method: "POST",
-        //     url: '../driver/new/',
-        //     success: function (response) {
-        //         alert("Driver #" + response + " was successfully saved")
-        //     }
-        // });
-        let drv = this.state.driver;
-        alert(
-            drv.firstName + '\n' +
-            drv.lastName + '\n' +
-            drv.hoursWorked + '\n' +
-            drv.currentCity.name + '\n' +
-            drv.status + '\n'
-        );
+        let data =this.state.driver;
+        $.ajax({
+            method: this.props.method,
+            url: '../driver/'+this.props.url,
+            data:data,
+            headers: {
+                "Accept": "application/json; odata=verbose"
+            },
+            success: function (response) {
+                alert("Driver #" + response + " was successfully saved");
+                showDrivers();
+            }
+        });
+
     }
 
     render() {
 
-        const options= this.props.cities.map((city ) =>
-            <option value={JSON.stringify(city)}>{ city.name }</option>);
+        const options= this.props.cities.map((city) =>
+            <option value={city.id}>{ city.name}</option>);
         return (
 
 
@@ -198,8 +222,8 @@ class DriverForm extends React.Component {
                     <label>
                         Location:
                     </label>
-                    <select  className="form-control" name="currentCity" defaultValue={JSON.stringify(this.state.driver.currentCity)}
-                            onChange={this.handleInputChange} required>
+                    <select  className="form-control" name="currentCity" defaultValue={this.state.driver.currentCity}
+                            onChange={this.handleInputChange}>
                         {options}
                     </select>
                     <label>

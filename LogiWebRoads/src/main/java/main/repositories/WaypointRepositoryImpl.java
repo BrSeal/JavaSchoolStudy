@@ -22,8 +22,13 @@ public class WaypointRepositoryImpl implements WaypointRepository {
 
     @Override
     public int save(Waypoint waypoint) {
-        sessionFactory.getCurrentSession().saveOrUpdate(waypoint);
-        return waypoint.getId();
+       return (int) sessionFactory.getCurrentSession().save(waypoint);
+
+    }
+
+    @Override
+    public void update(Waypoint waypoint) {
+        sessionFactory.getCurrentSession().update(waypoint);
     }
 
     @Override

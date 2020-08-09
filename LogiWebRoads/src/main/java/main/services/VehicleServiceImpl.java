@@ -48,4 +48,9 @@ public class VehicleServiceImpl implements VehicleService {
     public Vehicle delete(Vehicle vehicle) {
         return repository.delete(vehicle);
     }
+
+    @Override
+    public void update(Vehicle vehicle) {
+        repository.update(vehicle);
+    }
 }

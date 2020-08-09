@@ -43,4 +43,9 @@ public class OrderServiceImpl implements OrderService {
     public Order delete(Order waypoint) {
         return null;
     }
+
+    @Override
+    public void update(Order order) {
+        repository.update(order);
+    }
 }

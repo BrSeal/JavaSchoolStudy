@@ -24,7 +24,7 @@ public class OrderController {
         return service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @ResponseBody
     public Order getOrderById(@PathVariable int id) {
         return service.get(id);
@@ -38,8 +38,8 @@ public class OrderController {
 
     @PutMapping("/update/")
     @ResponseBody
-    public int updateOrderById(@RequestBody Order orderToUpdate) {
-        return service.save(orderToUpdate);
+    public void updateOrderById(@RequestBody Order orderToUpdate) {
+         service.update(orderToUpdate);
     }
 
     @DeleteMapping("delete/{id}")
@@ -53,4 +53,6 @@ public class OrderController {
     public Order deleteOrder(@RequestBody Order o) {
         return service.delete(o);
     }
+
+
 }

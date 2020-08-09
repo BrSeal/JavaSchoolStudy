@@ -31,9 +31,8 @@ public class DriverRepositoryImpl implements DriverRepository {
 
     @Override
     public int save(Driver driver) {
-        sessionFactory.getCurrentSession()
-                .saveOrUpdate(driver);
-        return driver.getId();
+        return (int)sessionFactory.getCurrentSession()
+                .save(driver);
     }
 
     @Override
@@ -47,5 +46,11 @@ public class DriverRepositoryImpl implements DriverRepository {
     public Driver delete(Driver driver) {
         sessionFactory.getCurrentSession().delete(driver);
         return driver;
+    }
+
+    @Override
+    public void update(Driver driver) {
+        sessionFactory.getCurrentSession()
+                .update(driver);
     }
 }

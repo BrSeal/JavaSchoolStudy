@@ -1,5 +1,6 @@
 package main.repositories;
 
+import main.model.users.Driver;
 import main.model.users.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,9 +33,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public int save(Employee e) {
-        sessionFactory.getCurrentSession()
-                .saveOrUpdate(e);
-        return e.getId();
+       return (int) sessionFactory.getCurrentSession()
+                .save(e);
     }
 
     @Override
@@ -49,5 +49,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     public Employee delete(Employee employee) {
         sessionFactory.getCurrentSession().delete(employee);
         return employee;
+    }
+
+    @Override
+    public void update(Employee employee) {
+        sessionFactory.getCurrentSession()
+                .update(employee);
     }
 }

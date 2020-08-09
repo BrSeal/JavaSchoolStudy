@@ -11,6 +11,8 @@ public interface VehicleService {
 
     int save(Vehicle e);
 
+    void update(Vehicle vehicle);
+
     Vehicle delete(int id);
 
     Vehicle delete(Vehicle Vehicle);

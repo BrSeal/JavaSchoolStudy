@@ -1,6 +1,7 @@
 package main.controllers.REST;
 
 import main.model.users.Driver;
+import main.model.users.DriverDTO;
 import main.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class DriverController {
         return service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     @ResponseBody
     public Driver getDriverById(@PathVariable int id) {
         return service.get(id);
@@ -32,14 +33,15 @@ public class DriverController {
 
     @PostMapping("/new/")
     @ResponseBody
-    public int saveDriver(@RequestBody Driver d) {
+    public int saveDriver( DriverDTO d) {
         return service.save(d);
     }
 
     @PutMapping("/update/")
     @ResponseBody
-    public int updateDriverById(@RequestBody Driver driverToUpdate) {
-        return service.save(driverToUpdate);
+    public void updateDriver(DriverDTO dto) {
+
+        service.update(dto);
     }
 
     @DeleteMapping("delete/{id}")
@@ -50,7 +52,7 @@ public class DriverController {
 
     @DeleteMapping("delete/")
     @ResponseBody
-    public Driver deleteDriver(@RequestBody Driver d) {
+    public Driver deleteDriver(Driver d) {
         return service.delete(d);
     }
 }

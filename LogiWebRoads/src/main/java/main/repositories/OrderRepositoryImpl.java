@@ -1,6 +1,7 @@
 package main.repositories;
 
 import main.model.logistic.Order;
+import main.model.users.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public int save(Order order) {
-        sessionFactory.getCurrentSession().saveOrUpdate(order);
-        return order.getId();
+       return (int) sessionFactory.getCurrentSession().save(order);
     }
 
     @Override
@@ -49,5 +49,11 @@ public class OrderRepositoryImpl implements OrderRepository {
     public Order delete(Order order) {
         sessionFactory.getCurrentSession().delete(order);
         return order;
+    }
+
+    @Override
+    public void update(Order order) {
+        sessionFactory.getCurrentSession()
+                .update(order);
     }
 }

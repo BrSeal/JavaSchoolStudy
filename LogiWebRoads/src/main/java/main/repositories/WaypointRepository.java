@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface WaypointRepository {
     int save(Waypoint waypoint);
+    void update(Waypoint waypoint);
 
     void saveAll(List<Waypoint> waypoints);
 

@@ -11,6 +11,8 @@ public interface VehicleRepository {
 
     int save(Vehicle e);
 
+    void update(Vehicle e);
+
     Vehicle delete(int id);
 
     Vehicle delete(Vehicle Vehicle);
