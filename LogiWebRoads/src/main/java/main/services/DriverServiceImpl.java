@@ -3,8 +3,10 @@ package main.services;
 import main.model.logistic.City;
 import main.model.users.Driver;
 import main.model.users.DriverDTO;
+import main.model.users.DriverStatus;
 import main.repositories.CityRepository;
 import main.repositories.DriverRepository;
+import main.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,13 +17,14 @@ import java.util.List;
 @Transactional
 public class DriverServiceImpl implements DriverService {
 
+    private static final String DELETE_FAIL = "Deletion failed! Driver is currently on order!";
+    private static final String DELETE_SUCCESS = "Driver was successfully deleted";
+
     private final DriverRepository repository;
-    private final CityRepository cityRepository;
 
     @Autowired
-    public DriverServiceImpl(DriverRepository repository, CityRepository cityRepository) {
+    public DriverServiceImpl(DriverRepository repository) {
         this.repository = repository;
-        this.cityRepository = cityRepository;
     }
 
     @Override
@@ -36,35 +39,30 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public int save(DriverDTO dto) {
-
-        return repository.save(toDriver(dto));
+        return repository.save(dto.toDriver());
     }
 
     @Override
-    public Driver delete(int id) {
-        return repository.delete(id);
+    public String delete(int id) {
+        Driver driver=repository.get(id);
+       if( !canBeDeleted(driver)) return DELETE_FAIL;
+        repository.delete(driver);
+        return DELETE_SUCCESS;
     }
 
     @Override
-    public Driver delete(Driver driver) {
-        return repository.delete(driver);
+    public String delete(Driver driver) {
+        if( !canBeDeleted(driver)) return DELETE_FAIL;
+        repository.delete(driver);
+        return DELETE_SUCCESS;
     }
 
     @Override
     public void update(DriverDTO dto) {
-        repository.update(toDriver(dto));
+        repository.update(dto.toDriver());
     }
 
-    private Driver toDriver(DriverDTO dto){
-        City city=cityRepository.get(dto.getCurrentCity());
-        Driver driver=new Driver();
-        driver.setId(dto.getId());
-        driver.setFirstName(dto.getFirstName());
-        driver.setLastName(dto.getLastName());
-        driver.setCurrentCity(city);
-        driver.setStatus(dto.getStatus());
-        driver.setHoursWorked(dto.getHoursWorked());
-
-        return driver;
+    private boolean canBeDeleted(Driver d){
+        return d.getStatus().equals(DriverStatus.ON_REST);
     }
 }

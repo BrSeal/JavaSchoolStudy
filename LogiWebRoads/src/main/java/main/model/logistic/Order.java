@@ -28,6 +28,8 @@ public class Order extends IdClass {
     @OneToOne
     private Vehicle assignedVehicle;
 
+
+    //TODO Перенести CurrentOrder в Driver.class
     @OneToMany
     @JoinColumn(name = "assigned_order")
     private List<Driver> assignedDrivers;

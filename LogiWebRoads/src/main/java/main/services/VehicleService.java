@@ -1,6 +1,7 @@
 package main.services;
 
 import main.model.logistic.Vehicle;
+import main.model.logistic.VehicleDTO;
 
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface VehicleService {
 
     Vehicle get(int id);
 
-    int save(Vehicle e);
+    int save(VehicleDTO e);
 
-    void update(Vehicle vehicle);
+    void update(VehicleDTO vehicle);
 
     Vehicle delete(int id);
 

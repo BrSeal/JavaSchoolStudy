@@ -19,12 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Waypoint extends IdClass {
 
-    @OneToMany(cascade = {
-            CascadeType.DETACH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH
-    })
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "waypoint_id")
     private List<Cargo> cargo;
 

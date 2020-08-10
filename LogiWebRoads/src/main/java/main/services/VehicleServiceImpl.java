@@ -1,6 +1,7 @@
 package main.services;
 
 import main.model.logistic.Vehicle;
+import main.model.logistic.VehicleDTO;
 import main.repositories.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public int save(Vehicle vehicle) {
-        return repository.save(vehicle);
+    public int save(VehicleDTO vehicle) {
+        return repository.save(vehicle.toVehicle());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void update(Vehicle vehicle) {
-        repository.update(vehicle);
+    public void update(VehicleDTO vehicle) {
+        repository.update(vehicle.toVehicle());
     }
 }

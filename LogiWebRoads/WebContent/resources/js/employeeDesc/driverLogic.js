@@ -19,7 +19,7 @@ class TableDrivers extends React.Component {
                 <td>{driver.lastName}</td>
                 <td>{driver.status}</td>
                 <td>
-                    <InfoButton key={driver.id} driver={driver}/>
+                    <InfoDriverButton key={driver.id} driver={driver}/>
                 </td>
             </tr>
         );
@@ -41,7 +41,7 @@ class TableDrivers extends React.Component {
     }
 }
 
-class DeleteButton extends React.Component{
+class DeleteDriverButton extends React.Component{
     render() {
         let driverId=this.props.driverId;
         const deleteDriver = function () {
@@ -49,21 +49,24 @@ class DeleteButton extends React.Component{
                 method: "DELETE",
                 url: '../driver/delete/'+driverId,
                 success: function (response) {
-                    alert('Driver #'+response.id+' was deleted');
-                    showDrivers();
-
+                    alert(response);
+                    showDrivers()
+                },
+                error: function(response){
+                    alert(response);
                 }
             });
         }
+
         return (
-            <button className="deleteButton btn btn-sm btn-secondary"
+            <button className="DeleteDriverButton btn btn-sm btn-secondary"
                     onClick={deleteDriver}>Delete</button>
 
         );
     }
 }
 
-class InfoButton extends React.Component {
+class InfoDriverButton extends React.Component {
     render() {
         let drv = this.props.driver;
         const showDetails = function () {
@@ -78,7 +81,7 @@ class InfoButton extends React.Component {
     }
 }
 
-class UpdateButton extends React.Component {
+class UpdateDriverButton extends React.Component {
 
     render() {
 
@@ -95,7 +98,7 @@ class UpdateButton extends React.Component {
             });
         }
         return (
-            <button className="updateButton btn btn-sm btn-secondary"
+            <button className="UpdateDriverButton btn btn-sm btn-secondary"
                     onClick={showForm}>Update</button>
         );
     }
@@ -112,8 +115,8 @@ class DriverDetails extends React.Component {
                 <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
                 <label><b>Location:</b> {driver.currentCity.name}</label><br/>
                 <label><b>Status:</b> {driver.status}</label>
-                <UpdateButton driver={driver}/>
-                <DeleteButton driverId={driver.id}/>
+                <UpdateDriverButton driver={driver}/>
+                <DeleteDriverButton driverId={driver.id}/>
             </div>
         );
     }
@@ -215,7 +218,7 @@ class DriverForm extends React.Component {
                         Worked hours this month:
                     </label>
                     <input className="form-control" name="hoursWorked" type="number"
-                           defaultValue={this.state.driver.hoursWorked} onChange={this.handleInputChange}/>
+                           defaultValue={this.state.driver.hoursWorked} onChange={this.handleInputChange} min={0} max={173}/>
                     <br/>
                     <label>
                         Location:
@@ -230,8 +233,8 @@ class DriverForm extends React.Component {
                     <select className="form-control" name="status" defaultValue={this.state.driver.status}
                             onChange={this.handleInputChange}>
                         <option value='ON_REST'>On rest</option>
-                        <option value='ON_DUTY'>On duty</option>
-                        <option value='DRIVING'>Driving</option>
+                        <option value='ON_DUTY_REST'>On duty</option>
+                        <option value='ON_DUTY_DRIVING'>Driving</option>
                     </select>
                     <input type="submit" value="Save"/>
                 </div>

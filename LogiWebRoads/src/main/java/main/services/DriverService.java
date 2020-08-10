@@ -14,7 +14,7 @@ public interface DriverService {
 
     void update(DriverDTO e);
 
-    Driver delete(int id);
+    String delete(int id);
 
-    Driver delete(Driver driver);
+    String delete(Driver driver);
 }
