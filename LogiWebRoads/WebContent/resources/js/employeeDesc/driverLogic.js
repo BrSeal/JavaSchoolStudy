@@ -3,14 +3,14 @@ const showDrivers = function () {
         method: "GET",
         url: '../driver/',
         success: function (response) {
-            ReactDOM.render(<TableDrivers drivers={response}/>, document.getElementById('content'));
+            ReactDOM.render(<DriversTable drivers={response}/>, document.getElementById('content'));
             ReactDOM.render('', document.getElementById('details'));
-            ReactDOM.render(<AddDriverButton/>, document.getElementById('add-button-holder'));
+            ReactDOM.render(<DriverAddButton/>, document.getElementById('add-button-holder'));
         }
     })
 }
 
-class TableDrivers extends React.Component {
+class DriversTable extends React.Component {
     render() {
         let driversResult = this.props.drivers.map(driver =>
             <tr>
@@ -20,7 +20,7 @@ class TableDrivers extends React.Component {
                 <td>{driver.status}</td>
                 <td>{driver.currentOrder === null ? 'None' : driver.currentOrder}</td>
                 <td>
-                    <InfoDriverButton key={driver.id} driver={driver}/>
+                    <DriverInfoButton key={driver.id} driver={driver}/>
                 </td>
             </tr>
         );
@@ -43,7 +43,7 @@ class TableDrivers extends React.Component {
     }
 }
 
-class DeleteDriverButton extends React.Component {
+class DriverDeleteButton extends React.Component {
     render() {
         let driverId = this.props.driverId;
         const deleteDriver = function () {
@@ -65,7 +65,7 @@ class DeleteDriverButton extends React.Component {
     }
 }
 
-class InfoDriverButton extends React.Component {
+class DriverInfoButton extends React.Component {
     render() {
         let drv = this.props.driver;
         const showDetails = function () {
@@ -80,14 +80,14 @@ class InfoDriverButton extends React.Component {
     }
 }
 
-class UpdateDriverButton extends React.Component {
+class DriverUpdateButton extends React.Component {
 
     render() {
 
         const showForm = () => {
             let driver = this.props.driver;
             driver.currentCity = driver.currentCity.id;
-            driver.currentOrder = driver.currentOrder===null?0:driver.currentOrder.id;
+            driver.currentOrder = driver.currentOrder === null ? 0 : driver.currentOrder.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -115,15 +115,15 @@ class DriverDetails extends React.Component {
                 <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
                 <label><b>Location:</b> {driver.currentCity.name}</label><br/>
                 <label><b>Status:</b> {driver.status}</label>
-                <label><b>Current order:</b> {driver.currentOrder===null?'None':driver.currentOrder}</label><br/>
-                <UpdateDriverButton driver={driver}/>
-                <DeleteDriverButton driverId={driver.id}/>
+                <label><b>Current order:</b> {driver.currentOrder === null ? 'None' : driver.currentOrder}</label><br/>
+                <DriverUpdateButton driver={driver}/>
+                <DriverDeleteButton driverId={driver.id}/>
             </div>
         );
     }
 }
 
-class AddDriverButton extends React.Component {
+class DriverAddButton extends React.Component {
     render() {
 
         let driver = {
@@ -194,7 +194,7 @@ class DriverForm extends React.Component {
     }
 
     render() {
-        let driver=this.state.driver;
+        let driver = this.state.driver;
 
         const options = this.props.cities.map((city) =>
             <option value={city.id}>{city.name}</option>);

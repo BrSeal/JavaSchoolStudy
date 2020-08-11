@@ -3,14 +3,14 @@ const showVehicles = function () {
         method: "GET",
         url: '../vehicle/',
         success: function (response) {
-            ReactDOM.render(<TableVehicles vehicles={response}/>, document.getElementById('content'));
+            ReactDOM.render(<VehiclesTable vehicles={response}/>, document.getElementById('content'));
             ReactDOM.render('', document.getElementById('details'));
-            ReactDOM.render(<AddVehicleButton/>, document.getElementById('add-button-holder'));
+            ReactDOM.render(<VehicleAddButton/>, document.getElementById('add-button-holder'));
         }
     })
 }
 
-class TableVehicles extends React.Component {
+class VehiclesTable extends React.Component {
     render() {
         let vehiclesResult = this.props.vehicles.map(vehicle =>
             <tr>
@@ -20,7 +20,7 @@ class TableVehicles extends React.Component {
                 <td>{vehicle.currentCity.name}</td>
                 <td>{vehicle.currentOrder === null ? 'None' : vehicle.currentOrder}</td>
                 <td>
-                    <InfoVehicleButton key={vehicle.id} vehicle={vehicle}/>
+                    <VehicleInfoButton key={vehicle.id} vehicle={vehicle}/>
                 </td>
             </tr>
         );
@@ -43,7 +43,7 @@ class TableVehicles extends React.Component {
     }
 }
 
-class InfoVehicleButton extends React.Component {
+class VehicleInfoButton extends React.Component {
     render() {
         let vehicle = this.props.vehicle;
         const showDetails = function () {
@@ -67,23 +67,24 @@ class VehicleDetails extends React.Component {
                 <label><b>Registration number: </b>{vehicle.regNumber}</label><br/>
                 <label><b>Capacity:</b> {vehicle.capacity}</label><br/>
                 <label><b>Crew size:</b> {vehicle.dutySize}</label><br/>
-                <label><b>Status:</b> {vehicle.ok?'Is ok':'Needs service'}</label><br/>
+                <label><b>Status:</b> {vehicle.ok ? 'Is ok' : 'Needs service'}</label><br/>
                 <label><b>Location:</b> {vehicle.currentCity.name}</label><br/>
-                <label><b>Current order:</b> {vehicle.currentOrder===null?'None':vehicle.currentOrder}</label><br/>
-                <UpdateVehicleButton vehicle={vehicle}/>
-                <DeleteVehicleButton vehicleId={vehicle.id}/>
+                <label><b>Current order:</b> {vehicle.currentOrder === null ? 'None' : vehicle.currentOrder}
+                </label><br/>
+                <VehicleUpdateButton vehicle={vehicle}/>
+                <VehicleDeleteButton vehicleId={vehicle.id}/>
             </div>
         );
     }
 }
 
-class UpdateVehicleButton extends React.Component {
+class VehicleUpdateButton extends React.Component {
     render() {
 
         const showForm = () => {
             let vehicle = this.props.vehicle;
             vehicle.currentCity = vehicle.currentCity.id;
-            vehicle.currentOrder = vehicle.currentOrder===null?0:vehicle.currentOrder.id;;
+            vehicle.currentOrder = vehicle.currentOrder === null ? 0 : vehicle.currentOrder.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -100,7 +101,7 @@ class UpdateVehicleButton extends React.Component {
     }
 }
 
-class DeleteVehicleButton extends React.Component {
+class VehicleDeleteButton extends React.Component {
     render() {
         let vehicleId = this.props.vehicleId;
         const deleteVehicle = function () {
@@ -122,7 +123,7 @@ class DeleteVehicleButton extends React.Component {
     }
 }
 
-class AddVehicleButton extends React.Component {
+class VehicleAddButton extends React.Component {
     render() {
 
         let vehicle = {
@@ -153,7 +154,7 @@ class AddVehicleButton extends React.Component {
 }
 
 class VehicleForm extends React.Component {
-    vehicle=this.props.vehicle;
+    vehicle = this.props.vehicle;
 
     constructor(props) {
         super(props);
@@ -165,14 +166,14 @@ class VehicleForm extends React.Component {
 
     handleInputChange(e) {
         const target = e.target;
-        let value=target.value;
+        let value = target.value;
         const name = target.name;
 
-        let vehicle= this.state.vehicle;
-        if(name==='ok') {
+        let vehicle = this.state.vehicle;
+        if (name === 'ok') {
             value = target.checked;
         }
-        vehicle[name]=value;
+        vehicle[name] = value;
         this.setState({
             vehicle: vehicle
         });
@@ -194,7 +195,7 @@ class VehicleForm extends React.Component {
     }
 
     render() {
-        let vehicle=this.state.vehicle;
+        let vehicle = this.state.vehicle;
         const options = this.props.cities.map((city) =>
             <option value={city.id}>{city.name}</option>);
         return (
@@ -232,8 +233,8 @@ class VehicleForm extends React.Component {
                         type="checkbox"
                         checked={vehicle.ok}
                         onChange={this.handleInputChange}/>
-                        <label> Is ok</label>
-                        <br/>
+                    <label> Is ok</label>
+                    <br/>
                     <input type="submit" value="Save"/>
                 </div>
             </form>
