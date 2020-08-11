@@ -31,4 +31,8 @@ public class Vehicle extends IdClass {
     @ManyToOne
     @JoinColumn(name = "current_city_id")
     private City currentCity;
+
+    @ManyToOne
+    @JoinColumn(name = "current_order_id")
+    private Order currentOrder;
 }

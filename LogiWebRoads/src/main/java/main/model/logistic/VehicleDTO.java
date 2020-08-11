@@ -16,12 +16,20 @@ public class VehicleDTO {
     private int capacity;
     private boolean isOk;
     private int currentCity;
+    private int currentOrder;
 
-    public Vehicle toVehicle(){
-        City city=new City();
+    public Vehicle toVehicle() {
+        City city = new City();
         city.setId(currentCity);
+        Order order;
 
-        Vehicle vehicle=new Vehicle(regNumber,dutySize,capacity,isOk,city);
+        if (currentOrder == 0) order = null;
+        else {
+            order = new Order();
+            order.setId(currentOrder);
+        }
+
+        Vehicle vehicle = new Vehicle(regNumber, dutySize, capacity, isOk, city, order);
         vehicle.setId(id);
 
         return vehicle;

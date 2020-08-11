@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
-import main.model.users.Driver;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,13 +23,4 @@ public class Order extends IdClass {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
-
-    @OneToOne
-    private Vehicle assignedVehicle;
-
-
-    //TODO Перенести CurrentOrder в Driver.class
-    @OneToMany
-    @JoinColumn(name = "assigned_order")
-    private List<Driver> assignedDrivers;
 }

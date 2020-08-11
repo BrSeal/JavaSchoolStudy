@@ -28,7 +28,7 @@
 		<property name="password" value="root"/>
 
 		<property name="maxPoolSize" value="10" />
-		<property name="minPoolSize" value="5" />
+		<property name="minPoolSize" value="3" />
 		<property name="maxIdleTime" value="30000"/>
 	</bean>
 

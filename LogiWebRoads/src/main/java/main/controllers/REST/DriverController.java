@@ -29,13 +29,13 @@ public class DriverController {
     }
 
     @PostMapping("/new/")
-    public int saveDriver( DriverDTO dto) {
+    public String saveDriver( DriverDTO dto) {
         return service.save(dto);
     }
 
     @PostMapping("/update/")
-    public void updateDriver(DriverDTO dto) {
-        service.update(dto);
+    public String updateDriver(DriverDTO dto) {
+        return service.update(dto);
     }
 
     @DeleteMapping("delete/{id}")

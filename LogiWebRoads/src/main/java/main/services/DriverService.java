@@ -10,9 +10,9 @@ public interface DriverService {
 
     Driver get(int id);
 
-    int save(DriverDTO e);
+    String save(DriverDTO e);
 
-    void update(DriverDTO e);
+    String update(DriverDTO e);
 
     String delete(int id);
 

@@ -3,12 +3,11 @@ package main.controllers.REST;
 import main.model.logistic.Order;
 import main.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService service;
@@ -19,38 +18,32 @@ public class OrderController {
     }
 
     @GetMapping("/")
-    @ResponseBody
     public List<Order> getOrders() {
         return service.getAll();
     }
 
     @GetMapping("/get/{id}")
-    @ResponseBody
     public Order getOrderById(@PathVariable int id) {
         return service.get(id);
     }
 
     @PostMapping("/new/")
-    @ResponseBody
-    public int getOrderById(@RequestBody Order o) {
+    public int getOrderById(Order o) {
         return service.save(o);
     }
 
     @PutMapping("/update/")
-    @ResponseBody
-    public void updateOrderById(@RequestBody Order orderToUpdate) {
+    public void updateOrderById(Order orderToUpdate) {
          service.update(orderToUpdate);
     }
 
     @DeleteMapping("delete/{id}")
-    @ResponseBody
     public Order deleteOrder(@PathVariable int id) {
         return service.delete(id);
     }
 
     @DeleteMapping("delete/")
-    @ResponseBody
-    public Order deleteOrder(@RequestBody Order o) {
+    public Order deleteOrder(Order o) {
         return service.delete(o);
     }
 

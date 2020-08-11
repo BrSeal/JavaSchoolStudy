@@ -18,6 +18,7 @@ class TableDrivers extends React.Component {
                 <td>{driver.firstName}</td>
                 <td>{driver.lastName}</td>
                 <td>{driver.status}</td>
+                <td>{driver.currentOrder === null ? 'None' : driver.currentOrder}</td>
                 <td>
                     <InfoDriverButton key={driver.id} driver={driver}/>
                 </td>
@@ -31,6 +32,7 @@ class TableDrivers extends React.Component {
                     <th scope="col">firstName</th>
                     <th scope="col">lastName</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Order number</th>
                     <th scope="col"/>
                 </tr>
                 </thead>
@@ -41,25 +43,22 @@ class TableDrivers extends React.Component {
     }
 }
 
-class DeleteDriverButton extends React.Component{
+class DeleteDriverButton extends React.Component {
     render() {
-        let driverId=this.props.driverId;
+        let driverId = this.props.driverId;
         const deleteDriver = function () {
             $.ajax({
                 method: "DELETE",
-                url: '../driver/delete/'+driverId,
+                url: '../driver/delete/' + driverId,
                 success: function (response) {
                     alert(response);
                     showDrivers()
-                },
-                error: function(response){
-                    alert(response);
                 }
             });
         }
 
         return (
-            <button className="DeleteDriverButton btn btn-sm btn-secondary"
+            <button className="btn btn-sm btn-secondary"
                     onClick={deleteDriver}>Delete</button>
 
         );
@@ -75,7 +74,7 @@ class InfoDriverButton extends React.Component {
             )
         }
         return (
-            <button className="detailsButton btn btn-sm btn-secondary"
+            <button className="btn btn-sm btn-secondary"
                     onClick={showDetails}>Details</button>
         );
     }
@@ -87,7 +86,8 @@ class UpdateDriverButton extends React.Component {
 
         const showForm = () => {
             let driver = this.props.driver;
-            driver.currentCity=driver.currentCity.id;
+            driver.currentCity = driver.currentCity.id;
+            driver.currentOrder = driver.currentOrder===null?0:driver.currentOrder.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -115,6 +115,7 @@ class DriverDetails extends React.Component {
                 <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
                 <label><b>Location:</b> {driver.currentCity.name}</label><br/>
                 <label><b>Status:</b> {driver.status}</label>
+                <label><b>Current order:</b> {driver.currentOrder===null?'None':driver.currentOrder}</label><br/>
                 <UpdateDriverButton driver={driver}/>
                 <DeleteDriverButton driverId={driver.id}/>
             </div>
@@ -129,6 +130,7 @@ class AddDriverButton extends React.Component {
             firstName: '',
             lastName: '',
             CurrentCity: 1,
+            currentOrder: 0,
             hoursWorked: 0,
             status: 'ON_REST'
         }
@@ -146,13 +148,14 @@ class AddDriverButton extends React.Component {
 
         }
         return (
-            <button className='addButton btn btn-sm btn-primary' onClick={showForm}>Add driver</button>
+            <button className='btn btn-sm btn-primary' onClick={showForm}>Add driver</button>
         );
     }
 }
 
 class DriverForm extends React.Component {
-    drv= this.props.driver;
+    drv = this.props.driver;
+
     constructor(props) {
         super(props);
         this.state = {driver: this.drv};
@@ -164,11 +167,11 @@ class DriverForm extends React.Component {
     handleInputChange(e) {
         const target = e.target;
         const name = target.name;
-        const value=target.value;
+        const value = target.value;
 
         let drv = this.state.driver;
 
-            drv[name] = value;
+        drv[name] = value;
 
         this.setState({
             driver: drv
@@ -177,16 +180,13 @@ class DriverForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let data =this.state.driver;
+        let data = this.state.driver;
         $.ajax({
             method: 'POST',
-            url: '../driver/'+this.props.url,
-            data:data,
-            headers: {
-                "Accept": "application/json; odata=verbose"
-            },
+            url: '../driver/' + this.props.url,
+            data: data,
             success: function (response) {
-                alert("Driver #" + response + " was successfully saved");
+                alert(response);
                 showDrivers();
             }
         });
@@ -194,48 +194,49 @@ class DriverForm extends React.Component {
     }
 
     render() {
+        let driver=this.state.driver;
 
-        const options= this.props.cities.map((city) =>
-            <option value={city.id}>{ city.name}</option>);
+        const options = this.props.cities.map((city) =>
+            <option value={city.id}>{city.name}</option>);
         return (
-
-
             <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label>
                         First name:
                     </label>
                     <input className="form-control" name="firstName" type="text"
-                           defaultValue={this.state.driver.firstName} onChange={this.handleInputChange} required/>
+                           defaultValue={driver.firstName} onChange={this.handleInputChange} required/>
                     <br/>
                     <label>
                         Last name:
                     </label>
                     <input className="form-control" name="lastName" type="text"
-                           defaultValue={this.state.driver.lastName} onChange={this.handleInputChange} required/>
+                           defaultValue={driver.lastName} onChange={this.handleInputChange} required/>
                     <br/>
                     <label>
                         Worked hours this month:
                     </label>
                     <input className="form-control" name="hoursWorked" type="number"
-                           defaultValue={this.state.driver.hoursWorked} onChange={this.handleInputChange} min={0} max={173}/>
+                           defaultValue={driver.hoursWorked} onChange={this.handleInputChange} min={0}
+                           max={176}/>
                     <br/>
                     <label>
                         Location:
                     </label>
-                    <select  className="form-control" name="currentCity" defaultValue={this.state.driver.currentCity}
+                    <select className="form-control" name="currentCity" defaultValue={driver.currentCity}
                             onChange={this.handleInputChange}>
                         {options}
                     </select>
                     <label>
                         Status:
                     </label>
-                    <select className="form-control" name="status" defaultValue={this.state.driver.status}
+                    <select className="form-control" name="status" defaultValue={driver.status}
                             onChange={this.handleInputChange}>
                         <option value='ON_REST'>On rest</option>
                         <option value='ON_DUTY_REST'>On duty</option>
                         <option value='ON_DUTY_DRIVING'>Driving</option>
                     </select>
+                    <br/>
                     <input type="submit" value="Save"/>
                 </div>
             </form>

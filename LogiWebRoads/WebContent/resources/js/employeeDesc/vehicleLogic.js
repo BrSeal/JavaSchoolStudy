@@ -16,8 +16,9 @@ class TableVehicles extends React.Component {
             <tr>
                 <th scope="row">{vehicle.id}</th>
                 <td>{vehicle.regNumber}</td>
-                <td>{vehicle.isOk ? 'OK' : 'Needs service'}</td>
+                <td>{vehicle.ok ? 'OK' : 'Needs service'}</td>
                 <td>{vehicle.currentCity.name}</td>
+                <td>{vehicle.currentOrder === null ? 'None' : vehicle.currentOrder}</td>
                 <td>
                     <InfoVehicleButton key={vehicle.id} vehicle={vehicle}/>
                 </td>
@@ -31,6 +32,7 @@ class TableVehicles extends React.Component {
                     <th scope="col">regNumber</th>
                     <th scope="col">State</th>
                     <th scope="col">Location</th>
+                    <th scope="col">Order number</th>
                     <th scope="col"/>
                 </tr>
                 </thead>
@@ -50,7 +52,7 @@ class InfoVehicleButton extends React.Component {
             )
         }
         return (
-            <button className="detailsButton btn btn-sm btn-secondary"
+            <button className="btn btn-sm btn-secondary"
                     onClick={showDetails}>Details</button>
         );
     }
@@ -65,8 +67,9 @@ class VehicleDetails extends React.Component {
                 <label><b>Registration number: </b>{vehicle.regNumber}</label><br/>
                 <label><b>Capacity:</b> {vehicle.capacity}</label><br/>
                 <label><b>Crew size:</b> {vehicle.dutySize}</label><br/>
-                <label><b>Status:</b> {vehicle.isOk?'Is ok':'Needs service'}</label><br/>
+                <label><b>Status:</b> {vehicle.ok?'Is ok':'Needs service'}</label><br/>
                 <label><b>Location:</b> {vehicle.currentCity.name}</label><br/>
+                <label><b>Current order:</b> {vehicle.currentOrder===null?'None':vehicle.currentOrder}</label><br/>
                 <UpdateVehicleButton vehicle={vehicle}/>
                 <DeleteVehicleButton vehicleId={vehicle.id}/>
             </div>
@@ -75,12 +78,12 @@ class VehicleDetails extends React.Component {
 }
 
 class UpdateVehicleButton extends React.Component {
-
     render() {
 
         const showForm = () => {
             let vehicle = this.props.vehicle;
             vehicle.currentCity = vehicle.currentCity.id;
+            vehicle.currentOrder = vehicle.currentOrder===null?0:vehicle.currentOrder.id;;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -91,7 +94,7 @@ class UpdateVehicleButton extends React.Component {
             });
         }
         return (
-            <button className="updateButton btn btn-sm btn-secondary"
+            <button className="btn btn-sm btn-secondary"
                     onClick={showForm}>Update</button>
         );
     }
@@ -108,14 +111,11 @@ class DeleteVehicleButton extends React.Component {
                     alert(response);
                     showVehicles()
                 },
-                error: function (response) {
-                    alert(response);
-                }
             });
         }
 
         return (
-            <button className="deleteButton btn btn-sm btn-secondary"
+            <button className="btn btn-sm btn-secondary"
                     onClick={deleteVehicle}>Delete</button>
 
         );
@@ -129,8 +129,9 @@ class AddVehicleButton extends React.Component {
             regNumber: '',
             dutySize: '',
             CurrentCity: 1,
+            currentOrder: 0,
             capacity: 0,
-            isOk: true
+            ok: true
         }
         const showForm = () => {
             $.ajax({
@@ -146,7 +147,7 @@ class AddVehicleButton extends React.Component {
 
         }
         return (
-            <button className='addButton btn btn-sm btn-primary' onClick={showForm}>Add vehicle</button>
+            <button className='btn btn-sm btn-primary' onClick={showForm}>Add vehicle</button>
         );
     }
 }
@@ -164,12 +165,14 @@ class VehicleForm extends React.Component {
 
     handleInputChange(e) {
         const target = e.target;
+        let value=target.value;
         const name = target.name;
-        let value = target.value;
 
         let vehicle= this.state.vehicle;
-        vehicle[name] = value;
-
+        if(name==='ok') {
+            value = target.checked;
+        }
+        vehicle[name]=value;
         this.setState({
             vehicle: vehicle
         });
@@ -182,19 +185,16 @@ class VehicleForm extends React.Component {
             method: 'POST',
             url: '../vehicle/' + this.props.url,
             data: data,
-            headers: {
-                "Accept": "application/json; odata=verbose"
-            },
             success: function (response) {
-                alert("Vehicle #" + response + " was successfully saved");
+                alert(response);
                 showVehicles();
             }
         });
 
     }
-//TODO разобраться с полем checked
-    render() {
 
+    render() {
+        let vehicle=this.state.vehicle;
         const options = this.props.cities.map((city) =>
             <option value={city.id}>{city.name}</option>);
         return (
@@ -204,33 +204,33 @@ class VehicleForm extends React.Component {
                         Registration number:
                     </label>
                     <input className="form-control" name="regNumber" type="text"
-                           defaultValue={this.state.vehicle.regNumber} onChange={this.handleInputChange} required/>
+                           defaultValue={vehicle.regNumber} onChange={this.handleInputChange} required/>
                     <br/>
                     <label>
                         Capacity:
                     </label>
                     <input className="form-control" name="capacity" type="number"
-                           defaultValue={this.state.vehicle.capacity} onChange={this.handleInputChange} min={100}
+                           defaultValue={vehicle.capacity} onChange={this.handleInputChange} min={100}
                            required/>
                     <br/>
                     <label>
                         Crew size:
                     </label>
                     <input className="form-control" name="dutySize" type="number"
-                           defaultValue={this.state.vehicle.dutySize} onChange={this.handleInputChange} min={1}
+                           defaultValue={vehicle.dutySize} onChange={this.handleInputChange} min={1}
                            required/>
                     <br/>
                     <label>
                         Location:
                     </label>
-                    <select className="form-control" name="currentCity" defaultValue={this.state.vehicle.currentCity}
+                    <select className="form-control" name="currentCity" defaultValue={vehicle.currentCity}
                             onChange={this.handleInputChange}>
                         {options}
                     </select>
                     <input
-                        name="isOk"
+                        name="ok"
                         type="checkbox"
-                        value={this.state.vehicle.isOk}
+                        checked={vehicle.ok}
                         onChange={this.handleInputChange}/>
                         <label> Is ok</label>
                         <br/>
