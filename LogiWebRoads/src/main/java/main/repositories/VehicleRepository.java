@@ -13,8 +13,6 @@ public interface VehicleRepository {
 
     void update(Vehicle e);
 
-    Vehicle delete(int id);
-
     Vehicle delete(Vehicle Vehicle);
 
     List<Vehicle> getAvailable();

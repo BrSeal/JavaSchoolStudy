@@ -1,7 +1,6 @@
 package main.repositories;
 
 import main.model.logistic.Vehicle;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,14 +33,6 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     public int save(Vehicle vehicle) {
        return (int) sessionFactory.getCurrentSession()
                 .save(vehicle);
-    }
-
-    @Override
-    public Vehicle delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Vehicle e = session.get(Vehicle.class, id);
-        session.delete(e);
-        return e;
     }
 
     @Override

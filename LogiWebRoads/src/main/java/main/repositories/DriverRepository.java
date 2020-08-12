@@ -12,7 +12,5 @@ public interface DriverRepository {
 
     void update(Driver driver);
 
-    Driver delete(int id);
-
     Driver delete(Driver driver);
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import main.model.IdClass;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order extends IdClass {
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "creation_date")
+    private Date creationDate;
 
     @Column(name = "is_completed")
     private boolean isCompleted;

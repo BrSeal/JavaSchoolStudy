@@ -1,6 +1,7 @@
 package main.services;
 
 import main.model.logistic.Order;
+import main.model.logistic.OrderDTO;
 import main.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int save(Order order) {
-        return repository.save(order);
+    public int save(OrderDTO order) {
+        return repository.save(order.toOrder());
     }
 
     @Override
@@ -30,22 +31,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order get(int it) {
-        return null;
+    public Order get(int id) {
+        return repository.get(id);
     }
 
     @Override
     public Order delete(int id) {
+        return repository.delete(repository.get(id));
+    }
+
+    @Override
+    public Order delete(Order order) {
         return null;
     }
 
     @Override
-    public Order delete(Order waypoint) {
-        return null;
-    }
-
-    @Override
-    public void update(Order order) {
-        repository.update(order);
+    public void update(OrderDTO dto) {
+        repository.update(dto.toOrder());
     }
 }

@@ -1,14 +1,10 @@
 package main.repositories;
 
 import main.model.logistic.Order;
-import main.model.users.Driver;
-import main.model.users.Employee;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NamedQuery;
 import java.util.List;
 
 
@@ -35,24 +31,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order getOrderByDriver(Driver d) {
-        List<Order> assignedOrder=sessionFactory.getCurrentSession()
-                .createQuery("FROM Order o JOIN o.assignedDrivers d where d.id = :id", Order.class).list();
-        if(assignedOrder.isEmpty()) return null;
-        return assignedOrder.get(0);
-    }
-
-    @Override
     public int save(Order order) {
        return (int) sessionFactory.getCurrentSession().save(order);
-    }
-
-    @Override
-    public Order delete(int id) {
-        Session s = sessionFactory.getCurrentSession();
-        Order order = s.get(Order.class, id);
-        s.delete(order);
-        return order;
     }
 
     @Override

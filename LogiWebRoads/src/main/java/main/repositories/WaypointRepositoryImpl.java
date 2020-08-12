@@ -1,7 +1,6 @@
 package main.repositories;
 
 import main.model.logistic.Waypoint;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,14 +45,6 @@ public class WaypointRepositoryImpl implements WaypointRepository {
     @Override
     public Waypoint get(int id) {
         return sessionFactory.getCurrentSession().get(Waypoint.class, id);
-    }
-
-    @Override
-    public Waypoint delete(int id) {
-        Session s = sessionFactory.getCurrentSession();
-        Waypoint deleted = s.get(Waypoint.class, id);
-        s.delete(deleted);
-        return deleted;
     }
 
     @Override

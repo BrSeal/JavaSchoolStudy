@@ -8,7 +8,6 @@ import lombok.Setter;
 import main.model.IdClass;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Entity
@@ -19,21 +18,21 @@ import java.util.List;
 @AllArgsConstructor
 public class Waypoint extends IdClass {
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "waypoint_id")
-    private List<Cargo> cargo;
-
-    @Column(name = "amount")
-    private int amount;
-
-    @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private WaypointType type;
+    @Column(name = "isDone")
+    private boolean isDone = false;
 
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
-    @Column(name = "isDone")
-    private boolean isDone = false;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "сargo_id")
+    private Cargo cargo;
+
+    @Column(name = "amount")
+    private int amount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    private WaypointType type;
 }

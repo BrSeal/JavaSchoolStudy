@@ -1,8 +1,6 @@
 package main.repositories;
 
-import main.model.users.Driver;
 import main.model.users.Employee;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,14 +33,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     public int save(Employee e) {
        return (int) sessionFactory.getCurrentSession()
                 .save(e);
-    }
-
-    @Override
-    public Employee delete(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Employee e = session.get(Employee.class, id);
-        session.delete(e);
-        return e;
     }
 
     @Override

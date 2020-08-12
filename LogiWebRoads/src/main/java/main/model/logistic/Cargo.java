@@ -26,6 +26,4 @@ public class Cargo extends IdClass {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private CargoStatus status;
-
-
 }

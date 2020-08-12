@@ -12,42 +12,42 @@ import java.util.List;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeRepository repository;
 
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeServiceImpl(EmployeeRepository repository) {
+        this.repository = repository;
 
     }
 
     @Override
     public List<Employee> getAll() {
-        return employeeRepository.getAll();
+        return repository.getAll();
     }
 
     @Override
     public Employee get(int id) {
-        return employeeRepository.get(id);
+        return repository.get(id);
     }
 
     @Override
     public int save(Employee e) {
-        return employeeRepository.save(e);
+        return repository.save(e);
     }
 
     @Override
     public Employee delete(int id) {
-        return employeeRepository.delete(id);
+        return repository.delete(repository.get(id));
     }
 
     @Override
     public Employee delete(Employee employee) {
-        return employeeRepository.delete(employee);
+        return repository.delete(employee);
     }
 
     @Override
     public void update(Employee employee) {
-        employeeRepository.update(employee);
+        repository.update(employee);
     }
 }

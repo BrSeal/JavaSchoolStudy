@@ -13,7 +13,5 @@ public interface EmployeeRepository {
 
     void update(Employee e);
 
-    Employee delete(int id);
-
     Employee delete(Employee employee);
 }

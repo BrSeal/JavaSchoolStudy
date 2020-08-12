@@ -12,25 +12,13 @@ const showOrders = function () {
 
 class OrderAddButton extends React.Component {
     render() {
-
-        let order = {
-
-        }
         const showForm = () => {
-            $.ajax({
-                method: "GET",
-                url: '../city/',
-                success: function (response) {
-                    ReactDOM.render('',
-                        document.getElementById('details'));
-                    ReactDOM.render(<DriverForm driver={driver} cities={response} url={'new/'}/>,
-                        document.getElementById('details'));
-                }
-            });
+
 
         }
+
         return (
-            <button className='btn btn-sm btn-primary' onClick={showForm}>Add driver</button>
+            <button className='btn btn-sm btn-primary' onClick={showForm}>Add new order</button>
         );
     }
 }
@@ -53,9 +41,7 @@ class OrdersTable extends React.Component {
                     <td>{order.creationDate}</td>
                     <td>{order.waypoints.length}</td>
                     <td>{waypointsRemaining()}</td>
-                    <td>
-                        <InfoOrderButton key={order.id} order={order}/>
-                    </td>
+                    <td><OrderInfoButton key={order.id} order={order}/></td>
                 </tr>
             );
         })
@@ -76,3 +62,113 @@ class OrdersTable extends React.Component {
             </table>)
     }
 }
+
+class OrderInfoButton extends React.Component {
+    render() {
+        const showDetails = function () {
+            ReactDOM.render(<OrderDetails order={this.props.order}/>,
+                document.getElementById('details')
+            )
+        }
+        return (
+            <button className="btn btn-sm btn-secondary"
+                    onClick={showDetails}>Details</button>
+        );
+    }
+}
+
+class OrderDetails extends React.Component {
+
+    render() {
+        let order = this.props.order;
+        let vehicle = this.props.vehicle
+        let drivers = this.props.drivers
+
+        const waypoints = function () {
+            order.waypoints.map(waypoint => {
+                let cargo = waypoint.cargo;
+                return (
+                    <tr>
+                        <td>
+                        <span className={'badge badge-' + waypoint.isDone ? 'success' : 'light'}>
+                            {waypoint.isDone ? 'Yes' : 'No'}
+                        </span>
+                        </td>
+                        <td>{cargo.name}</td>
+                        <td>{cargo.weight}</td>
+                        <td>{waypoint.amount}</td>
+                        <td>{cargo.weight * waypoint.amount}</td>
+                        <td>{waypoint.city}</td>
+                        <td>{waypoint.type === 'LOAD' ? 'Load' : 'Unload'}</td>
+                        <td><OrderInfoButton key={order.id} order={order}/></td>
+                    </tr>
+                );
+            });
+
+        }
+
+        const driversToUlLi = function () {
+            drivers.map(driver => {
+                return (
+                    <li>{driver.firstName+" "+driver.LastName+" reg. number: "+driver.id}</li>
+                )
+            });
+        }
+        return (
+
+            <div>
+                <h1>Order № {order.id}</h1>
+                <label><b>Status: </b>{order.isCompleted ? 'Completed' : 'In progress'}</label>
+                <label><b>Date of creation: </b>{order.creationDate}</label>
+                <label><b>Assigned vehicle: </b>{vehicle.regNumber}</label>
+                <label><b>Assigned drivers: </b>{order.creationDate}</label>
+                <ul> {driversToUlLi}</ul>
+                <table className="table table-striped table-responsive">
+                    <thead className="thead-light">
+                    <tr>
+                        <th scope="col">Done</th>
+                        <th scope="col">Cargo</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Total weight</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Type</th>
+                        <th scope="col"/>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {waypoints}
+                    </tbody>
+                </table>
+                )
+            <AssignDriverButton/>
+            <AssignVehicleButton/>
+            <div id={'assignment'}/>
+            </div>
+
+
+        );
+    }
+}
+
+/**
+ *  Table to array!
+ let tdCollection = $("table").find("tr");
+
+ let array = [];
+ let temp = {
+    DisplayName: "",
+    Title: "",
+    ID: "",
+    Scope: "",
+    Description: ""
+};
+ $.each(tdCollection, function(key, el){
+    let i=0;
+    let row = $(el).find("td");
+    for (let f in temp){
+        temp[f] = $(row[i++]).text()
+    }
+    array.push(temp);
+});
+ */
