@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
+import main.model.logistic.orderAndWaypoint.Order;
 
 import javax.persistence.*;
 

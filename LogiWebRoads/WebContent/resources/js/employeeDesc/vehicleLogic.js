@@ -17,8 +17,8 @@ class VehiclesTable extends React.Component {
                 <th scope="row">{vehicle.id}</th>
                 <td>{vehicle.regNumber}</td>
                 <td>{vehicle.ok ? 'OK' : 'Needs service'}</td>
-                <td>{vehicle.currentCity.name}</td>
-                <td>{vehicle.currentOrder === null ? 'None' : vehicle.currentOrder}</td>
+                <td>{vehicle.currentCityName}</td>
+                <td>{vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder}</td>
                 <td>
                     <VehicleInfoButton key={vehicle.id} vehicle={vehicle}/>
                 </td>
@@ -32,7 +32,7 @@ class VehiclesTable extends React.Component {
                     <th scope="col">regNumber</th>
                     <th scope="col">State</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Order number</th>
+                    <th scope="col">Order</th>
                     <th scope="col"/>
                 </tr>
                 </thead>
@@ -68,8 +68,8 @@ class VehicleDetails extends React.Component {
                 <label><b>Capacity:</b> {vehicle.capacity}</label><br/>
                 <label><b>Crew size:</b> {vehicle.dutySize}</label><br/>
                 <label><b>Status:</b> {vehicle.ok ? 'Is ok' : 'Needs service'}</label><br/>
-                <label><b>Location:</b> {vehicle.currentCity.name}</label><br/>
-                <label><b>Current order:</b> {vehicle.currentOrder === null ? 'None' : vehicle.currentOrder}
+                <label><b>Location:</b> {vehicle.currentCityName}</label><br/>
+                <label><b>Current order:</b> {vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder}
                 </label><br/>
                 <VehicleUpdateButton vehicle={vehicle}/>
                 <VehicleDeleteButton vehicleId={vehicle.id}/>
@@ -83,8 +83,6 @@ class VehicleUpdateButton extends React.Component {
 
         const showForm = () => {
             let vehicle = this.props.vehicle;
-            vehicle.currentCity = vehicle.currentCity.id;
-            vehicle.currentOrder = vehicle.currentOrder === null ? 0 : vehicle.currentOrder.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -129,7 +127,7 @@ class VehicleAddButton extends React.Component {
         let vehicle = {
             regNumber: '',
             dutySize: '',
-            CurrentCity: 1,
+            CurrentCityId: 1,
             currentOrder: 0,
             capacity: 0,
             ok: true
@@ -224,7 +222,7 @@ class VehicleForm extends React.Component {
                     <label>
                         Location:
                     </label>
-                    <select className="form-control" name="currentCity" defaultValue={vehicle.currentCity}
+                    <select className="form-control" name="currentCity" defaultValue={vehicle.currentCityId}
                             onChange={this.handleInputChange}>
                         {options}
                     </select>
@@ -235,7 +233,7 @@ class VehicleForm extends React.Component {
                         onChange={this.handleInputChange}/>
                     <label> Is ok</label>
                     <br/>
-                    <input type="submit" value="Save"/>
+                    <input  className='btn btn-sm btn-secondary' type="submit" value="Save"/>
                 </div>
             </form>
         );

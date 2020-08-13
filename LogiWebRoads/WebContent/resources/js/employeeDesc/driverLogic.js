@@ -18,7 +18,7 @@ class DriversTable extends React.Component {
                 <td>{driver.firstName}</td>
                 <td>{driver.lastName}</td>
                 <td>{driver.status}</td>
-                <td>{driver.currentOrder === null ? 'None' : driver.currentOrder}</td>
+                <td>{driver.currentOrder === 0 ? 'None' : driver.currentOrder}</td>
                 <td>
                     <DriverInfoButton key={driver.id} driver={driver}/>
                 </td>
@@ -29,10 +29,10 @@ class DriversTable extends React.Component {
                 <thead className="thead-light">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">firstName</th>
-                    <th scope="col">lastName</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Order number</th>
+                    <th scope="col">Current Order</th>
                     <th scope="col"/>
                 </tr>
                 </thead>
@@ -83,11 +83,8 @@ class DriverInfoButton extends React.Component {
 class DriverUpdateButton extends React.Component {
 
     render() {
-
         const showForm = () => {
             let driver = this.props.driver;
-            driver.currentCity = driver.currentCity.id;
-            driver.currentOrder = driver.currentOrder === null ? 0 : driver.currentOrder.id;
             $.ajax({
                 method: "GET",
                 url: '../city/',
@@ -113,9 +110,9 @@ class DriverDetails extends React.Component {
                 <label><b>First name: </b>{driver.firstName}</label><br/>
                 <label><b>Last name:</b> {driver.lastName}</label><br/>
                 <label><b>Hours worked:</b> {driver.hoursWorked}</label><br/>
-                <label><b>Location:</b> {driver.currentCity.name}</label><br/>
+                <label><b>Location:</b> {driver.currentCityName}</label><br/>
                 <label><b>Status:</b> {driver.status}</label>
-                <label><b>Current order:</b> {driver.currentOrder === null ? 'None' : driver.currentOrder}</label><br/>
+                <label><b>Current order:</b> {driver.currentOrder === 0 ? 'None' : driver.currentOrder}</label><br/>
                 <DriverUpdateButton driver={driver}/>
                 <DriverDeleteButton driverId={driver.id}/>
             </div>
@@ -127,9 +124,11 @@ class DriverAddButton extends React.Component {
     render() {
 
         let driver = {
+            id:0,
             firstName: '',
             lastName: '',
-            CurrentCity: 1,
+            currentCityId: 1,
+            currentCityName:'',
             currentOrder: 0,
             hoursWorked: 0,
             status: 'ON_REST'
@@ -223,7 +222,7 @@ class DriverForm extends React.Component {
                     <label>
                         Location:
                     </label>
-                    <select className="form-control" name="currentCity" defaultValue={driver.currentCity}
+                    <select className="form-control" name="currentCityId" defaultValue={driver.currentCityId}
                             onChange={this.handleInputChange}>
                         {options}
                     </select>
@@ -237,7 +236,7 @@ class DriverForm extends React.Component {
                         <option value='ON_DUTY_DRIVING'>Driving</option>
                     </select>
                     <br/>
-                    <input type="submit" value="Save"/>
+                    <input className='btn btn-sm btn-secondary' type="submit" value="Save"/>
                 </div>
             </form>
         );
