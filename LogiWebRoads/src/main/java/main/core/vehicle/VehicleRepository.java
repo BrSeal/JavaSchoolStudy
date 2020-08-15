@@ -15,5 +15,5 @@ public interface VehicleRepository {
 
     Vehicle delete(Vehicle Vehicle);
 
-    List<Vehicle> getByOrderId(int orderId);
+    List<Vehicle> getQueryResult(String hql);
 }

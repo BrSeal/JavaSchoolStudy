@@ -68,7 +68,7 @@ class VehicleDetails extends React.Component {
                 <label><b>Capacity:</b> {vehicle.capacity}</label><br/>
                 <label><b>Crew size:</b> {vehicle.dutySize}</label><br/>
                 <label><b>Status:</b> {vehicle.ok ? 'Is ok' : 'Needs service'}</label><br/>
-                <label><b>Location:</b> {vehicle.currentCityName}</label><br/>
+                <label><b>Location:</b> {vehicle.currentCityId}</label><br/>
                 <label><b>Current order:</b> {vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder}
                 </label><br/>
                 <VehicleUpdateButton vehicle={vehicle}/>
@@ -126,7 +126,7 @@ class VehicleAddButton extends React.Component {
 
         let vehicle = {
             regNumber: '',
-            dutySize: '',
+            dutySize: 0,
             CurrentCityId: 1,
             currentOrder: 0,
             capacity: 0,
@@ -183,7 +183,8 @@ class VehicleForm extends React.Component {
         $.ajax({
             method: 'POST',
             url: '../vehicle/' + this.props.url,
-            data: data,
+            contentType: "application/json",
+            data: JSON.stringify(data),
             success: function (response) {
                 alert(response);
                 showVehicles();
@@ -194,6 +195,7 @@ class VehicleForm extends React.Component {
 
     render() {
         let vehicle = this.state.vehicle;
+
         const options = this.props.cities.map((city) =>
             <option value={city.id}>{city.name}</option>);
         return (
@@ -222,7 +224,7 @@ class VehicleForm extends React.Component {
                     <label>
                         Location:
                     </label>
-                    <select className="form-control" name="currentCity" defaultValue={vehicle.currentCityId}
+                    <select className="form-control" name="currentCityId" defaultValue={vehicle.currentCityId}
                             onChange={this.handleInputChange}>
                         {options}
                     </select>

@@ -1,4 +1,4 @@
-package main.model.logistic.orderAndWaypoint;
+package main.model.logistic;
 
 
 import lombok.AllArgsConstructor;
@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
-import main.model.logistic.Cargo;
-import main.model.logistic.City;
 
 import javax.persistence.*;
 
@@ -20,21 +18,25 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Waypoint extends IdClass {
 
-    @Column(name = "isDone")
-    private boolean isDone = false;
-
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "сargo_id")
+    @JoinColumn(name = "cargo_id")
     private Cargo cargo;
-
-    @Column(name = "amount")
-    private int amount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private WaypointType type;
+
+    @Column(name= "path_index")
+    private int pathIndex;
+
+    @Column(name = "is_done")
+    private boolean isDone;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    Order order;
 }

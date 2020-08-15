@@ -13,13 +13,13 @@ public interface VehicleService {
 
     List<VehicleDTO> getAvailable(int orderId);
 
-    String save(VehicleDTO e);
+    int save(VehicleDTO e);
 
-    String update(VehicleDTO vehicle);
+    int update(VehicleDTO vehicle);
 
-    String delete(int id);
+    int delete(int id);
 
-    String delete(Vehicle Vehicle);
+    int delete(Vehicle Vehicle);
 
 
 }

@@ -1,5 +1,6 @@
 package main.core.driver;
 
+import main.core.driver.DTO.DriverDTO;
 import main.model.users.Driver;
 
 import java.util.List;
@@ -11,11 +12,13 @@ public interface DriverService {
 
     List<DriverDTO> getByOrderId(int orderId);
 
-    String save(DriverDTO e);
+    int save(DriverDTO e);
 
-    String update(DriverDTO e);
+    int update(DriverDTO e);
 
-    String delete(int id);
+    int delete(int id);
 
-    String delete(Driver driver);
+    int delete(Driver driver);
+
+    List<DriverDTO> getAvailable(int orderId);
 }

@@ -1,7 +1,8 @@
 package main.core.waypoint;
 
 
-import main.model.logistic.orderAndWaypoint.Waypoint;
+import main.model.logistic.Cargo;
+import main.model.logistic.Waypoint;
 
 import java.util.List;
 
@@ -10,9 +11,9 @@ public interface WaypointRepository {
 
     void update(Waypoint waypoint);
 
-    void saveAll(List<Waypoint> waypoints);
-
     List<Waypoint> getAll();
+
+    List<Waypoint> getByCargo(Cargo cargo);
 
     Waypoint get(int it);
 

@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import main.core.order.OrderService;
 import main.model.logistic.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,72 +13,71 @@ import java.util.stream.Collectors;
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
 
-    private static final String DELETE_FAIL = "Deletion failed! Vehicle #%d is currently on order!";
-    private static final String DELETE_SUCCESS = "Vehicle #%d was successfully deleted";
-    private static final String UPDATE_SUCCESS = "Vehicle #%d was successfully updated";
-    private static final String SAVE_SUCCESS = "Vehicle #%d was successfully saved";
-
-    private final VehicleRepository repository;
+    private final VehicleRepository vehicleRepository;
+    private final OrderService orderService;
 
     @Autowired
-    public VehicleServiceImpl(VehicleRepository repository) {
-        this.repository = repository;
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderService orderService) {
+        this.vehicleRepository = vehicleRepository;
+        this.orderService = orderService;
     }
 
     @Override
     public List<VehicleDTO> getAll() {
-        return repository.getAll().stream()
+        return vehicleRepository.getAll().stream()
                 .map(VehicleDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<VehicleDTO> getByOrderId(int orderId){
-       return repository.getByOrderId(orderId).stream()
-               .map(VehicleDTO::new)
-               .collect(Collectors.toList());
+    public List<VehicleDTO> getByOrderId(int orderId) {
+        String hql = "from Vehicle v where v.currentOrder=" + orderId;
+        return vehicleRepository.getQueryResult(hql).stream()
+                .map(VehicleDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    //TODO Добавить логику
+    //TODO Добавить логику поиска
     public List<VehicleDTO> getAvailable(int orderId) {
-        return repository.getAll().stream().map(VehicleDTO::new).collect(Collectors.toList());
+        int maxLoad=orderService.calculateMaxLoad(orderId);
+
+        String hql = "from Vehicle v where v.currentOrder=null and v.isOk=true and v.capacity>" + maxLoad;
+        return vehicleRepository.getQueryResult(hql).stream().map(VehicleDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public VehicleDTO get(int id) {
-        return new VehicleDTO(repository.get(id));
+        return new VehicleDTO(vehicleRepository.get(id));
     }
 
     @Override
-    public String save(VehicleDTO dto) {
-        int id= repository.save(dto.toVehicle());
-        return String.format(SAVE_SUCCESS,id);
+    public int save(VehicleDTO dto) {
+       return vehicleRepository.save(dto.toVehicle());
     }
 
     @Override
-    public String delete(int id) {
-        return delete(repository.get(id));
+    public int delete(int id) {
+        return delete(vehicleRepository.get(id));
     }
 
     @Override
-    public String delete(Vehicle vehicle) {
-        if( canBeDeleted(vehicle)) {
-            repository.delete(vehicle);
-            return String.format(DELETE_SUCCESS,vehicle.getId());
+    public int delete(Vehicle vehicle) {
+        if (!canBeDeleted(vehicle)) {
+            throw new IllegalArgumentException("Vehicle №" + vehicle.getId()
+                    + " is currently in order №" + vehicle.getCurrentOrder() + "!");
         }
-        return String.format(DELETE_FAIL,vehicle.getId());
+         vehicleRepository.delete(vehicle);
+          return vehicle.getId();
     }
 
     @Override
-    public String update(VehicleDTO dto) {
-        repository.update(dto.toVehicle());
-        return String.format(UPDATE_SUCCESS,dto.getId());
+    public int update(VehicleDTO dto) {
+        vehicleRepository.update(dto.toVehicle());
+        return dto.getId();
     }
 
-    private boolean canBeDeleted(Vehicle v){
-        return v.getCurrentOrder()==null;
+    private boolean canBeDeleted(Vehicle v) {
+        return v.getCurrentOrder() == null;
     }
-
-
 }

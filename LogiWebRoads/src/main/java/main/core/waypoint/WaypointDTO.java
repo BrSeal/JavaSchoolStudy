@@ -1,13 +1,10 @@
 package main.core.waypoint;
 
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import main.model.logistic.Cargo;
-import main.model.logistic.City;
-import main.model.logistic.orderAndWaypoint.Waypoint;
-import main.model.logistic.orderAndWaypoint.WaypointType;
+import lombok.AllArgsConstructor;
+import main.model.logistic.*;
 
 @Getter
 @Setter
@@ -16,28 +13,36 @@ import main.model.logistic.orderAndWaypoint.WaypointType;
 public class WaypointDTO {
 
     private int id;
-    private boolean isDone;
+    private int cargo;
+    private int order;
     private int cityId;
-    private String cityName;
+    private int pathIndex;
+    private boolean isDone;
     private WaypointType type;
-    private Cargo cargo;
-    private int amount;
 
     public WaypointDTO(Waypoint w) {
-        this.id = w.getId();
-        this.isDone = w.isDone();
-        this.cityId = w.getCity().getId();
-        this.cityName = w.getCity().getName();
-        this.type = w.getType();
-        this.cargo = w.getCargo();
-        this.amount = w.getAmount();
+        id = w.getId();
+        cargo = w.getCargo().getId();
+        order=w.getOrder().getId();
+        cityId = w.getCity().getId();
+        type = w.getType();
+        pathIndex=w.getPathIndex();
+        order=w.getOrder().getId();
     }
 
     public Waypoint toWaypoint() {
         City city = new City();
         city.setId(this.cityId);
-        Waypoint w = new Waypoint(isDone, city, cargo, amount, type);
+
+        Cargo cargo=new Cargo();
+        cargo.setId(this.cargo);
+
+        Order order=new Order();
+        order.setId(this.order);
+
+        Waypoint w = new Waypoint(city, cargo, type,pathIndex, isDone,order);
         w.setId(id);
+
         return w;
     }
 

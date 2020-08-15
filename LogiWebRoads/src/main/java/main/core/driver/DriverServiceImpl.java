@@ -1,5 +1,8 @@
 package main.core.driver;
 
+import main.core.driver.DTO.DriverDTO;
+import main.core.order.OrderRepository;
+import main.model.logistic.Order;
 import main.model.users.Driver;
 import main.model.users.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,65 +16,79 @@ import java.util.stream.Collectors;
 @Transactional
 public class DriverServiceImpl implements DriverService {
 
-    private static final String DELETE_FAIL = "Deletion failed! Driver #%d is currently on order!";
-    private static final String DELETE_SUCCESS = "Driver #%d was successfully deleted";
-    private static final String UPDATE_SUCCESS = "Driver #%d was successfully updated";
-    private static final String SAVE_SUCCESS = "Driver #%d was successfully saved";
+    private static final String DELETE_FAIL = "Deletion failed! Driver #%d is currently on order #%d!";
 
-    private final DriverRepository repository;
-
+    private final DriverRepository driverRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public DriverServiceImpl(DriverRepository repository) {
-        this.repository = repository;
+    public DriverServiceImpl(DriverRepository driverRepository, OrderRepository orderRepository) {
+        this.driverRepository = driverRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public List<DriverDTO> getAll() {
-        return repository.getAll().stream()
+        return driverRepository.getAll().stream()
                 .map(DriverDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
     public DriverDTO get(int id) {
-        return new DriverDTO(repository.get(id));
+        return new DriverDTO(driverRepository.get(id));
     }
 
     @Override
     public List<DriverDTO> getByOrderId(int orderId) {
-        return repository.getByOrderId(orderId).stream()
+        return driverRepository.getByOrderId(orderId).stream()
                 .map(DriverDTO::new)
                 .collect(Collectors.toList());
     }
 
+
+    //TODO посчитать продолжительность заказа
     @Override
-    public String save(DriverDTO dto) {
-        int id = repository.save(dto.toDriver());
-        return String.format(SAVE_SUCCESS, id);
+    public List<DriverDTO> getAvailable(int orderId) {
+        Order order=orderRepository.get(orderId);
+
+
+
+        return null;
     }
 
     @Override
-    public String delete(int id) {
-        return delete(repository.get(id));
+    public int save(DriverDTO dto) {
+        return driverRepository.save(dto.toDriver());
     }
 
     @Override
-    public String delete(Driver driver) {
-        if (canBeDeleted(driver)) {
-            repository.delete(driver);
-            return String.format(DELETE_SUCCESS, driver.getId());
+    public int delete(int id) {
+        return delete(driverRepository.get(id));
+    }
+
+    @Override
+    public int delete(Driver driver) {
+        if (!canBeDeleted(driver)){
+            int id= driver.getId();
+            int orderId= driver.getCurrentOrder().getId();
+            throw
+                    new IllegalArgumentException(String.format(DELETE_FAIL,id, orderId));
         }
-        return String.format(DELETE_FAIL, driver.getId());
+
+        driverRepository.delete(driver);
+        return driver.getId();
     }
 
     @Override
-    public String update(DriverDTO dto) {
-        repository.update(dto.toDriver());
-        return String.format(UPDATE_SUCCESS, dto.getId());
+    public int update(DriverDTO dto) {
+        driverRepository.update(dto.toDriver());
+        return dto.getId();
     }
 
     private boolean canBeDeleted(Driver d) {
         return d.getCurrentOrder() == null && d.getStatus().equals(DriverStatus.ON_REST);
     }
+
+    private int calculate
 }

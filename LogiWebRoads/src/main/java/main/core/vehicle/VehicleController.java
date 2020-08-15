@@ -36,17 +36,17 @@ public class VehicleController {
     }
 
     @PostMapping("/new/")
-    public String saveVehicle(VehicleDTO driver) {
+    public int saveVehicle(@RequestBody VehicleDTO driver) {
         return service.save(driver);
     }
 
     @PostMapping("/update/")
-    public String updateVehicleById(VehicleDTO vehicleToUpdate) {
+    public int updateVehicleById(@RequestBody VehicleDTO vehicleToUpdate) {
         return service.update(vehicleToUpdate);
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteVehicle(@PathVariable int id) {
+    public int deleteVehicle(@PathVariable int id) {
         return service.delete(id);
     }
 }

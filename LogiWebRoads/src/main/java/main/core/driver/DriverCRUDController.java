@@ -1,5 +1,8 @@
 package main.core.driver;
 
+import main.core.driver.DTO.DriverDTO;
+import main.core.vehicle.VehicleDTO;
+import main.model.users.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/driver")
-public class DriverController {
+public class DriverCRUDController {
     private final DriverService service;
 
     @Autowired
-    public DriverController(DriverService service) {
+    public DriverCRUDController(DriverService service) {
         this.service = service;
     }
 
@@ -31,18 +34,22 @@ public class DriverController {
     }
 
     @PostMapping("/new/")
-    public String saveDriver(DriverDTO dto) {
+    public int saveDriver(@RequestBody DriverDTO dto) {
         return service.save(dto);
     }
 
     @PostMapping("/update/")
-    public String updateDriver(DriverDTO dto) {
+    public int updateDriver(@RequestBody DriverDTO dto) {
         return service.update(dto);
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteDriver(@PathVariable int id) {
+    public int deleteDriver(@PathVariable int id) {
         return service.delete(id);
     }
 
+    @GetMapping("/available/{orderId}")
+    public List<DriverDTO> getAvailableVehicles(@PathVariable int orderId){
+        return service.getAvailable(orderId);
+    }
 }

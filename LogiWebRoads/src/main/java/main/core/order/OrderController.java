@@ -1,5 +1,9 @@
 package main.core.order;
 
+import main.core.order.DTO.AssignDriversOrderDTO;
+import main.core.order.DTO.AssignVehicleOrderDTO;
+import main.core.order.DTO.NewOrderDTO;
+import main.core.order.DTO.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +30,17 @@ public class OrderController {
     }
 
     @PostMapping("/new/")
-    public int getOrderById(OrderDTO o) {
-        return service.save(o);
+    public int getOrderById(@RequestBody NewOrderDTO o) {
+       return service.save(o);
     }
 
-    @PutMapping("/update/")
-    public void updateOrderById(OrderDTO orderToUpdate) {
-         service.update(orderToUpdate);
+    @PutMapping("/assignVehicle/")
+    public void assignVehicle(@RequestBody AssignVehicleOrderDTO dto) {
+         service.assignVehicle(dto);
+    }
+
+    @PutMapping("/assignDrivers/")
+    public void assignDrivers(@RequestBody AssignDriversOrderDTO dto) {
+        service.assignDrivers(dto);
     }
 }

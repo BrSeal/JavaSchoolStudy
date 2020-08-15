@@ -1,4 +1,4 @@
-package main.model.logistic.orderAndWaypoint;
+package main.model.logistic;
 
 
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
+import main.model.users.Driver;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +27,12 @@ public class Order extends IdClass {
     @Column(name = "is_completed")
     private boolean isCompleted;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
+
+    @OneToMany(mappedBy ="currentOrder" )
+    private List<Driver> assignedDrivers;
+
+    @OneToOne(mappedBy = "currentOrder")
+    private Vehicle assignedVehicle;
 }

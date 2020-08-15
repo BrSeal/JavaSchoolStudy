@@ -49,6 +49,9 @@ class DriverDeleteButton extends React.Component {
         const deleteDriver = function () {
             $.ajax({
                 method: "DELETE",
+                headers: {
+                    "Accept": "application/json; odata=verbose"
+                },
                 url: '../driver/delete/' + driverId,
                 success: function (response) {
                     alert(response);
@@ -183,13 +186,13 @@ class DriverForm extends React.Component {
         $.ajax({
             method: 'POST',
             url: '../driver/' + this.props.url,
-            data: data,
+            contentType: "application/json",
+            data: JSON.stringify(data),
             success: function (response) {
                 alert(response);
                 showDrivers();
             }
         });
-
     }
 
     render() {

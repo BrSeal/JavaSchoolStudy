@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.IdClass;
-import main.model.logistic.orderAndWaypoint.Order;
 
 import javax.persistence.*;
 
@@ -17,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Vehicle extends IdClass {
 
-    @Column(name = "reg_number")
+    @Column(name = "reg_number", unique = true)
     private String regNumber;
 
     @Column(name = "duty_size")
@@ -33,7 +32,7 @@ public class Vehicle extends IdClass {
     @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @ManyToOne
-    @JoinColumn(name = "current_order_id")
+    @OneToOne
+    @JoinColumn(name = "current_order_id", referencedColumnName = "id")
     private Order currentOrder;
 }

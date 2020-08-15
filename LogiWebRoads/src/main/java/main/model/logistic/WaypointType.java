@@ -1,4 +1,4 @@
-package main.model.logistic.orderAndWaypoint;
+package main.model.logistic;
 
 public enum  WaypointType {
     LOAD,

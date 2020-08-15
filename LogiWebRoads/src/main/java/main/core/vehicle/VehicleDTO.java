@@ -6,22 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.logistic.City;
 import main.model.logistic.Vehicle;
-import main.model.logistic.orderAndWaypoint.Order;
+import main.model.logistic.Order;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleDTO {
-
+    private static final int MIN_CAPACITY = 100;
+    private static final String LOW_CAPACITY_ERR = "Capacity must be grater than "+MIN_CAPACITY+"!";
+    private static final String REG_NUMBER_FORMAT_ERR = "Registration number format error!";
     public VehicleDTO(Vehicle v) {
         id = v.getId();
-        regNumber = v.getRegNumber();
+        regNumber = v.getRegNumber().toUpperCase();
         dutySize = v.getDutySize();
         capacity = v.getCapacity();
         isOk = v.isOk();
         currentCityId = v.getCurrentCity().getId();
-        currentCityName = v.getCurrentCity().getName();
         currentOrder = v.getCurrentOrder() == null ? 0 : v.getCurrentOrder().getId();
     }
 
@@ -31,10 +32,13 @@ public class VehicleDTO {
     private int capacity;
     private boolean isOk;
     private int currentCityId;
-    private String currentCityName;
     private int currentOrder;
 
     public Vehicle toVehicle() {
+        if(capacity<MIN_CAPACITY) throw new IllegalArgumentException(LOW_CAPACITY_ERR);
+        if(!regNumber.matches("^[A-Z]\\d{3}[A-Z]{2}$")) throw new IllegalArgumentException(REG_NUMBER_FORMAT_ERR);
+
+
         City city = new City();
         city.setId(currentCityId);
         Order order;

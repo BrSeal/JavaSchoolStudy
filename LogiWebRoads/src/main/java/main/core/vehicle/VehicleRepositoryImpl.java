@@ -43,13 +43,11 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public List<Vehicle> getByOrderId(int orderId) {
-        String query = "from Vehicle v where v.currentOrder=" + orderId;
+    public List<Vehicle> getQueryResult(String hql) {
         return sessionFactory
                 .getCurrentSession()
-                .createQuery(query, Vehicle.class)
+                .createQuery(hql, Vehicle.class)
                 .list();
-
     }
 
     @Override

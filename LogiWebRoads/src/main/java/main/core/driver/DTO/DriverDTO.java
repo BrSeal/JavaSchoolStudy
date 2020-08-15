@@ -1,11 +1,11 @@
-package main.core.driver;
+package main.core.driver.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.logistic.City;
-import main.model.logistic.orderAndWaypoint.Order;
+import main.model.logistic.Order;
 import main.model.users.Driver;
 import main.model.users.DriverStatus;
 
@@ -20,7 +20,6 @@ public class DriverDTO {
         firstName = d.getFirstName();
         lastName = d.getLastName();
         currentCityId = d.getCurrentCity().getId();
-        currentCityName = d.getCurrentCity().getName();
         currentOrder = d.getCurrentOrder() == null ? 0 : d.getCurrentOrder().getId();
         hoursWorked = d.getHoursWorked();
         status = d.getStatus();
@@ -31,7 +30,6 @@ public class DriverDTO {
     private String firstName;
     private String lastName;
     private int currentCityId;
-    private String currentCityName;
     private int currentOrder;
     private int hoursWorked;
     private DriverStatus status;
