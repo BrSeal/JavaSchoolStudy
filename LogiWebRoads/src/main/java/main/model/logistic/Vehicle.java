@@ -33,6 +33,6 @@ public class Vehicle extends IdClass {
     private City currentCity;
 
     @OneToOne
-    @JoinColumn(name = "current_order_id", referencedColumnName = "id")
+    @JoinColumn(name = "current_order_id")
     private Order currentOrder;
 }

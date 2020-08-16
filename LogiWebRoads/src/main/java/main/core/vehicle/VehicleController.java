@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import main.core.vehicle.DTO.VehicleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class VehicleController {
     }
 
     @GetMapping("/assigned/{orderId}")
-    public List<VehicleDTO> getDriversByOrderId(@PathVariable int orderId) {
+    public List<VehicleDTO> getAssignedVehicles(@PathVariable int orderId) {
         return service.getByOrderId(orderId);
     }
 
@@ -40,7 +41,7 @@ public class VehicleController {
         return service.save(driver);
     }
 
-    @PostMapping("/update/")
+    @PutMapping("/update/")
     public int updateVehicleById(@RequestBody VehicleDTO vehicleToUpdate) {
         return service.update(vehicleToUpdate);
     }

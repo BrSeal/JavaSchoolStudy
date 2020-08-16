@@ -30,8 +30,11 @@ public class Waypoint extends IdClass {
     @Column(name = "type")
     private WaypointType type;
 
-    @Column(name= "path_index")
+    @Column(name = "path_index")
     private int pathIndex;
+
+    @Column(name = "road_from_prev_waypoint_length")
+    private int pathLength;
 
     @Column(name = "is_done")
     private boolean isDone;

@@ -1,6 +1,7 @@
 package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
+import main.core.cargo.DTO.UpdateStatusCargoCTO;
 import main.model.logistic.Cargo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,8 @@ public class CargoCRUDController {
         return service.get(id);
     }
 
-    @PostMapping("/new/")
-    public int saveCargo(@RequestBody Cargo cargo) {
-        return service.save(cargo);
-    }
-
-    @PostMapping("/update/")
-    public String updateCargo(@RequestBody Cargo cargo) {
-        return service.update(cargo);
+    @PutMapping("/update/")
+    public void updateCargo(@RequestBody UpdateStatusCargoCTO cargo) {
+       service.update(cargo);
     }
 }

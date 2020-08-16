@@ -6,7 +6,6 @@ import main.core.cargo.DTO.InfoCargoDTO;
 import main.core.waypoint.WaypointRepository;
 import main.model.logistic.Cargo;
 import main.model.logistic.Waypoint;
-import main.model.logistic.WaypointType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static main.core.cargo.services.CargoUpdateProcessor.updateStatusLogic;
+import static main.model.logistic.WaypointType.LOAD;
+
 @Service
 @Transactional
 public class CargoServiceImpl implements CargoService {
 
-    private static final String UPDATE_SUCCESS = "Cargo #%d was successfully updated";
-
     private final CargoRepository cargoRepository;
     private final WaypointRepository waypointRepository;
-
 
     @Autowired
     public CargoServiceImpl(CargoRepository cargoRepository, WaypointRepository waypointRepository) {
@@ -32,13 +31,13 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public List<CargoDTO> getAll() {
-       return cargoRepository.getAll().stream()
+        return cargoRepository.getAll().stream()
                 .map(cargo -> {
                     int from;
                     int to;
                     int order;
                     List<Waypoint> waypoints = waypointRepository.getByCargo(cargo);
-                    if (waypoints.get(0).getType() == WaypointType.LOAD) {
+                    if (waypoints.get(0).getType() == LOAD) {
                         from = waypoints.get(0).getCity().getId();
                         to = waypoints.get(1).getCity().getId();
                     } else {
@@ -58,13 +57,22 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public int save(Cargo cargo) {
-        return cargoRepository.save(cargo);
+    public int save(CargoDTO cargo) {
+        return cargoRepository.save(cargo.toCargo());
     }
 
     @Override
-    public String update(Cargo cargo) {
+    public void update(CargoDTO dto) {
+        Cargo fromDTO = dto.toCargo();
+        Cargo cargo = cargoRepository.get(fromDTO.getId());
+        List<Waypoint> waypoints =  waypointRepository.getByCargo(cargo);
+        updateStatusLogic(cargo, fromDTO,waypoints);
+
+        waypoints.forEach(waypointRepository::update);
         cargoRepository.update(cargo);
-        return String.format(UPDATE_SUCCESS, cargo.getId());
     }
+
+
+
+
 }

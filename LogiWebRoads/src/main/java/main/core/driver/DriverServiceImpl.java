@@ -1,16 +1,22 @@
 package main.core.driver;
 
 import main.core.driver.DTO.DriverDTO;
+import main.core.driver.DTO.DriverDeskInfoDTO;
+import main.core.driver.DTO.DriverInfoDTO;
 import main.core.order.OrderRepository;
+import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.users.Driver;
-import main.model.users.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static main.core.driver.services.DriverCheck.canBeDeleted;
+import static main.core.order.services.OrderCalculator.calculateOrderWorkTimeFirstMonth;
+import static main.core.order.services.OrderUpdateChecker.isVehicleAssigned;
 
 @Service
 @Transactional
@@ -28,33 +34,43 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public List<DriverDTO> getAll() {
+    public List<DriverInfoDTO> getAll() {
         return driverRepository.getAll().stream()
-                .map(DriverDTO::new)
+                .map(DriverInfoDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public DriverDTO get(int id) {
-        return new DriverDTO(driverRepository.get(id));
+    public DriverInfoDTO get(int id) {
+        return new DriverInfoDTO(driverRepository.get(id));
     }
 
     @Override
-    public List<DriverDTO> getByOrderId(int orderId) {
-        return driverRepository.getByOrderId(orderId).stream()
-                .map(DriverDTO::new)
+    public List<DriverInfoDTO> getByOrderId(int orderId) {
+        String hql="from Driver d where d.currentOrder= "+orderId;
+        return driverRepository.getByQuery(hql).stream()
+                .map(DriverInfoDTO::new)
                 .collect(Collectors.toList());
     }
 
-
-    //TODO посчитать продолжительность заказа
     @Override
-    public List<DriverDTO> getAvailable(int orderId) {
+    public List<DriverInfoDTO> getAvailable(int orderId) {
         Order order=orderRepository.get(orderId);
+        if(!isVehicleAssigned(order)) throw new IllegalArgumentException("Vehicle is not assigned!");
+        int dutySize = order.getAssignedVehicle().getDutySize();
+        int hoursPerWorker=(int)Math.ceil((double) calculateOrderWorkTimeFirstMonth(order)/dutySize);
+        City city=order.getAssignedVehicle().getCurrentCity();
 
 
+        return driverRepository.getAvailable(hoursPerWorker,city).stream()
+                .map(DriverInfoDTO::new)
+                .collect(Collectors.toList());
+    }
 
-        return null;
+    @Override
+    public DriverDeskInfoDTO getDriverDeskInfo(int id) {
+        Driver driver=driverRepository.get(id);
+        return new DriverDeskInfoDTO(driver);
     }
 
     @Override
@@ -81,14 +97,8 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public int update(DriverDTO dto) {
+    public int update(DriverInfoDTO dto) {
         driverRepository.update(dto.toDriver());
         return dto.getId();
     }
-
-    private boolean canBeDeleted(Driver d) {
-        return d.getCurrentOrder() == null && d.getStatus().equals(DriverStatus.ON_REST);
-    }
-
-    private int calculate
 }

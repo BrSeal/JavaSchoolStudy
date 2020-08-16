@@ -11,8 +11,7 @@ public interface CargoService {
 
     Cargo get(int id);
 
-    int save(Cargo e);
+    int save(CargoDTO e);
 
-    String update(Cargo e);
-
+    void update(CargoDTO e);
 }

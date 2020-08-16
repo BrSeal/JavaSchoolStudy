@@ -1,7 +1,9 @@
 package main.core.driver;
 
+import main.model.logistic.City;
 import main.model.users.Driver;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,12 +27,21 @@ public class DriverRepositoryImpl implements DriverRepository {
     }
 
     @Override
-    public List<Driver> getByOrderId(int orderId) {
-        //TODO Сделать NamedQuery
-        String query="from Driver d where d.currentOrder= "+orderId;
+    public List<Driver> getByQuery(String hql) {
        return sessionFactory.getCurrentSession()
-                .createQuery(query, Driver.class)
+                .createQuery(hql, Driver.class)
                 .list();
+    }
+
+    @Override
+    public List<Driver> getAvailable(int hoursPerWorker, City city) {
+
+       String hql="from Driver d where d.status='ON_REST' and d.currentCity =:city and d.hoursWorked<:hours";
+        Query<Driver> query=sessionFactory.getCurrentSession()
+                .createQuery(hql, Driver.class) ;
+       query.setParameter("city", city);
+       query.setParameter("hours", hoursPerWorker);
+               return  query.list();
     }
 
     @Override

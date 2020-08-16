@@ -51,6 +51,6 @@ public class NewOrderDTO implements OrderDTO {
         City city = new City();
         city.setId(cityId);
 
-        return new Waypoint(city, c, type, 0, false, o);
+        return new Waypoint(city, c, type, 0,0, false, o);
     }
 }

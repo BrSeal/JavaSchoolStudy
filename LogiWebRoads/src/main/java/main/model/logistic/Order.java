@@ -30,9 +30,9 @@ public class Order extends IdClass {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
 
-    @OneToMany(mappedBy ="currentOrder" )
+    @OneToMany(mappedBy = "currentOrder", cascade = CascadeType.ALL)
     private List<Driver> assignedDrivers;
 
-    @OneToOne(mappedBy = "currentOrder")
+    @OneToOne(mappedBy = "currentOrder", cascade =CascadeType.ALL)
     private Vehicle assignedVehicle;
 }

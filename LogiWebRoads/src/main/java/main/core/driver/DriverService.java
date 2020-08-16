@@ -1,24 +1,28 @@
 package main.core.driver;
 
 import main.core.driver.DTO.DriverDTO;
+import main.core.driver.DTO.DriverDeskInfoDTO;
+import main.core.driver.DTO.DriverInfoDTO;
 import main.model.users.Driver;
 
 import java.util.List;
 
 public interface DriverService {
-    List<DriverDTO> getAll();
+    List<DriverInfoDTO> getAll();
 
-    DriverDTO get(int id);
+    DriverInfoDTO get(int id);
 
-    List<DriverDTO> getByOrderId(int orderId);
+    List<DriverInfoDTO> getByOrderId(int orderId);
 
     int save(DriverDTO e);
 
-    int update(DriverDTO e);
+    int update(DriverInfoDTO e);
 
     int delete(int id);
 
     int delete(Driver driver);
 
-    List<DriverDTO> getAvailable(int orderId);
+    List<DriverInfoDTO> getAvailable(int orderId);
+
+    DriverDeskInfoDTO getDriverDeskInfo(int id);
 }

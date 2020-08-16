@@ -1,6 +1,8 @@
 package main.core.vehicle;
 
-import main.core.order.OrderService;
+import main.core.order.OrderRepository;
+import main.core.vehicle.DTO.VehicleDTO;
+import main.model.logistic.Order;
 import main.model.logistic.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,17 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static main.core.order.services.OrderCalculator.calculateMaxLoad;
+
 @Service
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
-    private final OrderService orderService;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderService orderService) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderRepository orderRepository) {
         this.vehicleRepository = vehicleRepository;
-        this.orderService = orderService;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -38,9 +42,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    //TODO Добавить логику поиска
     public List<VehicleDTO> getAvailable(int orderId) {
-        int maxLoad=orderService.calculateMaxLoad(orderId);
+        Order order= orderRepository.get(orderId);
+        int maxLoad=calculateMaxLoad(order);
 
         String hql = "from Vehicle v where v.currentOrder=null and v.isOk=true and v.capacity>" + maxLoad;
         return vehicleRepository.getQueryResult(hql).stream().map(VehicleDTO::new).collect(Collectors.toList());

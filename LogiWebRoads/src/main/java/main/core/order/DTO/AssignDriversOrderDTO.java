@@ -34,6 +34,8 @@ public class AssignDriversOrderDTO implements OrderDTO {
                 })
                 .collect(Collectors.toList());
 
+        order.setAssignedDrivers(assignedDrivers);
+
         return order;
     }
 }

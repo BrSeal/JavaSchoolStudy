@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import main.core.vehicle.DTO.VehicleDTO;
 import main.model.logistic.Vehicle;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package main.core.vehicle;
+package main.core.vehicle.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class VehicleDTO {
         regNumber = v.getRegNumber().toUpperCase();
         dutySize = v.getDutySize();
         capacity = v.getCapacity();
-        isOk = v.isOk();
+        ok = v.isOk();
         currentCityId = v.getCurrentCity().getId();
         currentOrder = v.getCurrentOrder() == null ? 0 : v.getCurrentOrder().getId();
     }
@@ -30,7 +30,7 @@ public class VehicleDTO {
     private String regNumber;
     private int dutySize;
     private int capacity;
-    private boolean isOk;
+    private boolean ok;
     private int currentCityId;
     private int currentOrder;
 
@@ -49,7 +49,7 @@ public class VehicleDTO {
             order.setId(currentOrder);
         }
 
-        Vehicle vehicle = new Vehicle(regNumber, dutySize, capacity, isOk, city, order);
+        Vehicle vehicle = new Vehicle(regNumber, dutySize, capacity, ok, city, order);
         vehicle.setId(id);
 
         return vehicle;

@@ -19,6 +19,4 @@ public interface OrderService {
     Order delete(int id);
 
     Order delete(Order order);
-
-    int calculateMaxLoad(int orderId);
 }
