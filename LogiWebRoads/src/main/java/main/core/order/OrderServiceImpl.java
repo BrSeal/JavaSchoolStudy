@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.core.order.services.OrderCalculator.calculateMaxLoad;
-import static main.core.order.services.OrderCalculator.calculateRoute;
-import static main.core.order.services.OrderUpdateChecker.*;
+import static main.core.order.services.OrderLogic.calculateMaxLoad;
+import static main.core.order.services.OrderLogic.calculateRoute;
+import static main.core.order.services.OrderCheckProvider.*;
 
 @Service
 @Transactional
@@ -54,27 +54,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order delete(int id) {
-        return orderRepository.delete(orderRepository.get(id));
-    }
-
-    @Override
-    public Order delete(Order order) {
-        return orderRepository.delete(order);
-    }
-
-    @Override
     public void assignVehicle(OrderDTO dto) {
         Order fromDTO = dto.toOrder();
 
+
         Order order = orderRepository.get(fromDTO.getId());
+
+        isOrderCompleted(order);
+
         Vehicle vehicle = vehicleRepository.get(fromDTO.getAssignedVehicle().getId());
 
-        vehicleAssignmentCheck(order, vehicle,calculateMaxLoad(order));
+        vehicleAssignmentCheck(order, vehicle,calculateMaxLoad(order.getWaypoints()));
 
-        if(isVehicleAssigned(order)){
-            order.getAssignedVehicle().setCurrentOrder(null);
-        }
+        if(isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
+
         vehicle.setCurrentOrder(order);
 
         orderRepository.update(order);
@@ -83,10 +76,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void assignDrivers(OrderDTO dto) {
         Order fromDTO = dto.toOrder();
+        Order order= orderRepository.get(fromDTO.getId());
+
+        isOrderCompleted(order);
+
         List<Driver> drivers=fromDTO.getAssignedDrivers().stream()
                 .map(d->driverRepository.get(d.getId()))
                 .collect(Collectors.toList());
-        Order order= orderRepository.get(fromDTO.getId());
+
 
         driverAssignmentCheck(order, drivers);
 

@@ -1,0 +1,3 @@
+For demonstration I used Talend API-Tester Free edition.
+
+Test sequence demonstrates a full cycle of processing an order.

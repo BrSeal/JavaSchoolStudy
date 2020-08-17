@@ -8,6 +8,7 @@ import main.core.order.OrderRepository;
 import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.users.Driver;
+import main.model.users.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,7 @@ import java.util.stream.Collectors;
 
 import static main.core.driver.services.DriverCheckProvider.canBeDeleted;
 import static main.core.driver.services.DriverLogic.getHoursPerWorker;
-import static main.core.order.services.OrderCalculator.calculateOrderWorkTimeFirstMonth;
-import static main.core.order.services.OrderUpdateChecker.isVehicleAssigned;
+import static main.core.driver.services.DriverLogic.updateStatus;
 
 @Service
 @Transactional
@@ -99,8 +99,12 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public int update(UpdateStatusDriverDTO dto) {
-        canBeUpdated();
-        driverRepository.update(dto.toDriver());
+        DriverStatus status=dto.toDriver().getStatus();
+        Driver driver=driverRepository.get(dto.toDriver().getId());
+        Order order=orderRepository.get(driver.getCurrentOrder().getId());
+
+        updateStatus(order,driver,status);
+        driverRepository.update(driver);
         return dto.toDriver().getId();
     }
 }

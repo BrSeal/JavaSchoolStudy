@@ -7,6 +7,7 @@ import lombok.Setter;
 import main.core.waypoint.WaypointDTO;
 import main.model.logistic.Order;
 import main.model.users.Driver;
+import main.model.users.DriverStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,16 +19,19 @@ import java.util.stream.Collectors;
 public class DriverDeskInfoDTO implements DriverDTO{
 
     private int id;
+    private DriverStatus status;
     private List<Integer> drivers;
     private String vehicleRegNum;
     private int orderId;
-    List<WaypointDTO> waypoints;
+    private List<WaypointDTO> waypoints;
+    private int currentCity;
 
     public DriverDeskInfoDTO(Driver driver){
         Order order=driver.getCurrentOrder();
 
         id=driver.getId();
-
+        status=driver.getStatus();
+        currentCity=driver.getCurrentCity().getId();
         if(order!=null) {
             orderId = order.getId();
             vehicleRegNum = order.getAssignedVehicle().getRegNumber();

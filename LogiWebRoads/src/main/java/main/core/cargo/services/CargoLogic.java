@@ -5,38 +5,27 @@ import main.model.users.Driver;
 
 import java.util.List;
 
+import static main.core.cargo.services.CargoCheckProvider.updateCheck;
+import static main.core.order.services.OrderCheckProvider.isOrderCompleted;
 import static main.model.logistic.CargoStatus.*;
 import static main.model.logistic.WaypointType.*;
 import static main.model.users.DriverStatus.*;
 
-public class CargoUpdateProcessor {
-    private static final String STATUS_UPDATE_ERR = "Cargo status can be changed in order PREPARED->TRANSPORTING->DELIVERED only!";
-    private static final String STATUS_DID_NOT_CHANGED = "New status is the same as the previous one!";
+public class CargoLogic {
+
 
     public static void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
         CargoStatus cargoStatus = cargo.getStatus();
         CargoStatus dtoStatus = dto.getStatus();
 
-        updateCheck(cargoStatus, dtoStatus);
+        List<Driver> drivers=order.getAssignedDrivers();
+
+        updateCheck(drivers,cargoStatus, dtoStatus);
 
         cargo.setStatus(dtoStatus);
         if (dtoStatus == TRANSPORTING) transportingStatusUpdateLogic(order, cargo);
         else if (dtoStatus == DELIVERED) deliveredStatusUpdateLogic(order, cargo);
 
-    }
-
-    private static void updateCheck(CargoStatus cargoStatus, CargoStatus dtoStatus) {
-        boolean isDowngradingOrJumping =
-                (cargoStatus != PREPARED && dtoStatus == PREPARED)
-                        ||
-                        (cargoStatus == DELIVERED && dtoStatus != DELIVERED)
-                        ||
-                        (cargoStatus == PREPARED && dtoStatus == DELIVERED);
-
-
-        if (isDowngradingOrJumping) throw new IllegalArgumentException(STATUS_UPDATE_ERR);
-
-        if (cargoStatus == dtoStatus) throw new IllegalArgumentException(STATUS_DID_NOT_CHANGED);
     }
 
     private static void transportingStatusUpdateLogic(Order order, Cargo cargo) {
@@ -64,6 +53,9 @@ public class CargoUpdateProcessor {
     }
 
     private static void ifWasLastWaypoint(Order order) {
+
+        isOrderCompleted(order);
+
         order.setCompleted(true);
         order.getAssignedDrivers().forEach(d -> {
             d.setStatus(ON_REST);

@@ -1,6 +1,5 @@
 package main.core.driver;
 
-import main.core.cargo.DTO.UpdateStatusCargoCTO;
 import main.core.driver.DTO.DriverDTO;
 import main.core.driver.DTO.DriverDeskInfoDTO;
 import main.core.driver.DTO.DriverInfoDTO;

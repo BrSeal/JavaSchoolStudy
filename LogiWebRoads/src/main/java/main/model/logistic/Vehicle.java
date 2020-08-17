@@ -26,7 +26,7 @@ public class Vehicle extends IdClass {
     private int capacity;
 
     @Column(name = "is_ok")
-    private boolean isOk;
+    private boolean ok;
 
     @ManyToOne
     @JoinColumn(name = "current_city_id")

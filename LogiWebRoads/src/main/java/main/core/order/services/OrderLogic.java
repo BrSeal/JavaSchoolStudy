@@ -12,13 +12,10 @@ import java.util.List;
 
 import static main.model.logistic.WaypointType.LOAD;
 
-public class OrderCalculator {
+public class OrderLogic {
 
     private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-    public static int calculateMaxLoad(Order order) {
-
-        List<Waypoint> waypoints = order.getWaypoints();
-
+    public static int calculateMaxLoad(List<Waypoint> waypoints) {
         waypoints.sort(Comparator.comparingInt(Waypoint::getPathIndex));
 
         int maxLoad = 0;

@@ -18,7 +18,7 @@ public class WaypointDTO {
     private int cityId;
     private int pathIndex;
     private int pathLength;
-    private boolean isDone;
+    private boolean done;
     private WaypointType type;
 
     public WaypointDTO(Waypoint w) {
@@ -30,6 +30,7 @@ public class WaypointDTO {
         pathIndex = w.getPathIndex();
         pathLength= w.getPathLength();
         order = w.getOrder().getId();
+        done=w.isDone();
     }
 
     public Waypoint toWaypoint() {
@@ -42,7 +43,7 @@ public class WaypointDTO {
         Order order = new Order();
         order.setId(this.order);
 
-        Waypoint w = new Waypoint(city, cargo, type, pathIndex, pathLength, isDone, order);
+        Waypoint w = new Waypoint(city, cargo, type, pathIndex, pathLength, done, order);
         w.setId(id);
 
         return w;

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.core.cargo.services.CargoUpdateProcessor.updateStatusLogic;
+import static main.core.cargo.services.CargoLogic.updateStatusLogic;
 import static main.model.logistic.WaypointType.LOAD;
 
 @Service

@@ -25,9 +25,9 @@ public class Order extends IdClass {
     private Date creationDate;
 
     @Column(name = "is_completed")
-    private boolean isCompleted;
+    private boolean completed;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
     @OneToMany(mappedBy = "currentOrder", cascade = CascadeType.ALL)

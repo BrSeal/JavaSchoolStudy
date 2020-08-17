@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.core.order.services.OrderCalculator.calculateMaxLoad;
+import static main.core.order.services.OrderLogic.calculateMaxLoad;
 
 @Service
 @Transactional
@@ -44,9 +44,9 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<VehicleDTO> getAvailable(int orderId) {
         Order order= orderRepository.get(orderId);
-        int maxLoad=calculateMaxLoad(order);
+        int maxLoad=calculateMaxLoad(order.getWaypoints());
 
-        String hql = "from Vehicle v where v.currentOrder=null and v.isOk=true and v.capacity>" + maxLoad;
+        String hql = "from Vehicle v where v.currentOrder=null and v.ok=true and v.capacity>" + maxLoad;
         return vehicleRepository.getQueryResult(hql).stream().map(VehicleDTO::new).collect(Collectors.toList());
     }
 

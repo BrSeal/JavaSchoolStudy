@@ -1,7 +1,7 @@
 package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
-import main.core.cargo.DTO.UpdateStatusCargoCTO;
+import main.core.cargo.DTO.UpdateStatusCargoDTO;
 import main.model.logistic.Cargo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class CargoCRUDController {
     }
 
     @PutMapping("/update/")
-    public void updateCargo(@RequestBody UpdateStatusCargoCTO cargo) {
-       service.update(cargo);
+    public void updateCargo(@RequestBody UpdateStatusCargoDTO cargo) {
+      service.update(cargo);
     }
 }

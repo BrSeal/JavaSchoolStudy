@@ -37,7 +37,7 @@ public class Waypoint extends IdClass {
     private int pathLength;
 
     @Column(name = "is_done")
-    private boolean isDone;
+    private boolean done;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH,

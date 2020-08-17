@@ -8,9 +8,9 @@ import main.model.users.Driver;
 
 import java.util.List;
 
-import static main.core.order.services.OrderCalculator.calculateOrderWorkTimeFirstMonth;
+import static main.core.order.services.OrderLogic.calculateOrderWorkTimeFirstMonth;
 
-public class OrderUpdateChecker {
+public class OrderCheckProvider {
 
     private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle №%d is too low! Need at least %d.";
     private static final String NOT_ENOUGH_HOURS_ERR = "Driver №%d would be overworked!";
@@ -21,6 +21,7 @@ public class OrderUpdateChecker {
     private static final String BROKEN_VEHICLE_ERR = "Vehicle №%d is broken and can't be used!";
     private static final String ORDER_STARTED_ERR = "Order №%d is already in work!";
     private static final String DUTY_SIZE_ERR = "You selected too many drivens! Assigned vehicle can handle only %d person/s";
+    private static final String ORDER_ALREADY_COMPLETED_ERR = "Order №%d is already completed!";
 
     private static final int WORK_HOURS_PER_MONTH = 176;
 
@@ -82,5 +83,10 @@ public class OrderUpdateChecker {
 
         if (capacity < maxLoad) throw
                 new IllegalArgumentException(String.format(LOW_CAPACITY_ERR, vehicle.getId(), maxLoad));
+    }
+
+    public static void  isOrderCompleted(Order order){
+        if(order.isCompleted()) throw new IllegalArgumentException(String.format(ORDER_ALREADY_COMPLETED_ERR, order.getId()));
+
     }
 }
