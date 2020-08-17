@@ -1,8 +1,10 @@
 package main.core.driver;
 
+import main.core.cargo.DTO.UpdateStatusCargoCTO;
 import main.core.driver.DTO.DriverDTO;
 import main.core.driver.DTO.DriverDeskInfoDTO;
 import main.core.driver.DTO.DriverInfoDTO;
+import main.core.driver.DTO.UpdateStatusDriverDTO;
 import main.model.users.Driver;
 
 import java.util.List;
@@ -14,9 +16,11 @@ public interface DriverService {
 
     List<DriverInfoDTO> getByOrderId(int orderId);
 
-    int save(DriverDTO e);
+    int save(DriverDTO dto);
 
-    int update(DriverInfoDTO e);
+    int update(DriverInfoDTO dto);
+
+    int update(UpdateStatusDriverDTO dto);
 
     int delete(int id);
 

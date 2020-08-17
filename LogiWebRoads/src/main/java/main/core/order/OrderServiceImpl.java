@@ -28,10 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private final RoadRepository roadRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository,
-                            VehicleRepository vehicleRepository,
-                            DriverRepository driverRepository,
-                            RoadRepository roadRepository)
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository)
     {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;

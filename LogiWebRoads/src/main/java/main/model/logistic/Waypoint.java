@@ -39,7 +39,13 @@ public class Waypoint extends IdClass {
     @Column(name = "is_done")
     private boolean isDone;
 
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    }
+    )
     @JoinColumn(name = "order_id")
     Order order;
 }

@@ -1,9 +1,6 @@
 package main.core.driver;
 
-import main.core.driver.DTO.DriverDTO;
-import main.core.driver.DTO.DriverDeskInfoDTO;
-import main.core.driver.DTO.DriverInfoDTO;
-import main.core.driver.DTO.NewDriverDTO;
+import main.core.driver.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +38,11 @@ public class DriverCRUDController {
 
     @PostMapping("/update/")
     public int updateDriver(@RequestBody DriverInfoDTO dto) {
+        return service.update(dto);
+    }
+
+    @PutMapping("/updateStatus/")
+    public int updateDriver(@RequestBody UpdateStatusDriverDTO dto) {
         return service.update(dto);
     }
 
