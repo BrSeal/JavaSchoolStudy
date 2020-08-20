@@ -23,7 +23,6 @@ public class InfoOrderDTO implements OrderDTO {
     private boolean isCompleted;
     private String creationDate;
     private List<WaypointDTO> waypoints;
-    private int currentOrder;
     private List<Integer> assignedDrivers;
     private int assignedVehicle;
 
@@ -35,7 +34,7 @@ public class InfoOrderDTO implements OrderDTO {
 
         waypoints = o.getWaypoints().stream()
                 .map(WaypointDTO::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());                                                                         
 
         if (o.getAssignedDrivers() == null) {
             assignedDrivers = null;

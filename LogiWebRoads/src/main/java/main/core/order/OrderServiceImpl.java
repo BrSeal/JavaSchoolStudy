@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static main.core.order.services.OrderCheckProvider.*;
 import static main.core.order.services.OrderLogic.calculateMaxLoad;
 import static main.core.order.services.OrderLogic.calculateRoute;
-import static main.core.order.services.OrderCheckProvider.*;
 
 @Service
 @Transactional

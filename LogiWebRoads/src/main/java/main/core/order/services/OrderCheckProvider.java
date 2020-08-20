@@ -22,6 +22,8 @@ public class OrderCheckProvider {
     private static final String ORDER_STARTED_ERR = "Order №%d is already in work!";
     private static final String DUTY_SIZE_ERR = "You selected too many drivens! Assigned vehicle can handle only %d person/s";
     private static final String ORDER_ALREADY_COMPLETED_ERR = "Order №%d is already completed!";
+    private static final String NO_DRIVERS_ASSIGNED_ERR = "No drivers assigned! Please assign at least one driver!";
+
 
     private static final int WORK_HOURS_PER_MONTH = 176;
 
@@ -88,5 +90,9 @@ public class OrderCheckProvider {
     public static void  isOrderCompleted(Order order){
         if(order.isCompleted()) throw new IllegalArgumentException(String.format(ORDER_ALREADY_COMPLETED_ERR, order.getId()));
 
+    }
+
+    public static void isDriverListEmptyOrNull(List<Integer> driverIds){
+        if (driverIds == null || driverIds.isEmpty()) throw new IllegalArgumentException(NO_DRIVERS_ASSIGNED_ERR);
     }
 }

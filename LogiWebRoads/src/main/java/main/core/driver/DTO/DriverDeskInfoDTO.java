@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.core.exceptions.DtoConvertForbiddenException;
 import main.core.waypoint.WaypointDTO;
 import main.model.logistic.Order;
 import main.model.users.Driver;
@@ -46,6 +47,6 @@ public class DriverDeskInfoDTO implements DriverDTO{
     }
     @Override
     public Driver toDriver() {
-       return null;
+        throw new DtoConvertForbiddenException();
     }
 }

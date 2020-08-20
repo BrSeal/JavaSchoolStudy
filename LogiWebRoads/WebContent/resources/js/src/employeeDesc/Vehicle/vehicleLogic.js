@@ -1,4 +1,7 @@
-const showVehicles = function () {
+import React from "react";
+import ReactDOM from "react-dom";
+
+export function showVehicles() {
     $.ajax({
         method: "GET",
         url: '../vehicle/',

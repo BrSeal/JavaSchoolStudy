@@ -12,24 +12,13 @@ import main.model.logistic.CargoStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewCargoDTO implements CargoDTO{
-    private int id;
     private String name;
     private int weight;
-    private CargoStatus status;
-
-    public NewCargoDTO(Cargo c){
-        id=c.getId();
-        name=c.getName();
-        weight=c.getWeight();
-        status=c.getStatus();
-    }
 
     public Cargo toCargo(){
         if(name==null||name.isEmpty()) throw new IllegalArgumentException("Cargo name is empty!");
         if(weight<=0) throw new IllegalArgumentException("Weight can't be 0 or less!");
 
-        Cargo cargo=new Cargo(name,weight,status);
-        cargo.setId(id);
-        return cargo;
+        return new Cargo(name,weight,CargoStatus.PREPARED);
     }
 }

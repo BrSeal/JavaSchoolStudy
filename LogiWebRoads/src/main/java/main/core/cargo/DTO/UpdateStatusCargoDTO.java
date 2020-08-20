@@ -1,13 +1,11 @@
 package main.core.cargo.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import main.model.logistic.Cargo;
 import main.model.logistic.CargoStatus;
-
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Getter
 @Setter

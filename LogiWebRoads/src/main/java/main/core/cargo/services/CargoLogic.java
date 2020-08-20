@@ -7,9 +7,12 @@ import java.util.List;
 
 import static main.core.cargo.services.CargoCheckProvider.updateCheck;
 import static main.core.order.services.OrderCheckProvider.isOrderCompleted;
-import static main.model.logistic.CargoStatus.*;
-import static main.model.logistic.WaypointType.*;
-import static main.model.users.DriverStatus.*;
+import static main.model.logistic.CargoStatus.DELIVERED;
+import static main.model.logistic.CargoStatus.TRANSPORTING;
+import static main.model.logistic.WaypointType.LOAD;
+import static main.model.logistic.WaypointType.UNLOAD;
+import static main.model.users.DriverStatus.ON_DUTY_DRIVING;
+import static main.model.users.DriverStatus.ON_REST;
 
 public class CargoLogic {
 

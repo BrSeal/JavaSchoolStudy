@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.model.logistic.City;
-import main.model.logistic.Vehicle;
 import main.model.logistic.Order;
+import main.model.logistic.Vehicle;
 
 @Getter
 @Setter
