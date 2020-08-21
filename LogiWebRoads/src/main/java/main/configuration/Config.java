@@ -1,6 +1,8 @@
 package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import main.core.cargo.services.CargoCheckProvider;
+import main.core.cargo.services.CargoLogic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -78,5 +80,15 @@ public class Config implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+
+    @Bean
+    public CargoCheckProvider cargoCheckProvider(){
+        return new CargoCheckProvider();
+    }
+
+    @Bean
+    public CargoLogic cargoLogic(){
+        return new CargoLogic(cargoCheckProvider());
     }
 }

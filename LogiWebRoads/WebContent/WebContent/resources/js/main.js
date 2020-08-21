@@ -7680,9 +7680,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _NavigationBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavigationBar */ "./resources/js/src/NavigationBar.js");
-/* harmony import */ var _MainContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MainContainer */ "./resources/js/src/MainContainer.js");
-/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Footer */ "./resources/js/src/Footer.js");
+/* harmony import */ var _employeeDesc_Vehicle_vehicleLogic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./employeeDesc/Vehicle/vehicleLogic */ "./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js");
+/* harmony import */ var _employeeDesc_Order_orderLogic__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./employeeDesc/Order/orderLogic */ "./resources/js/src/employeeDesc/Order/orderLogic.js");
+/* harmony import */ var _employeeDesc_Driver_driverLogic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./employeeDesc/Driver/driverLogic */ "./resources/js/src/employeeDesc/Driver/driverLogic.js");
 
 
 
@@ -7691,489 +7691,84 @@ __webpack_require__.r(__webpack_exports__);
 var baseUrl = document.body.dataset.url;
 
 function App() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_NavigationBar__WEBPACK_IMPORTED_MODULE_2__["NavigationBar"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MainContainer__WEBPACK_IMPORTED_MODULE_3__["MainContainer"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Footer__WEBPACK_IMPORTED_MODULE_4__["Footer"], null));
+  var style = {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "rgba(199, 199, 199, 0.56)",
+    paddingLeft: "15px"
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "navbar navbar-expand-md bg-dark navbar-dark sticky-top"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "navbar-brand",
+    href: "#"
+  }, "LogiWeb"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "navbar-toggler navbar-toggler-right",
+    type: "button",
+    "data-toggle": "collapse",
+    "data-target": "#navb",
+    "aria-expanded": "true"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "navbar-toggler-icon"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "navb",
+    className: "navbar-collapse collapse hide"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "navbar-nav"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item active"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "nav-link",
+    href: "#"
+  }, "Employee Desk")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "nav-link",
+    href: "{baseUrl}/"
+  }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "nav-item"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    className: "nav-link",
+    href: "{baseUrl}/about"
+  }, "About"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "buttons",
+    className: "btn-group row",
+    role: "group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: "orders-btn",
+    className: "btn btn-primary",
+    onClick: _employeeDesc_Order_orderLogic__WEBPACK_IMPORTED_MODULE_3__["showOrders"]
+  }, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: "Drivers-btn",
+    className: "btn btn-primary",
+    onClick: _employeeDesc_Driver_driverLogic__WEBPACK_IMPORTED_MODULE_4__["showDrivers"]
+  }, "Drivers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    id: "Vehicles-btn",
+    className: "btn btn-primary",
+    onClick: _employeeDesc_Vehicle_vehicleLogic__WEBPACK_IMPORTED_MODULE_2__["showVehicles"]
+  }, "Vehicles")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "add-button-holder",
+    className: "row"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "content",
+    className: "col-8 p-0"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "details",
+    className: "col-4"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
+    style: style,
+    className: "footer mt-auto py-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-flexible"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LogiWeb: Roads"))));
 }
 
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.getElementById('root'));
-
-/***/ }),
-
-/***/ "./resources/js/src/Footer.js":
-/*!************************************!*\
-  !*** ./resources/js/src/Footer.js ***!
-  \************************************/
-/*! exports provided: Footer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Footer", function() { return Footer; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-var Footer = /*#__PURE__*/function (_Component) {
-  _inherits(Footer, _Component);
-
-  var _super = _createSuper(Footer);
-
-  function Footer() {
-    _classCallCheck(this, Footer);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(Footer, [{
-    key: "render",
-    value: function render() {
-      var style = {
-        position: "absolute",
-        bottom: 0,
-        width: "100%",
-        backgroundColor: "rgba(199, 199, 199, 0.56)",
-        paddingLeft: "15px"
-      };
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
-        style: style,
-        className: "footer mt-auto py-3"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container-flexible"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "LogiWeb: Roads")));
-    }
-  }]);
-
-  return Footer;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/MainContainer.js":
-/*!*******************************************!*\
-  !*** ./resources/js/src/MainContainer.js ***!
-  \*******************************************/
-/*! exports provided: MainContainer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainContainer", function() { return MainContainer; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _employeeDesc_Order_orderLogic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./employeeDesc/Order/orderLogic */ "./resources/js/src/employeeDesc/Order/orderLogic.js");
-/* harmony import */ var _employeeDesc_Driver_driverLogic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./employeeDesc/Driver/driverLogic */ "./resources/js/src/employeeDesc/Driver/driverLogic.js");
-/* harmony import */ var _employeeDesc_Vehicle_vehicleLogic__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./employeeDesc/Vehicle/vehicleLogic */ "./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-var MainContainer = /*#__PURE__*/function (_Component) {
-  _inherits(MainContainer, _Component);
-
-  var _super = _createSuper(MainContainer);
-
-  function MainContainer() {
-    _classCallCheck(this, MainContainer);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(MainContainer, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "buttons",
-        className: "btn-group row",
-        role: "group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "orders-btn",
-        className: "btn btn-primary",
-        onClick: _employeeDesc_Order_orderLogic__WEBPACK_IMPORTED_MODULE_1__["showOrders"]
-      }, "Orders"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "Drivers-btn",
-        className: "btn btn-primary",
-        onClick: _employeeDesc_Driver_driverLogic__WEBPACK_IMPORTED_MODULE_2__["showDrivers"]
-      }, "Drivers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "Vehicles-btn",
-        className: "btn btn-primary",
-        onClick: _employeeDesc_Vehicle_vehicleLogic__WEBPACK_IMPORTED_MODULE_3__["showVehicles"]
-      }, "Vehicles")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "add-button-holder",
-        className: "row"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "content",
-        className: "col-8 p-0"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "details",
-        className: "col-4"
-      })));
-    }
-  }]);
-
-  return MainContainer;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/NavigationBar.js":
-/*!*******************************************!*\
-  !*** ./resources/js/src/NavigationBar.js ***!
-  \*******************************************/
-/*! exports provided: NavigationBar */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavigationBar", function() { return NavigationBar; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App */ "./resources/js/src/App.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var NavigationBar = /*#__PURE__*/function (_Component) {
-  _inherits(NavigationBar, _Component);
-
-  var _super = _createSuper(NavigationBar);
-
-  function NavigationBar() {
-    _classCallCheck(this, NavigationBar);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(NavigationBar, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-        className: "navbar navbar-expand-md bg-dark navbar-dark sticky-top"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "navbar-brand",
-        href: "#"
-      }, "LogiWeb"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "navbar-toggler navbar-toggler-right",
-        type: "button",
-        "data-toggle": "collapse",
-        "data-target": "#navb",
-        "aria-expanded": "true"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "navbar-toggler-icon"
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "navb",
-        className: "navbar-collapse collapse hide"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "navbar-nav"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item active"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "nav-link",
-        href: "#"
-      }, "Employee Desk")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "nav-link",
-        href: _App__WEBPACK_IMPORTED_MODULE_1__["baseUrl"] + "/"
-      }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "nav-link",
-        href: _App__WEBPACK_IMPORTED_MODULE_1__["baseUrl"] + "/about"
-      }, "About")))));
-    }
-  }]);
-
-  return NavigationBar;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Driver/DriverAddButton.js":
-/*!*****************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Driver/DriverAddButton.js ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _DriverForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DriverForm */ "./resources/js/src/employeeDesc/Driver/DriverForm.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-var DriverAddButton = /*#__PURE__*/function (_Component) {
-  _inherits(DriverAddButton, _Component);
-
-  var _super = _createSuper(DriverAddButton);
-
-  function DriverAddButton() {
-    _classCallCheck(this, DriverAddButton);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(DriverAddButton, [{
-    key: "render",
-    value: function render() {
-      var driver = {
-        firstName: '',
-        lastName: '',
-        currentCityId: 0
-      };
-
-      var showForm = function showForm() {
-        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DriverForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          action: "new",
-          driver: driver
-        }), document.getElementById('details'));
-      };
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-sm btn-primary",
-        onClick: showForm
-      }, "Add driver");
-    }
-  }]);
-
-  return DriverAddButton;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (DriverAddButton);
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Driver/DriverForm.js":
-/*!************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Driver/DriverForm.js ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-var DriverForm = /*#__PURE__*/function (_Component) {
-  _inherits(DriverForm, _Component);
-
-  var _super = _createSuper(DriverForm);
-
-  function DriverForm(props) {
-    var _this;
-
-    _classCallCheck(this, DriverForm);
-
-    _this = _super.call(this, props);
-    var action = _this.props.action;
-    var method = action === 'new' ? 'POST' : 'PUT';
-    var url = action === 'new' ? 'new/' : 'update/';
-    var active = action === 'new';
-    _this.state = {
-      driver: _this.props.driver,
-      method: method,
-      url: url,
-      active: active
-    };
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  _createClass(DriverForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(e) {
-      var driver = this.state.driver;
-      var target = e.target;
-      var value = target.value;
-      var name = target.name;
-      driver[name] = value;
-      this.setState({
-        driver: driver
-      });
-    }
-  }, {
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      var data = this.state.driver;
-      var url = this.state.url;
-      var method = this.state.method;
-      $.ajax({
-        method: method,
-        url: '../driver/' + url,
-        contentType: "application/json",
-        data: data,
-        success: function success(response) {
-          alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
-        },
-        error: function error(response) {
-          alert(response);
-        }
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var options = _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].cities.forEach(function (id, city) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: city.id
-        }, city.name);
-      });
-      var updateDriverInputs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "optional inputs");
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Driver form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Registration number:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "form-control",
-        name: "firstName",
-        type: "text",
-        defaultValue: this.state.driver.firstName,
-        onChange: this.handleInputChange,
-        required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Capacity:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "form-control",
-        name: "lastName",
-        type: "text",
-        defaultValue: this.state.driver.firstName,
-        onChange: this.handleInputChange,
-        required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-        className: "form-control",
-        name: "currentCityId",
-        defaultValue: this.state.driver.currentCityId,
-        onChange: this.handleInputChange
-      }, options), this.state.method === "POST" ? '' : updateDriverInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "btn btn-sm btn-secondary",
-        type: "submit",
-        value: "Save"
-      })));
-    }
-  }]);
-
-  return DriverForm;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/* harmony default export */ __webpack_exports__["default"] = (DriverForm);
 
 /***/ }),
 
@@ -8191,33 +7786,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _DriverAddButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DriverAddButton */ "./resources/js/src/employeeDesc/Driver/DriverAddButton.js");
-
-
-
-function showDrivers() {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DriverAddButton__WEBPACK_IMPORTED_MODULE_2__["default"], null), document.getElementById('add-button-holder'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('content'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-}
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Order/OrderAddButton.js":
-/*!***************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Order/OrderAddButton.js ***!
-  \***************************************************************/
-/*! exports provided: OrderAddButton */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderAddButton", function() { return OrderAddButton; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _OrderForm_OrderForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OrderForm/OrderForm */ "./resources/js/src/employeeDesc/Order/OrderForm/OrderForm.js");
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8243,273 +7812,36 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var OrderAddButton = /*#__PURE__*/function (_Component) {
-  _inherits(OrderAddButton, _Component);
+function showDrivers() {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DriverAddButton, null), document.getElementById('add-button-holder'));
+}
 
-  var _super = _createSuper(OrderAddButton);
+var DriverAddButton = /*#__PURE__*/function (_Component) {
+  _inherits(DriverAddButton, _Component);
 
-  function OrderAddButton() {
-    _classCallCheck(this, OrderAddButton);
+  var _super = _createSuper(DriverAddButton);
+
+  function DriverAddButton() {
+    _classCallCheck(this, DriverAddButton);
 
     return _super.apply(this, arguments);
   }
 
-  _createClass(OrderAddButton, [{
+  _createClass(DriverAddButton, [{
     key: "render",
     value: function render() {
       var showForm = function showForm() {
-        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderForm_OrderForm__WEBPACK_IMPORTED_MODULE_2__["OrderForm"], null), document.getElementById('details'));
+        alert(_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cities.get(1).name);
       };
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-primary",
         onClick: showForm
-      }, "Add order");
+      }, "Add driver");
     }
   }]);
 
-  return OrderAddButton;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectForm.js":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectForm.js ***!
-  \*****************************************************************************/
-/*! exports provided: DeliveryObjectForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeliveryObjectForm", function() { return DeliveryObjectForm; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-var DeliveryObjectForm = /*#__PURE__*/function (_Component) {
-  _inherits(DeliveryObjectForm, _Component);
-
-  var _super = _createSuper(DeliveryObjectForm);
-
-  function DeliveryObjectForm(props) {
-    var _this;
-
-    _classCallCheck(this, DeliveryObjectForm);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      deliveryObject: {
-        cargo: {
-          name: '',
-          weight: 0
-        },
-        from: 0,
-        to: 0
-      }
-    };
-    return _this;
-  }
-
-  _createClass(DeliveryObjectForm, [{
-    key: "render",
-    value: function render() {
-      return null;
-    }
-  }]);
-
-  return DeliveryObjectForm;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectsTable.js":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectsTable.js ***!
-  \*******************************************************************************/
-/*! exports provided: DeliveryObjectsTable */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DeliveryObjectsTable", function() { return DeliveryObjectsTable; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var DeliveryObjectsTable = /*#__PURE__*/function (_Component) {
-  _inherits(DeliveryObjectsTable, _Component);
-
-  var _super = _createSuper(DeliveryObjectsTable);
-
-  function DeliveryObjectsTable() {
-    _classCallCheck(this, DeliveryObjectsTable);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(DeliveryObjectsTable, [{
-    key: "render",
-    value: function render() {
-      var deliveryObjects = this.props.objects.map(function (object) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, object.cargo.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, object.cargo.weight), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].get(object.from).name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].get(object.to).name));
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-        className: "table table-striped"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
-        className: "thead-light"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "Cargo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "weight"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "From"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "To"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, deliveryObjects));
-    }
-  }]);
-
-  return DeliveryObjectsTable;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-/***/ }),
-
-/***/ "./resources/js/src/employeeDesc/Order/OrderForm/OrderForm.js":
-/*!********************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Order/OrderForm/OrderForm.js ***!
-  \********************************************************************/
-/*! exports provided: OrderForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderForm", function() { return OrderForm; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _DeliveryObjectsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeliveryObjectsTable */ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectsTable.js");
-/* harmony import */ var _DeliveryObjectForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeliveryObjectForm */ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectForm.js");
-/* harmony import */ var _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../resourceHandler/repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-
-var OrderForm = /*#__PURE__*/function (_Component) {
-  _inherits(OrderForm, _Component);
-
-  var _super = _createSuper(OrderForm);
-
-  function OrderForm(props) {
-    var _this;
-
-    _classCallCheck(this, OrderForm);
-
-    _this = _super.call(this, props);
-    _this.state = {
-      order: {
-        deliveryObjects: []
-      }
-    };
-    return _this;
-  }
-
-  _createClass(OrderForm, [{
-    key: "addDeliveryObj",
-    value: function addDeliveryObj(obj) {
-      var o = this.state.order;
-      o.deliveryObjects.push(obj);
-      this.setState({
-        order: o
-      });
-    }
-  }, {
-    key: "saveOrder",
-    value: function saveOrder() {
-      _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__["default"].save(this.state.order);
-      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DeliveryObjectsTable__WEBPACK_IMPORTED_MODULE_2__["DeliveryObjectsTable"], {
-        func: this.addDeliveryObj
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DeliveryObjectForm__WEBPACK_IMPORTED_MODULE_3__["DeliveryObjectForm"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-sm btn-secondary",
-        onClick: this.saveOrder
-      }, "Submit")), document.getElementById('details'));
-    }
-  }]);
-
-  return OrderForm;
+  return DriverAddButton;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /***/ }),
@@ -8553,19 +7885,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _OrderTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OrderTable */ "./resources/js/src/employeeDesc/Order/OrderTable.js");
-/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
-/* harmony import */ var _OrderAddButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OrderAddButton */ "./resources/js/src/employeeDesc/Order/OrderAddButton.js");
-
-
 
 
 
 function showOrders() {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderTable__WEBPACK_IMPORTED_MODULE_2__["OrderTable"], {
-    orders: _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_3__["default"].orders
-  }), document.getElementById('content'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderAddButton__WEBPACK_IMPORTED_MODULE_4__["OrderAddButton"], null), document.getElementById('add-button-holder'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+  $.ajax({
+    method: "GET",
+    url: '../order/',
+    success: function success(response) {
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderTable__WEBPACK_IMPORTED_MODULE_2__["OrderTable"], {
+        orders: response
+      }), document.getElementById('content'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+    }
+  });
 }
 
 /***/ }),
@@ -8584,7 +7917,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -8611,13 +7943,18 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 function showVehicles() {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehiclesTable, {
-    vehicles: _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].vehicles
-  }), document.getElementById('content'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleAddButton, null), document.getElementById('add-button-holder'));
+  $.ajax({
+    method: "GET",
+    url: '../vehicle/',
+    success: function success(response) {
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehiclesTable, {
+        vehicles: response
+      }), document.getElementById('content'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleAddButton, null), document.getElementById('add-button-holder'));
+    }
+  });
 }
 
 var VehiclesTable = /*#__PURE__*/function (_React$Component) {
@@ -8658,22 +7995,54 @@ var VehiclesTable = /*#__PURE__*/function (_React$Component) {
         scope: "col"
       }, "Order"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
         scope: "col"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null));
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, vehiclesResult));
     }
   }]);
 
   return VehiclesTable;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var VehicleDetails = /*#__PURE__*/function (_React$Component2) {
-  _inherits(VehicleDetails, _React$Component2);
+var VehicleInfoButton = /*#__PURE__*/function (_React$Component2) {
+  _inherits(VehicleInfoButton, _React$Component2);
 
-  var _super2 = _createSuper(VehicleDetails);
+  var _super2 = _createSuper(VehicleInfoButton);
+
+  function VehicleInfoButton() {
+    _classCallCheck(this, VehicleInfoButton);
+
+    return _super2.apply(this, arguments);
+  }
+
+  _createClass(VehicleInfoButton, [{
+    key: "render",
+    value: function render() {
+      var vehicle = this.props.vehicle;
+
+      var showDetails = function showDetails() {
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleDetails, {
+          vehicle: vehicle
+        }), document.getElementById('details'));
+      };
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-secondary",
+        onClick: showDetails
+      }, "Details");
+    }
+  }]);
+
+  return VehicleInfoButton;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var VehicleDetails = /*#__PURE__*/function (_React$Component3) {
+  _inherits(VehicleDetails, _React$Component3);
+
+  var _super3 = _createSuper(VehicleDetails);
 
   function VehicleDetails() {
     _classCallCheck(this, VehicleDetails);
 
-    return _super2.apply(this, arguments);
+    return _super3.apply(this, arguments);
   }
 
   _createClass(VehicleDetails, [{
@@ -8691,15 +8060,15 @@ var VehicleDetails = /*#__PURE__*/function (_React$Component2) {
   return VehicleDetails;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var VehicleUpdateButton = /*#__PURE__*/function (_React$Component3) {
-  _inherits(VehicleUpdateButton, _React$Component3);
+var VehicleUpdateButton = /*#__PURE__*/function (_React$Component4) {
+  _inherits(VehicleUpdateButton, _React$Component4);
 
-  var _super3 = _createSuper(VehicleUpdateButton);
+  var _super4 = _createSuper(VehicleUpdateButton);
 
   function VehicleUpdateButton() {
     _classCallCheck(this, VehicleUpdateButton);
 
-    return _super3.apply(this, arguments);
+    return _super4.apply(this, arguments);
   }
 
   _createClass(VehicleUpdateButton, [{
@@ -8732,15 +8101,15 @@ var VehicleUpdateButton = /*#__PURE__*/function (_React$Component3) {
   return VehicleUpdateButton;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var VehicleDeleteButton = /*#__PURE__*/function (_React$Component4) {
-  _inherits(VehicleDeleteButton, _React$Component4);
+var VehicleDeleteButton = /*#__PURE__*/function (_React$Component5) {
+  _inherits(VehicleDeleteButton, _React$Component5);
 
-  var _super4 = _createSuper(VehicleDeleteButton);
+  var _super5 = _createSuper(VehicleDeleteButton);
 
   function VehicleDeleteButton() {
     _classCallCheck(this, VehicleDeleteButton);
 
-    return _super4.apply(this, arguments);
+    return _super5.apply(this, arguments);
   }
 
   _createClass(VehicleDeleteButton, [{
@@ -8769,15 +8138,15 @@ var VehicleDeleteButton = /*#__PURE__*/function (_React$Component4) {
   return VehicleDeleteButton;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var VehicleAddButton = /*#__PURE__*/function (_React$Component5) {
-  _inherits(VehicleAddButton, _React$Component5);
+var VehicleAddButton = /*#__PURE__*/function (_React$Component6) {
+  _inherits(VehicleAddButton, _React$Component6);
 
-  var _super5 = _createSuper(VehicleAddButton);
+  var _super6 = _createSuper(VehicleAddButton);
 
   function VehicleAddButton() {
     _classCallCheck(this, VehicleAddButton);
 
-    return _super5.apply(this, arguments);
+    return _super6.apply(this, arguments);
   }
 
   _createClass(VehicleAddButton, [{
@@ -8817,17 +8186,17 @@ var VehicleAddButton = /*#__PURE__*/function (_React$Component5) {
   return VehicleAddButton;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var VehicleForm = /*#__PURE__*/function (_React$Component6) {
-  _inherits(VehicleForm, _React$Component6);
+var VehicleForm = /*#__PURE__*/function (_React$Component7) {
+  _inherits(VehicleForm, _React$Component7);
 
-  var _super6 = _createSuper(VehicleForm);
+  var _super7 = _createSuper(VehicleForm);
 
   function VehicleForm(props) {
     var _this2;
 
     _classCallCheck(this, VehicleForm);
 
-    _this2 = _super6.call(this, props);
+    _this2 = _super7.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this2), "vehicle", _this2.props.vehicle);
 
@@ -8942,9 +8311,6 @@ var VehicleForm = /*#__PURE__*/function (_React$Component6) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
-/* harmony import */ var _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./repositories/CityRepository */ "./resources/js/src/resourceHandler/repositories/CityRepository.js");
-/* harmony import */ var _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -8953,21 +8319,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-
-
-
 var ResourceService = /*#__PURE__*/function () {
   function ResourceService() {
     _classCallCheck(this, ResourceService);
 
-    this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
-    this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+    this.drivers = this.initDrivers();
+    this.orders = this.initOrders();
     this.vehicles = this.initVehicles();
     this.cargos = this.initCargos();
-    this.cities = _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
+    this.cities = this.initCities();
   }
 
   _createClass(ResourceService, [{
+    key: "initCities",
+    value: function initCities() {
+      var cities = new Map();
+      $.get("../city/").done(function (response) {
+        response.map(function (item, index) {
+          return cities.set(item.id, item);
+        });
+      }).fail(function (response) {
+        console.log(response);
+      });
+      return cities;
+    }
+  }, {
     key: "initDrivers",
     value: function initDrivers() {
       var drivers = new Map();
@@ -8998,6 +8374,21 @@ var ResourceService = /*#__PURE__*/function () {
       return cargos;
     }
   }, {
+    key: "initOrders",
+    value: function initOrders() {
+      var orders = new Map();
+      $.ajax({
+        method: "GET",
+        url: '../order/',
+        success: function success(response) {
+          response.forEach(function (item, index) {
+            return orders.set(item.id, item);
+          });
+        }
+      });
+      return orders;
+    }
+  }, {
     key: "initVehicles",
     value: function initVehicles() {
       var vehicles = new Map();
@@ -9019,163 +8410,6 @@ var ResourceService = /*#__PURE__*/function () {
 
 var resources = new ResourceService();
 /* harmony default export */ __webpack_exports__["default"] = (resources);
-
-/***/ }),
-
-/***/ "./resources/js/src/resourceHandler/repositories/CityRepository.js":
-/*!*************************************************************************!*\
-  !*** ./resources/js/src/resourceHandler/repositories/CityRepository.js ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var CityRepository = /*#__PURE__*/function () {
-  function CityRepository() {
-    _classCallCheck(this, CityRepository);
-  }
-
-  _createClass(CityRepository, [{
-    key: "init",
-    value: function init() {
-      $.get("../city/").done(function (response) {
-        return response.map(function (item, index) {
-          return cities.set(item.id, item);
-        });
-      }).fail(function (response) {
-        console.log(response);
-      });
-    }
-  }, {
-    key: "getCity",
-    value: function getCity(id) {
-      $.get("../city/" + id).done(function (response) {
-        return response.map(function (item, index) {
-          return cities.set(item.id, item);
-        });
-      }).fail(function (response) {
-        console.log(response);
-      });
-    }
-  }]);
-
-  return CityRepository;
-}();
-
-var cityRepository = new CityRepository();
-/* harmony default export */ __webpack_exports__["default"] = (cityRepository);
-
-/***/ }),
-
-/***/ "./resources/js/src/resourceHandler/repositories/DriverRepository.js":
-/*!***************************************************************************!*\
-  !*** ./resources/js/src/resourceHandler/repositories/DriverRepository.js ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var DriverRepository = /*#__PURE__*/function () {
-  function DriverRepository() {
-    _classCallCheck(this, DriverRepository);
-  }
-
-  _createClass(DriverRepository, [{
-    key: "init",
-    value: function init() {
-      var drivers = new Map();
-      $.ajax({
-        method: "GET",
-        url: '../driver/',
-        success: function success(response) {
-          response.forEach(function (item, index) {
-            return drivers.set(item.id, item);
-          });
-        }
-      });
-      return drivers;
-    }
-  }]);
-
-  return DriverRepository;
-}();
-
-var driverRepository = new DriverRepository();
-/* harmony default export */ __webpack_exports__["default"] = (driverRepository);
-
-/***/ }),
-
-/***/ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js":
-/*!**************************************************************************!*\
-  !*** ./resources/js/src/resourceHandler/repositories/OrderRepositoty.js ***!
-  \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var OrderRepository = /*#__PURE__*/function () {
-  function OrderRepository() {
-    _classCallCheck(this, OrderRepository);
-  }
-
-  _createClass(OrderRepository, [{
-    key: "init",
-    value: function init() {
-      var orders = new Map();
-      $.ajax({
-        method: "GET",
-        url: '../order/',
-        success: function success(response) {
-          response.forEach(function (item, index) {
-            return orders.set(item.id, item);
-          });
-        }
-      });
-      return orders;
-    }
-  }, {
-    key: "save",
-    value: function save(order) {
-      $.ajax({
-        method: "POST",
-        url: '../order/new/',
-        data: order,
-        success: function success(response) {
-          alert('Order #' + response + ' was successfully saved!');
-        },
-        error: function error(response) {
-          alert(response);
-        }
-      });
-    }
-  }]);
-
-  return OrderRepository;
-}();
-
-var orderRepository = new OrderRepository();
-/* harmony default export */ __webpack_exports__["default"] = (orderRepository);
 
 /***/ })
 

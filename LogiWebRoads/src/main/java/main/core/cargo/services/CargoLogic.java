@@ -2,10 +2,10 @@ package main.core.cargo.services;
 
 import main.model.logistic.*;
 import main.model.users.Driver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static main.core.cargo.services.CargoCheckProvider.updateCheck;
 import static main.core.order.services.OrderCheckProvider.isOrderCompleted;
 import static main.model.logistic.CargoStatus.DELIVERED;
 import static main.model.logistic.CargoStatus.TRANSPORTING;
@@ -16,14 +16,22 @@ import static main.model.users.DriverStatus.ON_REST;
 
 public class CargoLogic {
 
+    CargoCheckProvider checkIf;
 
-    public static void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
+    @Autowired
+    public CargoLogic(CargoCheckProvider checkIf) {
+        this.checkIf = checkIf;
+    }
+
+    public void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
+        checkIf.exists(cargo);
+
         CargoStatus cargoStatus = cargo.getStatus();
         CargoStatus dtoStatus = dto.getStatus();
 
         List<Driver> drivers=order.getAssignedDrivers();
 
-        updateCheck(drivers,cargoStatus, dtoStatus);
+        checkIf.canBeUpdated(drivers,cargoStatus, dtoStatus);
 
         cargo.setStatus(dtoStatus);
         if (dtoStatus == TRANSPORTING) transportingStatusUpdateLogic(order, cargo);
@@ -31,7 +39,7 @@ public class CargoLogic {
 
     }
 
-    private static void transportingStatusUpdateLogic(Order order, Cargo cargo) {
+    private void transportingStatusUpdateLogic(Order order, Cargo cargo) {
         Waypoint waypoint = order.getWaypoints().stream()
                 .filter(w -> w.getCargo() == cargo && w.getType() == LOAD)
                 .findFirst()
@@ -43,7 +51,7 @@ public class CargoLogic {
         incrementDriversWorkHours(order.getAssignedDrivers(), waypoint.getPathLength());
     }
 
-    private static void deliveredStatusUpdateLogic(Order order, Cargo cargo) {
+    private void deliveredStatusUpdateLogic(Order order, Cargo cargo) {
         List<Waypoint> waypoints = order.getWaypoints();
         Waypoint waypoint = waypoints.stream()
                 .filter(w -> w.getCargo() == cargo && w.getType() == UNLOAD)
@@ -55,7 +63,7 @@ public class CargoLogic {
         incrementDriversWorkHours(order.getAssignedDrivers(), waypoint.getPathLength());
     }
 
-    private static void ifWasLastWaypoint(Order order) {
+    private void ifWasLastWaypoint(Order order) {
 
         isOrderCompleted(order);
 
@@ -67,12 +75,12 @@ public class CargoLogic {
         order.getAssignedVehicle().setCurrentOrder(null);
     }
 
-    private static void setCurrentCity(List<Driver> drivers, Vehicle vehicle, City city) {
+    private void setCurrentCity(List<Driver> drivers, Vehicle vehicle, City city) {
         drivers.forEach(d -> d.setCurrentCity(city));
         vehicle.setCurrentCity(city);
     }
 
-    private static void incrementDriversWorkHours(List<Driver> drivers, int amount) {
+    private void incrementDriversWorkHours(List<Driver> drivers, int amount) {
         drivers.forEach(d -> {
             if (d.getStatus() == ON_DUTY_DRIVING) {
                 int updatedValue = d.getHoursWorked() + amount;

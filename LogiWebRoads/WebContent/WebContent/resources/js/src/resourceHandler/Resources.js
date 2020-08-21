@@ -1,18 +1,26 @@
 import React from "react";
-import orderRepository from "./repositories/OrderRepositoty";
-import cityRepository from "./repositories/CityRepository";
-import driverRepository from "./repositories/DriverRepository";
 
 class ResourceService {
     constructor() {
-        this.drivers = driverRepository.init();
-        this.orders = orderRepository.init();
+        this.drivers = this.initDrivers();
+        this.orders = this.initOrders();
         this.vehicles = this.initVehicles();
         this.cargos = this.initCargos();
-        this.cities = cityRepository.init();
+        this.cities = this.initCities();
     }
 
+    initCities() {
+        let cities = new Map();
+        $.get("../city/")
+            .done(function (response) {
 
+                response.map((item, index) => cities.set(item.id, item));
+            })
+            .fail(function (response) {
+                console.log(response);
+            })
+        return cities;
+    }
 
     initDrivers() {
         let drivers= new Map();
@@ -38,7 +46,17 @@ class ResourceService {
         return cargos;
     }
 
-
+    initOrders() {
+        let orders=new Map();
+        $.ajax({
+            method: "GET",
+            url: '../order/',
+            success: function (response) {
+                response.forEach((item, index) => orders.set(item.id, item));
+            }
+        });
+        return orders;
+    }
 
     initVehicles() {
         let vehicles=new Map();

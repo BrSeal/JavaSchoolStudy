@@ -1,18 +1,9 @@
-import React, {Component} from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import resources from "../../resourceHandler/Resources";
+import DriverAddButton from "./DriverAddButton";
 
 export function showDrivers() {
     ReactDOM.render(<DriverAddButton/>, document.getElementById('add-button-holder'));
-}
-
-class DriverAddButton extends Component {
-    render() {
-        const showForm = function () {
-            alert(resources.cities.get(1).name);
-        }
-        return (
-            <button className='btn btn-sm btn-primary' onClick={showForm}>Add driver</button>
-        );
-    }
+    ReactDOM.render('',document.getElementById('content'));
+    ReactDOM.render('',document.getElementById('details'));
 }

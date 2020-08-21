@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import resources from "../../resourceHandler/Resources";
-
 
 export function showVehicles() {
-            ReactDOM.render(<VehiclesTable vehicles={resources.vehicles}/>, document.getElementById('content'));
+    $.ajax({
+        method: "GET",
+        url: '../vehicle/',
+        success: function (response) {
+            ReactDOM.render(<VehiclesTable vehicles={response}/>, document.getElementById('content'));
             ReactDOM.render('', document.getElementById('details'));
             ReactDOM.render(<VehicleAddButton/>, document.getElementById('add-button-holder'));
+        }
+    })
 }
 
 class VehiclesTable extends React.Component {
@@ -36,8 +40,24 @@ class VehiclesTable extends React.Component {
                 </tr>
                 </thead>
                 <tbody>
+                {vehiclesResult}
                 </tbody>
             </table>)
+    }
+}
+
+class VehicleInfoButton extends React.Component {
+    render() {
+        let vehicle = this.props.vehicle;
+        const showDetails = function () {
+            ReactDOM.render(<VehicleDetails vehicle={vehicle}/>,
+                document.getElementById('details')
+            )
+        }
+        return (
+            <button className="btn btn-sm btn-secondary"
+                    onClick={showDetails}>Details</button>
+        );
     }
 }
 

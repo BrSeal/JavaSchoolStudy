@@ -3,6 +3,7 @@ package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
 import main.core.cargo.DTO.InfoCargoDTO;
+import main.core.cargo.services.CargoLogic;
 import main.core.order.OrderRepository;
 import main.core.waypoint.WaypointRepository;
 import main.model.logistic.Cargo;
@@ -15,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.core.cargo.services.CargoLogic.updateStatusLogic;
 import static main.model.logistic.WaypointType.LOAD;
 
 @Service
@@ -25,13 +25,15 @@ public class CargoServiceImpl implements CargoService {
     private final CargoRepository cargoRepository;
     private final WaypointRepository waypointRepository;
     private final OrderRepository orderRepository;
+    private final CargoLogic cargoLogic;
 
     @Autowired
-    public CargoServiceImpl(CargoRepository cargoRepository, WaypointRepository waypointRepository, OrderRepository orderRepository) {
+    public CargoServiceImpl(CargoRepository cargoRepository, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic) {
 
         this.cargoRepository = cargoRepository;
         this.waypointRepository = waypointRepository;
         this.orderRepository = orderRepository;
+        this.cargoLogic = cargoLogic;
     }
 
     @Override
@@ -71,8 +73,8 @@ public class CargoServiceImpl implements CargoService {
         Cargo fromDTO = dto.toCargo();
         Cargo cargo = cargoRepository.get(fromDTO.getId());
         List<Waypoint> waypoints = waypointRepository.getByCargo(cargo);
-        Order order= waypoints.get(0).getOrder();
-        updateStatusLogic(cargo, fromDTO,  order);
+        Order order = waypoints.get(0).getOrder();
+        cargoLogic.updateStatusLogic(cargo, fromDTO, order);
 
         orderRepository.update(order);
     }

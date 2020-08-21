@@ -1,0 +1,1 @@
+В git bash: npm run dev
