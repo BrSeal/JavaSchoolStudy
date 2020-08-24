@@ -1,6 +1,6 @@
 package main.core.driver.DTO;
 
-import main.globalLogic.exceptionHandling.exceptions.DtoConvertForbiddenException;
+import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.model.users.Driver;
 import main.model.users.DriverStatus;
 

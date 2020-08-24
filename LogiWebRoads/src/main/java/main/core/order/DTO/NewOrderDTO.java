@@ -16,22 +16,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewOrderDTO implements OrderDTO {
+    private static final String EMPTY_WAYPOINTS_LIST_ERR = "Add some cargo to deliver!";
     List<DeliveryObject> deliveryObjects;
 
     public Order toOrder() {
         Order order = new Order();
         List<Waypoint> waypoints = new ArrayList<>();
 
+        if(deliveryObjects==null||deliveryObjects.isEmpty()) throw new IllegalArgumentException(EMPTY_WAYPOINTS_LIST_ERR);
+
         deliveryObjects.forEach(obj -> {
 
             Cargo cargo = obj.getCargo().toCargo();
+            validateDeliveryObject(obj);
+
             cargo.setStatus(CargoStatus.PREPARED);
             int from = obj.getCityIdFrom();
-
             int to = obj.getCityIdTo();
 
-            if(from==0) throw new IllegalArgumentException("City from is undefined!");
-            if(to==0) throw new IllegalArgumentException("City from is undefined!");
 
             Waypoint waypointFrom = waypointFromDeliveryObj(from, order, cargo, WaypointType.LOAD);
             Waypoint waypointTo = waypointFromDeliveryObj(to, order, cargo, WaypointType.UNLOAD);
@@ -52,5 +54,20 @@ public class NewOrderDTO implements OrderDTO {
         city.setId(cityId);
 
         return new Waypoint(city, c, type, 0,0, false, o);
+    }
+
+    private void validateDeliveryObject(DeliveryObject d){
+        String cargoName=d.getCargo().getName();
+        int from=d.getCityIdFrom();
+        int to=d.getCityIdTo();
+
+        if(from==0){
+            String errMsg=String.format("Please choose city from of cargo %s!",cargoName);
+            throw new IllegalArgumentException(errMsg);
+        }
+        if(to==0) {
+            String errMsg=String.format("Please choose city to of cargo %s!",cargoName);
+            throw new IllegalArgumentException(errMsg);
+        }
     }
 }

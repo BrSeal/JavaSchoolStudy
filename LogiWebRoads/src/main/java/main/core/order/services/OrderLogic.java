@@ -14,8 +14,9 @@ import static main.model.logistic.WaypointType.LOAD;
 
 public class OrderLogic {
 
-    private static final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-    public static int calculateMaxLoad(List<Waypoint> waypoints) {
+    private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+
+    public int calculateMaxLoad(List<Waypoint> waypoints) {
         waypoints.sort(Comparator.comparingInt(Waypoint::getPathIndex));
 
         int maxLoad = 0;
@@ -32,12 +33,12 @@ public class OrderLogic {
         return maxLoad;
     }
 
-
     /*TODO написать логигку подсчета времени заказа с учетом смены месяцев(
        нужна только первая часть, так как вторая у всех водителей будет полная)
        (рассчитывается по карте городов и путевым точкам)
+       Сейчас считается с момента создания заказа!!!
      */
-    public static int calculateOrderWorkTimeFirstMonth(Order order){
+    public int calculateOrderWorkTimeFirstMonth(Order order){
         Date start=order.getCreationDate();
         Calendar c=Calendar.getInstance();
         c.setTime(start);
@@ -52,7 +53,7 @@ public class OrderLogic {
     }
 
     //TODO Написать логику подсчета пути!!!!!!
-    public static void calculateRoute(Order order,List<Road> roadMap) {
+    public void calculateRoute(Order order,List<Road> roadMap) {
         List<Waypoint> waypoints=order.getWaypoints();
         int count = 1;
         for (Waypoint w : waypoints) {
@@ -63,7 +64,7 @@ public class OrderLogic {
     }
 
     //TODO Написать логику подсчета пути!!!!!! (Дейкстра)
-    private static void calculateRouteLength(List<Waypoint> waypoints,List<Road> roadMap){
+    private void calculateRouteLength(List<Waypoint> waypoints,List<Road> roadMap){
         // В каждом waypoint'e хранится длина пути от предыдущего.
         // У первого - путь до первого waypoint'a если водитель
         // находится в другом городе

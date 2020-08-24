@@ -20,7 +20,7 @@ public class CargoLogic {
 
     @Autowired
     public CargoLogic(CargoCheckProvider checkIf) {
-        this.checkIf = checkIf;
+       this.checkIf=checkIf;
     }
 
     public void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
@@ -29,9 +29,9 @@ public class CargoLogic {
         CargoStatus cargoStatus = cargo.getStatus();
         CargoStatus dtoStatus = dto.getStatus();
 
-        List<Driver> drivers=order.getAssignedDrivers();
+        List<Driver> drivers = order.getAssignedDrivers();
 
-        checkIf.canBeUpdated(drivers,cargoStatus, dtoStatus);
+        checkIf.canBeUpdated(drivers, cargoStatus, dtoStatus);
 
         cargo.setStatus(dtoStatus);
         if (dtoStatus == TRANSPORTING) transportingStatusUpdateLogic(order, cargo);

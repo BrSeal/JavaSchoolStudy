@@ -1,11 +1,10 @@
 package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import main.core.cargo.services.CargoCheckProvider;
-import main.core.cargo.services.CargoLogic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -23,7 +22,13 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = "main")
-public class Config implements WebMvcConfigurer {
+@Import({
+                CargoConfig.class,
+                DriverConfig.class,
+                CityConfig.class,
+                OrderConfig.class
+        })
+public class MainConfig implements WebMvcConfigurer {
 
     @Bean
     public ViewResolver viewResolver() {
@@ -80,15 +85,5 @@ public class Config implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
-
-    @Bean
-    public CargoCheckProvider cargoCheckProvider(){
-        return new CargoCheckProvider();
-    }
-
-    @Bean
-    public CargoLogic cargoLogic(){
-        return new CargoLogic(cargoCheckProvider());
     }
 }

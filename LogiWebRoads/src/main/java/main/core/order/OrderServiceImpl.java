@@ -1,10 +1,15 @@
 package main.core.order;
 
+import main.core.cityAndRoads.cities.CityRepository;
 import main.core.cityAndRoads.roads.RoadRepository;
 import main.core.driver.DriverRepository;
 import main.core.order.DTO.InfoOrderDTO;
 import main.core.order.DTO.OrderDTO;
+import main.core.order.services.OrderCheckProvider;
+import main.core.order.services.OrderLogic;
 import main.core.vehicle.VehicleRepository;
+import main.core.waypoint.services.WaypointCheckProvider;
+import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.logistic.Vehicle;
 import main.model.users.Driver;
@@ -15,10 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.core.order.services.OrderCheckProvider.*;
-import static main.core.order.services.OrderLogic.calculateMaxLoad;
-import static main.core.order.services.OrderLogic.calculateRoute;
-
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
@@ -26,26 +27,38 @@ public class OrderServiceImpl implements OrderService {
     private final VehicleRepository vehicleRepository;
     private final DriverRepository driverRepository;
     private final RoadRepository roadRepository;
+    private final OrderCheckProvider orderCheckProvider;
+    private final OrderLogic orderLogic;
+    private final WaypointCheckProvider waypointCheckProvider;
+    private final CityRepository cityRepository;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository)
-    {
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, WaypointCheckProvider waypointCheckProvider, CityRepository cityRepository) {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.roadRepository = roadRepository;
+        this.orderCheckProvider = orderCheckProvider;
+        this.orderLogic = orderLogic;
+        this.waypointCheckProvider = waypointCheckProvider;
+        this.cityRepository = cityRepository;
     }
 
     @Override
     public int save(OrderDTO dto) {
         Order order = dto.toOrder();
-        calculateRoute(order,roadRepository.getAll());
+        List<City> cities=cityRepository.getAll();
+
+        waypointCheckProvider.cityCheck(order.getWaypoints(),cities);
+        orderLogic.calculateRoute(order, roadRepository.getAll());
         return orderRepository.save(order);
     }
 
     @Override
     public List<OrderDTO> getAll() {
-        return orderRepository.getAll().stream().map(InfoOrderDTO::new).collect(Collectors.toList());
+        return orderRepository.getAll().stream()
+                .map(InfoOrderDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,13 +73,13 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = orderRepository.get(fromDTO.getId());
 
-        isOrderCompleted(order);
+        orderCheckProvider.isOrderCompleted(order);
 
         Vehicle vehicle = vehicleRepository.get(fromDTO.getAssignedVehicle().getId());
 
-        vehicleAssignmentCheck(order, vehicle,calculateMaxLoad(order.getWaypoints()));
+        orderCheckProvider.vehicleAssignmentCheck(order, vehicle, orderLogic.calculateMaxLoad(order.getWaypoints()));
 
-        if(isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
+        if (orderCheckProvider.isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
 
         vehicle.setCurrentOrder(order);
 
@@ -76,18 +89,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void assignDrivers(OrderDTO dto) {
         Order fromDTO = dto.toOrder();
-        Order order= orderRepository.get(fromDTO.getId());
+        Order order = orderRepository.get(fromDTO.getId());
 
-        isOrderCompleted(order);
+        orderCheckProvider.isOrderCompleted(order);
 
-        List<Driver> drivers=fromDTO.getAssignedDrivers().stream()
-                .map(d->driverRepository.get(d.getId()))
+        List<Driver> drivers = fromDTO.getAssignedDrivers().stream()
+                .map(d -> driverRepository.get(d.getId()))
                 .collect(Collectors.toList());
 
+        int hoursPerWorker=orderLogic.calculateOrderWorkTimeFirstMonth(order);
 
-        driverAssignmentCheck(order, drivers);
+        orderCheckProvider.driverAssignmentCheck(order, drivers,hoursPerWorker);
 
-        drivers.forEach(d->d.setCurrentOrder(order));
+        drivers.forEach(d -> d.setCurrentOrder(order));
 
         orderRepository.update(order);
     }

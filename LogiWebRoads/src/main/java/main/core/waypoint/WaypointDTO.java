@@ -44,10 +44,9 @@ public class WaypointDTO {
         order.setId(this.order);
 
         Waypoint w = new Waypoint(city, cargo, type, pathIndex, pathLength, done, order);
+
         w.setId(id);
 
         return w;
     }
-
-
 }

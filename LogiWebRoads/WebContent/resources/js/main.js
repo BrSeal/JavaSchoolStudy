@@ -8011,7 +8011,7 @@ var DriverAddButton = /*#__PURE__*/function (_Component) {
       var driver = {
         firstName: '',
         lastName: '',
-        currentCityId: 0
+        currentCityId: 1
       };
 
       var showForm = function showForm() {
@@ -8047,7 +8047,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8072,6 +8085,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var DriverForm = /*#__PURE__*/function (_Component) {
   _inherits(DriverForm, _Component);
 
@@ -8083,15 +8097,8 @@ var DriverForm = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, DriverForm);
 
     _this = _super.call(this, props);
-    var action = _this.props.action;
-    var method = action === 'new' ? 'POST' : 'PUT';
-    var url = action === 'new' ? 'new/' : 'update/';
-    var active = action === 'new';
     _this.state = {
-      driver: _this.props.driver,
-      method: method,
-      url: url,
-      active: active
+      driver: _this.props.driver
     };
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -8115,25 +8122,20 @@ var DriverForm = /*#__PURE__*/function (_Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var data = this.state.driver;
-      var url = this.state.url;
-      var method = this.state.method;
-      $.ajax({
-        method: method,
-        url: '../driver/' + url,
-        contentType: "application/json",
-        data: data,
-        success: function success(response) {
-          alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
-        },
-        error: function error(response) {
-          alert(response);
-        }
-      });
+      if (this.props.action === 'new') _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].save(data);
+      if (this.props.action === 'update') _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].update(data);
     }
   }, {
     key: "render",
     value: function render() {
-      var options = _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].cities.forEach(function (id, city) {
+      var cities = Array.from(_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].cities, function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        return value;
+      });
+      var options = cities.map(function (city) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           value: city.id
         }, city.name);
@@ -8143,26 +8145,26 @@ var DriverForm = /*#__PURE__*/function (_Component) {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Driver form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Registration number:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "First name:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "firstName",
         type: "text",
         defaultValue: this.state.driver.firstName,
         onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Capacity:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Last name:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "lastName",
         type: "text",
-        defaultValue: this.state.driver.firstName,
+        defaultValue: this.state.driver.lastName,
         onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "form-control",
         name: "currentCityId",
         defaultValue: this.state.driver.currentCityId,
         onChange: this.handleInputChange
-      }, options), this.state.method === "POST" ? '' : updateDriverInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, options), this.props.action === "new" ? '' : updateDriverInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "btn btn-sm btn-secondary",
         type: "submit",
         value: "Save"
@@ -9045,21 +9047,21 @@ var CityRepository = /*#__PURE__*/function () {
   _createClass(CityRepository, [{
     key: "init",
     value: function init() {
+      var cities = new Map();
       $.get("../city/").done(function (response) {
-        return response.map(function (item, index) {
+        response.forEach(function (item) {
           return cities.set(item.id, item);
         });
       }).fail(function (response) {
         console.log(response);
       });
+      return cities;
     }
   }, {
     key: "getCity",
     value: function getCity(id) {
       $.get("../city/" + id).done(function (response) {
-        return response.map(function (item, index) {
-          return cities.set(item.id, item);
-        });
+        return response;
       }).fail(function (response) {
         console.log(response);
       });
@@ -9102,12 +9104,44 @@ var DriverRepository = /*#__PURE__*/function () {
         method: "GET",
         url: '../driver/',
         success: function success(response) {
-          response.forEach(function (item, index) {
+          response.forEach(function (item) {
             return drivers.set(item.id, item);
           });
         }
       });
       return drivers;
+    }
+  }, {
+    key: "save",
+    value: function save(driver) {
+      $.ajax({
+        method: 'POST',
+        url: '../driver/new/',
+        contentType: "application/json",
+        data: JSON.stringify(driver),
+        success: function success(response) {
+          alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(driver) {
+      $.ajax({
+        method: 'PUT',
+        url: '../driver/update/',
+        contentType: "application/json",
+        data: JSON.stringify(driver),
+        success: function success(response) {
+          alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
     }
   }]);
 
@@ -9147,7 +9181,7 @@ var OrderRepository = /*#__PURE__*/function () {
         method: "GET",
         url: '../order/',
         success: function success(response) {
-          response.forEach(function (item, index) {
+          response.forEach(function (item) {
             return orders.set(item.id, item);
           });
         }

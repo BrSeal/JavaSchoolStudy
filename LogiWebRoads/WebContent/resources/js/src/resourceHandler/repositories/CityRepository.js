@@ -1,9 +1,9 @@
 class CityRepository {
     init() {
-        let cities=new Map();
+        let cities = new Map();
         $.get("../city/")
             .done(function (response) {
-               response.map((item, index) => cities.set(item.id, item));
+                response.forEach((item) => cities.set(item.id, item));
             })
             .fail(function (response) {
                 console.log(response);

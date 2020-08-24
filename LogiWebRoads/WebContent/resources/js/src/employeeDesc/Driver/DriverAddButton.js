@@ -7,7 +7,7 @@ class DriverAddButton extends Component {
         let driver = {
             firstName: '',
             lastName: '',
-            currentCityId: 0
+            currentCityId: 1
         }
         const showForm = function () {
             ReactDOM.render(

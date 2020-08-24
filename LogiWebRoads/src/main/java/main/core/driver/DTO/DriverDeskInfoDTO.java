@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.core.waypoint.WaypointDTO;
-import main.globalLogic.exceptionHandling.exceptions.DtoConvertForbiddenException;
+import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.model.logistic.Order;
 import main.model.users.Driver;
 import main.model.users.DriverStatus;

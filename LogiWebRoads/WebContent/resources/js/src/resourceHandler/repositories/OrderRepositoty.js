@@ -5,7 +5,7 @@ class OrderRepository {
             method: "GET",
             url: '../order/',
             success: function (response) {
-                response.forEach((item, index) => orders.set(item.id, item));
+                response.forEach((item) => orders.set(item.id, item));
             }
         });
         return orders;

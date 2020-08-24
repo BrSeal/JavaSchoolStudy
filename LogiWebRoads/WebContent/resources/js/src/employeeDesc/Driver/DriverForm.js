@@ -1,22 +1,15 @@
 import React, {Component} from "react";
 import resources from "../../resourceHandler/Resources";
+import driverRepository from "../../resourceHandler/repositories/DriverRepository";
 
 
 class DriverForm extends Component {
 
     constructor(props) {
         super(props);
-        let action = this.props.action;
-
-        let method = action === 'new' ? 'POST' : 'PUT';
-        let url = action === 'new' ? 'new/' : 'update/';
-        let active=action === 'new';
 
         this.state = {
             driver: this.props.driver,
-            method: method,
-            url: url,
-            active:active
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -39,34 +32,17 @@ class DriverForm extends Component {
     handleSubmit(e) {
         e.preventDefault();
         let data = this.state.driver;
-        let url=this.state.url;
-        let method=this.state.method;
 
-
-        $.ajax({
-            method: method,
-            url: '../driver/' + url,
-            contentType: "application/json",
-            data: data,
-            success: function (response) {
-                alert('Driver was successfully added to database. \n ' +
-                    'New driver id='+response);
-            },
-            error: function (response) {
-                alert(response);
-            }
-        });
-
+        if(this.props.action==='new') driverRepository.save(data);
+        if(this.props.action==='update') driverRepository.update(data);
     }
 
     render() {
-
-        const options = resources.cities.forEach((id, city) => <option value={city.id}>{city.name}</option>);
+        let cities = Array.from(resources.cities, ([key, value]) => (value));
+        const options = cities.map((city) => (<option value={city.id}>{city.name}</option>));
 
         let updateDriverInputs =
-                (<h1>optional inputs</h1>
-
-        )
+            (<h1>optional inputs</h1>)
         ;
 
         return (
@@ -74,28 +50,29 @@ class DriverForm extends Component {
                 <h1>Driver form</h1>
                 <div className="form-group">
                     <label>
-                        Registration number:
+                        <b>First name:</b>
                     </label>
                     <input
                         className="form-control"
-                        name="firstName" type="text"
-                        defaultValue={this.state.driver.firstName}
-                        onChange={this.handleInputChange}
-                        required/>
-                    <br/>
-                    <label>
-                        Capacity:
-                    </label>
-                    <input
-                        className="form-control"
-                        name="lastName"
+                        name="firstName"
                         type="text"
                         defaultValue={this.state.driver.firstName}
                         onChange={this.handleInputChange}
                         required/>
                     <br/>
                     <label>
-                        Location:
+                        <b>Last name:</b>
+                    </label>
+                    <input
+                        className="form-control"
+                        name="lastName"
+                        type="text"
+                        defaultValue={this.state.driver.lastName}
+                        onChange={this.handleInputChange}
+                        required/>
+                    <br/>
+                    <label>
+                        <b>Location:</b>
                     </label>
                     <select
                         className="form-control"
@@ -105,7 +82,7 @@ class DriverForm extends Component {
                         {options}
                     </select>
 
-                    {this.state.method==="POST"?'':updateDriverInputs}
+                    {this.props.action === "new" ? '' : updateDriverInputs}
 
                     <input className='btn btn-sm btn-secondary' type="submit" value="Save"/>
                 </div>

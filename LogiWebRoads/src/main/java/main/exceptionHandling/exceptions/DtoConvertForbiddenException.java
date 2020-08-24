@@ -1,4 +1,4 @@
-package main.globalLogic.exceptionHandling.exceptions;
+package main.exceptionHandling.exceptions;
 
 public class DtoConvertForbiddenException extends IllegalArgumentException{
     public DtoConvertForbiddenException(){
