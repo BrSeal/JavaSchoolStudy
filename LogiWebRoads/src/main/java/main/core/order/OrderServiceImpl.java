@@ -91,6 +91,7 @@ public class OrderServiceImpl implements OrderService {
         Order fromDTO = dto.toOrder();
         Order order = orderRepository.get(fromDTO.getId());
 
+        orderCheckProvider.isDriverListEmptyOrNull(fromDTO.getAssignedDrivers());
         orderCheckProvider.isOrderCompleted(order);
 
         List<Driver> drivers = fromDTO.getAssignedDrivers().stream()

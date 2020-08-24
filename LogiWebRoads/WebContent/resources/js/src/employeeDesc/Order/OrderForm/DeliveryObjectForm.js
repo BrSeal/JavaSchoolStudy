@@ -1,21 +1,94 @@
-import {Component} from "react";
+import React, {Component} from "react";
+import resources from "../../../resourceHandler/Resources";
 
 export class DeliveryObjectForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             deliveryObject: {
-                cargo: {
-                    name: '',
-                    weight: 0
-                },
+                cargoName: '',
+                cargoWeight: 0,
                 from: 0,
                 to: 0
             }
         }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleInputChange(e) {
+        let deliveryObject = this.state.deliveryObject;
+        const target = e.target;
+        let value = target.value;
+        const name = target.name;
+
+
+        deliveryObject[name] = value;
+        this.setState({
+            deliveryObject: deliveryObject
+        });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        let data = this.state.deliveryObject;
+        this.props.func(data);
     }
 
     render() {
-        return null;
+        let cities = Array.from(resources.cities, ([key, value]) => (value));
+        const options = cities.map((city) => (<option value={city.id}>{city.name}</option>));
+
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <h2>Add delivery</h2>
+                <div className="form-group">
+                    <label>
+                        <b>Cargo name:</b>
+                    </label>
+                    <input
+                        className="form-control"
+                        name="cargoName"
+                        type="text"
+                        onChange={this.handleInputChange}
+                        required/>
+                    <br/>
+                    <label>
+                        <b>Cargo weight:</b>
+                    </label>
+                    <input
+                        className="form-control"
+                        name="cargoWeight"
+                        type="number"
+                        min={1}
+                        onChange={this.handleInputChange}
+                        required/>
+                    <br/>
+                    <label>
+                        <b>From:</b>
+                    </label>
+                    <select
+                        className="form-control"
+                        name="from"
+                        defaultValue={1}
+                        onChange={this.handleInputChange}>
+                        {options}
+                    </select>
+                    <label>
+                        <b>To:</b>
+                    </label>
+                    <select
+                        className="form-control"
+                        name="to"
+                        defaultValue={1}
+                        onChange={this.handleInputChange}>
+                        {options}
+                    </select>
+
+                    <input className='btn btn-sm btn-secondary' type="submit" value="Save"/>
+                </div>
+            </form>
+        );
     }
 }

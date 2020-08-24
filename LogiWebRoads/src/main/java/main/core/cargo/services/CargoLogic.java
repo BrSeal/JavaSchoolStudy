@@ -1,12 +1,12 @@
 package main.core.cargo.services;
 
+import main.core.order.services.OrderCheckProvider;
 import main.model.logistic.*;
 import main.model.users.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static main.core.order.services.OrderCheckProvider.isOrderCompleted;
 import static main.model.logistic.CargoStatus.DELIVERED;
 import static main.model.logistic.CargoStatus.TRANSPORTING;
 import static main.model.logistic.WaypointType.LOAD;
@@ -16,22 +16,25 @@ import static main.model.users.DriverStatus.ON_REST;
 
 public class CargoLogic {
 
-    CargoCheckProvider checkIf;
+
+    CargoCheckProvider cargoCheckProvider;
+    OrderCheckProvider orderCheckProvider;
 
     @Autowired
-    public CargoLogic(CargoCheckProvider checkIf) {
-       this.checkIf=checkIf;
+    public CargoLogic(CargoCheckProvider cargoCheckProvider, OrderCheckProvider orderCheckProvider) {
+        this.cargoCheckProvider = cargoCheckProvider;
+        this.orderCheckProvider = orderCheckProvider;
     }
 
     public void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
-        checkIf.exists(cargo);
+        cargoCheckProvider.exists(cargo);
 
         CargoStatus cargoStatus = cargo.getStatus();
         CargoStatus dtoStatus = dto.getStatus();
 
         List<Driver> drivers = order.getAssignedDrivers();
 
-        checkIf.canBeUpdated(drivers, cargoStatus, dtoStatus);
+        cargoCheckProvider.canBeUpdated(drivers, cargoStatus, dtoStatus);
 
         cargo.setStatus(dtoStatus);
         if (dtoStatus == TRANSPORTING) transportingStatusUpdateLogic(order, cargo);
@@ -41,7 +44,7 @@ public class CargoLogic {
 
     private void transportingStatusUpdateLogic(Order order, Cargo cargo) {
         Waypoint waypoint = order.getWaypoints().stream()
-                .filter(w -> w.getCargo() == cargo && w.getType() == LOAD)
+                .filter(w -> w.getCargo() == cargo && w.getType() == LOAD && !w.isDone())
                 .findFirst()
                 .get();
 
@@ -54,18 +57,17 @@ public class CargoLogic {
     private void deliveredStatusUpdateLogic(Order order, Cargo cargo) {
         List<Waypoint> waypoints = order.getWaypoints();
         Waypoint waypoint = waypoints.stream()
-                .filter(w -> w.getCargo() == cargo && w.getType() == UNLOAD)
+                .filter(w -> w.getCargo() == cargo && w.getType() == UNLOAD && !w.isDone())
                 .findFirst()
                 .get();
         waypoint.setDone(true);
         setCurrentCity(order.getAssignedDrivers(), order.getAssignedVehicle(), waypoint.getCity());
         if (waypoint.getPathIndex() == waypoints.size()) ifWasLastWaypoint(order);
-        incrementDriversWorkHours(order.getAssignedDrivers(), waypoint.getPathLength());
     }
 
     private void ifWasLastWaypoint(Order order) {
 
-        isOrderCompleted(order);
+        orderCheckProvider.isOrderCompleted(order);
 
         order.setCompleted(true);
         order.getAssignedDrivers().forEach(d -> {

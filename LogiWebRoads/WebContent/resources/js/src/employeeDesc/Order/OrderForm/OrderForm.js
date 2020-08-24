@@ -9,31 +9,40 @@ export class OrderForm extends Component {
         super(props);
         this.state = {
             order: {
-                deliveryObjects:[]
+                deliveryObjects: []
             }
         }
     }
 
-    addDeliveryObj(obj){
-        let o=this.state.order;
-        o.deliveryObjects.push(obj);
-        this.setState({order:o})
+    addDeliveryObj = (obj) => {
+        let parsedObj = {
+            cargo: {
+                name: obj.cargoName,
+                weight: obj.cargoWeight
+            },
+            cityIdFrom: obj.from,
+            cityIdTo: obj.to
+        }
+
+        let o = this.state.order;
+
+        o.deliveryObjects.push(parsedObj);
+        this.setState({order: o})
     }
 
     saveOrder() {
         orderRepository.save(this.state.order);
-        ReactDOM.render('',document.getElementById('details'))
+        ReactDOM.render('', document.getElementById('details'))
     }
 
     render() {
-        ReactDOM.render(
+        return(
             <div>
-                <DeliveryObjectsTable func={this.addDeliveryObj}/><br/>
-                <DeliveryObjectForm/>
+                <DeliveryObjectsTable objects={this.state.order.deliveryObjects}/><br/>
+                <DeliveryObjectForm func={this.addDeliveryObj}/>
                 <button className='btn btn-sm btn-secondary' onClick={this.saveOrder}>Submit</button>
-            </div>,
-            document.getElementById('details'));
-
+            </div>
+        )
     }
 }
 

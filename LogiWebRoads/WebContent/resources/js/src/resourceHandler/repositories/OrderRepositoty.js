@@ -1,4 +1,5 @@
 class OrderRepository {
+
     init() {
         let orders = new Map();
         $.ajax({
@@ -15,7 +16,7 @@ class OrderRepository {
         $.ajax({
             method: "POST",
             url: '../order/new/',
-            data:order,
+            data: order,
             success: function (response) {
                 alert('Order #' + response + ' was successfully saved!')
             },

@@ -7,8 +7,8 @@ export class DeliveryObjectsTable extends Component {
             <tr>
                 <td>{object.cargo.name}</td>
                 <td>{object.cargo.weight}</td>
-                <td>{resources.get(object.from).name}</td>
-                <td>{resources.get(object.to).name}</td>
+                <td>{resources.cities.get(+object.cityIdFrom).name}</td>
+                <td>{resources.cities.get(+object.cityIdTo).name}</td>
             </tr>
         );
 

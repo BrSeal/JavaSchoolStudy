@@ -91,10 +91,9 @@ public class OrderCheckProvider {
     public void isOrderCompleted(Order order) {
         if (order.isCompleted())
             throw new IllegalArgumentException(String.format(ORDER_ALREADY_COMPLETED_ERR, order.getId()));
-
     }
 
-    public void isDriverListEmptyOrNull(List<Integer> driverIds) {
-        if (driverIds == null || driverIds.isEmpty()) throw new IllegalArgumentException(NO_DRIVERS_ASSIGNED_ERR);
+    public void isDriverListEmptyOrNull(List<Driver> drivers) {
+        if (drivers == null || drivers.isEmpty()) throw new IllegalArgumentException(NO_DRIVERS_ASSIGNED_ERR);
     }
 }

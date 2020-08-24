@@ -11,10 +11,10 @@ class CityRepository {
         return cities;
     }
 
-    getCity(id){
-        $.get("../city/"+id)
+    getCity(id) {
+        $.get("../city/" + id)
             .done(function (response) {
-                return  response;
+                return response;
             })
             .fail(function (response) {
                 console.log(response);
@@ -22,5 +22,5 @@ class CityRepository {
     }
 }
 
-const cityRepository=new CityRepository();
+const cityRepository = new CityRepository();
 export default cityRepository;

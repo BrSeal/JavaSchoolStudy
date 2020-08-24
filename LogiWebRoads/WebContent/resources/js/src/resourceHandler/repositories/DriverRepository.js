@@ -1,33 +1,33 @@
 class DriverRepository {
-        init() {
-            let drivers= new Map();
-            $.ajax({
-                method: "GET",
-                url: '../driver/',
-                success: function (response) {
-                    response.forEach((item) => drivers.set(item.id, item));
-                }
-            });
-            return drivers;
-        }
+    init() {
+        let drivers = new Map();
+        $.ajax({
+            method: "GET",
+            url: '../driver/',
+            success: function (response) {
+                response.forEach((item) => drivers.set(item.id, item));
+            }
+        });
+        return drivers;
+    }
 
-        save(driver){
-            $.ajax({
-                method: 'POST',
-                url: '../driver/new/',
-                contentType: "application/json",
-                data: JSON.stringify(driver),
-                success: function (response) {
-                    alert('Driver was successfully added to database. \n ' +
-                        'New driver id='+response);
-                },
-                error: function (response) {
-                    alert(response);
-                }
-            });
-        }
+    save(driver) {
+        $.ajax({
+            method: 'POST',
+            url: '../driver/new/',
+            contentType: "application/json",
+            data: JSON.stringify(driver),
+            success: function (response) {
+                alert('Driver was successfully added to database. \n ' +
+                    'New driver id=' + response);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
 
-    update(driver){
+    update(driver) {
         $.ajax({
             method: 'PUT',
             url: '../driver/update/',
@@ -35,7 +35,7 @@ class DriverRepository {
             data: JSON.stringify(driver),
             success: function (response) {
                 alert('Driver was successfully added to database. \n ' +
-                    'New driver id='+response);
+                    'New driver id=' + response);
             },
             error: function (response) {
                 alert(response);
@@ -44,5 +44,5 @@ class DriverRepository {
     }
 }
 
-const driverRepository =new DriverRepository();
+const driverRepository = new DriverRepository();
 export default driverRepository;

@@ -12,8 +12,6 @@ class ResourceService {
         this.cities = cityRepository.init();
     }
 
-
-
     initDrivers() {
         let drivers= new Map();
         $.ajax({
@@ -37,8 +35,6 @@ class ResourceService {
         });
         return cargos;
     }
-
-
 
     initVehicles() {
         let vehicles=new Map();
