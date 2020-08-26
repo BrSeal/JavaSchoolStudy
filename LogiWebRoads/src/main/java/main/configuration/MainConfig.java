@@ -67,7 +67,7 @@ public class MainConfig implements WebMvcConfigurer {
 
         Properties hibernateProps = new Properties();
         hibernateProps.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        hibernateProps.put("hibernate.hbm2ddl.auto", "validate");
+        hibernateProps.put("hibernate.hbm2ddl.auto", "create");
         hibernateProps.put("hibernate.show_sql", "true");
 
         factory.setHibernateProperties(hibernateProps);

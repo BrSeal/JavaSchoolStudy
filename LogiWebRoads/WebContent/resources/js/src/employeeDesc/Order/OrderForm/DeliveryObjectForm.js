@@ -8,8 +8,8 @@ export class DeliveryObjectForm extends Component {
             deliveryObject: {
                 cargoName: '',
                 cargoWeight: 0,
-                from: 0,
-                to: 0
+                from: 1,
+                to: 1
             }
         }
 
@@ -32,7 +32,12 @@ export class DeliveryObjectForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        let data = this.state.deliveryObject;
+        let data = {
+            cargoName: this.state.deliveryObject.cargoName,
+            cargoWeight: Number(this.state.deliveryObject.cargoWeight),
+            from: Number(this.state.deliveryObject.from),
+            to: Number(this.state.deliveryObject.to)
+        };
         this.props.func(data);
     }
 
@@ -86,7 +91,7 @@ export class DeliveryObjectForm extends Component {
                         {options}
                     </select>
 
-                    <input className='btn btn-sm btn-secondary' type="submit" value="Save"/>
+                    <input className='btn btn-sm btn-secondary' type="submit" value="Add"/>
                 </div>
             </form>
         );

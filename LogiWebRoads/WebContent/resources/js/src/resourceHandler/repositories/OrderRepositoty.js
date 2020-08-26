@@ -1,3 +1,5 @@
+import resources from "../Resources";
+
 class OrderRepository {
 
     init() {
@@ -16,12 +18,57 @@ class OrderRepository {
         $.ajax({
             method: "POST",
             url: '../order/new/',
-            data: order,
+            contentType: "application/json",
+            data: JSON.stringify(order),
             success: function (response) {
-                alert('Order #' + response + ' was successfully saved!')
+                alert('Order #' + response + ' was successfully saved!');
+                resources.updateOrders();
             },
             error: function (response) {
-                alert(response)
+                alert(response);
+            }
+        });
+    }
+
+    assignVehicle(order) {
+        $.ajax({
+            method: "PUT",
+            url: '../order/assignVehicle/',
+            contentType: "application/json",
+            data: JSON.stringify(order),
+            success: function () {
+                alert('Vehicle №' + order.vehicleId + ' was successfully assigned to order №!' + order.id);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    assignDriver(order) {
+        $.ajax({
+            method: "PUT",
+            url: '../order/assignDrivers/',
+            contentType: "application/json",
+            data: JSON.stringify(order),
+            success: function () {
+                alert('Drivers were successfully assigned to order №!' + order.id);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    get(id) {
+        $.ajax({
+            method: "GET",
+            url: '../order/' + id,
+            success: function (response) {
+                return response;
+            },
+            error: function (response) {
+                alert(response);
             }
         });
     }

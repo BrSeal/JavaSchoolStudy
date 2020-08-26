@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class NewOrderDTO implements OrderDTO {
     private static final String EMPTY_WAYPOINTS_LIST_ERR = "Add some cargo to deliver!";
+
     List<DeliveryObject> deliveryObjects;
 
     public Order toOrder() {

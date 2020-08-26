@@ -5,6 +5,7 @@ import main.core.cityAndRoads.roads.RoadRepository;
 import main.core.driver.DriverRepository;
 import main.core.order.DTO.InfoOrderDTO;
 import main.core.order.DTO.OrderDTO;
+import main.core.order.DTO.SmallInfoOrderDTO;
 import main.core.order.services.OrderCheckProvider;
 import main.core.order.services.OrderLogic;
 import main.core.vehicle.VehicleRepository;
@@ -57,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDTO> getAll() {
         return orderRepository.getAll().stream()
-                .map(InfoOrderDTO::new)
+                .map(SmallInfoOrderDTO::new)
                 .collect(Collectors.toList());
     }
 

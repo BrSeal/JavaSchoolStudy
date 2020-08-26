@@ -2,6 +2,7 @@ import React from "react";
 import orderRepository from "./repositories/OrderRepositoty";
 import cityRepository from "./repositories/CityRepository";
 import driverRepository from "./repositories/DriverRepository";
+import vehicleRepository from "./repositories/VehicleRepository";
 
 class ResourceService {
     constructor() {
@@ -12,17 +13,22 @@ class ResourceService {
         this.cities = cityRepository.init();
     }
 
-    initDrivers() {
-        let drivers= new Map();
-        $.ajax({
-            method: "GET",
-            url: '../driver/',
-            success: function (response) {
-                response.forEach((item, index) => drivers.set(item.id, item));
-            }
-        });
-        return drivers;
+    updateOrders(){
+        this.orders = orderRepository.init();
     }
+
+    updateDrivers(){
+        this.orders = driverRepository.init();
+    }
+
+    updateVehicles(){
+        this.orders = vehicleRepository.init();
+    }
+
+    updateCargos(){
+        this.orders = orderRepository.init();
+    }
+
 
     initCargos() {
         let cargos = new Map();

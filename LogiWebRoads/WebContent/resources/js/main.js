@@ -8339,8 +8339,8 @@ var DeliveryObjectForm = /*#__PURE__*/function (_Component) {
       deliveryObject: {
         cargoName: '',
         cargoWeight: 0,
-        from: 0,
-        to: 0
+        from: 1,
+        to: 1
       }
     };
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
@@ -8364,7 +8364,12 @@ var DeliveryObjectForm = /*#__PURE__*/function (_Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      var data = this.state.deliveryObject;
+      var data = {
+        cargoName: this.state.deliveryObject.cargoName,
+        cargoWeight: Number(this.state.deliveryObject.cargoWeight),
+        from: Number(this.state.deliveryObject.from),
+        to: Number(this.state.deliveryObject.to)
+      };
       this.props.func(data);
     }
   }, {
@@ -8412,7 +8417,7 @@ var DeliveryObjectForm = /*#__PURE__*/function (_Component) {
       }, options), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "btn btn-sm btn-secondary",
         type: "submit",
-        value: "Save"
+        value: "Add"
       })));
     }
   }]);
@@ -8514,6 +8519,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DeliveryObjectsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DeliveryObjectsTable */ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectsTable.js");
 /* harmony import */ var _DeliveryObjectForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DeliveryObjectForm */ "./resources/js/src/employeeDesc/Order/OrderForm/DeliveryObjectForm.js");
 /* harmony import */ var _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../resourceHandler/repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
+/* harmony import */ var _OrderTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../OrderTable */ "./resources/js/src/employeeDesc/Order/OrderTable.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8537,6 +8543,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -8581,21 +8588,23 @@ var OrderForm = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(OrderForm, [{
-    key: "saveOrder",
-    value: function saveOrder() {
-      _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__["default"].save(this.state.order);
-      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-    }
-  }, {
     key: "render",
     value: function render() {
+      var o = this.state.order;
+
+      var saveOrder = function saveOrder() {
+        _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__["default"].save(o);
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+        _OrderTable__WEBPACK_IMPORTED_MODULE_5__["OrderTable"].render();
+      };
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DeliveryObjectsTable__WEBPACK_IMPORTED_MODULE_2__["DeliveryObjectsTable"], {
         objects: this.state.order.deliveryObjects
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DeliveryObjectForm__WEBPACK_IMPORTED_MODULE_3__["DeliveryObjectForm"], {
         func: this.addDeliveryObj
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-secondary",
-        onClick: this.saveOrder
+        onClick: saveOrder
       }, "Submit"));
     }
   }]);
@@ -8617,7 +8626,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrderTable", function() { return OrderTable; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8640,6 +8664,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
+
+
 var OrderTable = /*#__PURE__*/function (_Component) {
   _inherits(OrderTable, _Component);
 
@@ -8654,7 +8680,36 @@ var OrderTable = /*#__PURE__*/function (_Component) {
   _createClass(OrderTable, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Order Table Placeholder");
+      var showInfo = function showInfo() {
+        react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render('Order details placeholder', document.getElementById('details'));
+      };
+
+      var orders = Array.from(_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].orders, function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        return value;
+      });
+      var rows = orders.map(function (order) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.completed ? 'Completed' : order.started ? 'In progress' : 'Accepted'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: 'btn btn-sm btn-secondary',
+          onClick: showInfo
+        }, "Details")));
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
+        className: "thead-light"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Id"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Creation date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Status"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, rows));
     }
   }]);
 
@@ -9070,11 +9125,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
 /* harmony import */ var _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./repositories/CityRepository */ "./resources/js/src/resourceHandler/repositories/CityRepository.js");
 /* harmony import */ var _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
+/* harmony import */ var _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -9093,19 +9150,24 @@ var ResourceService = /*#__PURE__*/function () {
   }
 
   _createClass(ResourceService, [{
-    key: "initDrivers",
-    value: function initDrivers() {
-      var drivers = new Map();
-      $.ajax({
-        method: "GET",
-        url: '../driver/',
-        success: function success(response) {
-          response.forEach(function (item, index) {
-            return drivers.set(item.id, item);
-          });
-        }
-      });
-      return drivers;
+    key: "updateOrders",
+    value: function updateOrders() {
+      this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+    }
+  }, {
+    key: "updateDrivers",
+    value: function updateDrivers() {
+      this.orders = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
+    }
+  }, {
+    key: "updateVehicles",
+    value: function updateVehicles() {
+      this.orders = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
+    }
+  }, {
+    key: "updateCargos",
+    value: function updateCargos() {
+      this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
     }
   }, {
     key: "initCargos",
@@ -9285,11 +9347,14 @@ var driverRepository = new DriverRepository();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 var OrderRepository = /*#__PURE__*/function () {
   function OrderRepository() {
@@ -9317,9 +9382,57 @@ var OrderRepository = /*#__PURE__*/function () {
       $.ajax({
         method: "POST",
         url: '../order/new/',
-        data: order,
+        contentType: "application/json",
+        data: JSON.stringify(order),
         success: function success(response) {
           alert('Order #' + response + ' was successfully saved!');
+          _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateOrders();
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }, {
+    key: "assignVehicle",
+    value: function assignVehicle(order) {
+      $.ajax({
+        method: "PUT",
+        url: '../order/assignVehicle/',
+        contentType: "application/json",
+        data: JSON.stringify(order),
+        success: function success() {
+          alert('Vehicle №' + order.vehicleId + ' was successfully assigned to order №!' + order.id);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }, {
+    key: "assignDriver",
+    value: function assignDriver(order) {
+      $.ajax({
+        method: "PUT",
+        url: '../order/assignDrivers/',
+        contentType: "application/json",
+        data: JSON.stringify(order),
+        success: function success() {
+          alert('Drivers were successfully assigned to order №!' + order.id);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }, {
+    key: "get",
+    value: function get(id) {
+      $.ajax({
+        method: "GET",
+        url: '../order/' + id,
+        success: function success(response) {
+          return response;
         },
         error: function error(response) {
           alert(response);
@@ -9333,6 +9446,83 @@ var OrderRepository = /*#__PURE__*/function () {
 
 var orderRepository = new OrderRepository();
 /* harmony default export */ __webpack_exports__["default"] = (orderRepository);
+
+/***/ }),
+
+/***/ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js":
+/*!****************************************************************************!*\
+  !*** ./resources/js/src/resourceHandler/repositories/VehicleRepository.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var VehicleRepository = /*#__PURE__*/function () {
+  function VehicleRepository() {
+    _classCallCheck(this, VehicleRepository);
+  }
+
+  _createClass(VehicleRepository, [{
+    key: "init",
+    value: function init() {
+      var vehicles = new Map();
+      $.ajax({
+        method: "GET",
+        url: '../vehicle/',
+        success: function success(response) {
+          response.forEach(function (item) {
+            return vehicles.set(item.id, item);
+          });
+        }
+      });
+      return vehicles;
+    }
+  }, {
+    key: "save",
+    value: function save(vehicle) {
+      $.ajax({
+        method: 'POST',
+        url: '../vehicle/new/',
+        contentType: "application/json",
+        data: JSON.stringify(vehicle),
+        success: function success(response) {
+          alert('Vehicle was successfully added to database. \n ' + 'New vehicle id=' + response);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }, {
+    key: "update",
+    value: function update(vehicle) {
+      $.ajax({
+        method: 'PUT',
+        url: '../vehicle/update/',
+        contentType: "application/json",
+        data: JSON.stringify(vehicle),
+        success: function success(response) {
+          alert('Vehicle was successfully added to database. \n ' + 'New driver id=' + response);
+        },
+        error: function error(response) {
+          alert(response);
+        }
+      });
+    }
+  }]);
+
+  return VehicleRepository;
+}();
+
+var vehicleRepository = new VehicleRepository();
+/* harmony default export */ __webpack_exports__["default"] = (vehicleRepository);
 
 /***/ })
 

@@ -60,6 +60,7 @@ public class CargoLogic {
                 .filter(w -> w.getCargo() == cargo && w.getType() == UNLOAD && !w.isDone())
                 .findFirst()
                 .get();
+
         waypoint.setDone(true);
         setCurrentCity(order.getAssignedDrivers(), order.getAssignedVehicle(), waypoint.getCity());
         if (waypoint.getPathIndex() == waypoints.size()) ifWasLastWaypoint(order);
