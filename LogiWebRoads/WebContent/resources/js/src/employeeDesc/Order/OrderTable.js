@@ -1,25 +1,19 @@
 import React, {Component} from "react";
 import resources from "../../resourceHandler/Resources";
-import ReactDOM from "react-dom";
+import {OrderDetailsButton} from "./OrderInfo/OrderDetailsButton";
 
 export class OrderTable extends Component {
 
 
     render() {
-        const showInfo = function(){
-            ReactDOM.render('Order details placeholder', document.getElementById('details'));
-        }
 
         let orders = Array.from(resources.orders, ([key, value]) => (value));
         const rows = orders.map((order) => (
-
             <tr>
                 <td>{order.id}</td>
                 <td>{order.date}</td>
                 <td>{order.completed ? 'Completed' : order.started ? 'In progress' : 'Accepted'}</td>
-                <td>
-                    <button className={'btn btn-sm btn-secondary'} onClick={showInfo}>Details</button>
-                </td>
+                <td><OrderDetailsButton orderId={order.id}/></td>
             </tr>
         ));
 

@@ -42,16 +42,27 @@ class DriverForm extends Component {
         const options = cities.map((city) => (<option value={city.id}>{city.name}</option>));
 
         let updateDriverInputs =
-            (<h1>optional inputs</h1>)
+            (
+                <div>
+                <label/><b>Hours worked:</b>
+                <input
+                className="form-control"
+                name="hoursWorked"
+                type="number"
+                defaultValue={this.state.driver.hoursWorked}
+                onChange={this.handleInputChange}
+                min={0}
+                max={176}
+                required
+            />
+                </div>)
         ;
 
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>Driver form</h1>
                 <div className="form-group">
-                    <label>
-                        <b>First name:</b>
-                    </label>
+                    <label/><b>First name:</b>
                     <input
                         className="form-control"
                         name="firstName"
@@ -60,9 +71,7 @@ class DriverForm extends Component {
                         onChange={this.handleInputChange}
                         required/>
                     <br/>
-                    <label>
-                        <b>Last name:</b>
-                    </label>
+                    <label/><b>Last name:</b>
                     <input
                         className="form-control"
                         name="lastName"
@@ -71,9 +80,7 @@ class DriverForm extends Component {
                         onChange={this.handleInputChange}
                         required/>
                     <br/>
-                    <label>
-                        <b>Location:</b>
-                    </label>
+                    <label/><b>Location:</b>
                     <select
                         className="form-control"
                         name="currentCityId"
@@ -84,7 +91,7 @@ class DriverForm extends Component {
 
                     {this.props.action === "new" ? '' : updateDriverInputs}
 
-                    <input className='btn btn-sm btn-secondary' type="submit" value="Save"/>
+                    <input className='btn btn-sm btn-secondary' type="button" onClick={this.handleSubmit} value="Save"/>
                 </div>
             </form>
         );

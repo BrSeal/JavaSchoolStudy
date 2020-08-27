@@ -1,4 +1,4 @@
-import resources from "../Resources";
+import resources from "../../../../../WebContent/resources/js/src/resourceHandler/Resources";
 
 class OrderRepository {
 
@@ -23,6 +23,7 @@ class OrderRepository {
             success: function (response) {
                 alert('Order #' + response + ' was successfully saved!');
                 resources.updateOrders();
+                resources.updateCargos();
             },
             error: function (response) {
                 alert(response);
@@ -61,16 +62,19 @@ class OrderRepository {
     }
 
     get(id) {
+        let order;
         $.ajax({
+            async:false,
             method: "GET",
-            url: '../order/' + id,
+            url: '../order/get/' + id,
             success: function (response) {
-                return response;
+                order = response;
             },
             error: function (response) {
                 alert(response);
             }
         });
+        return order;
     }
 }
 

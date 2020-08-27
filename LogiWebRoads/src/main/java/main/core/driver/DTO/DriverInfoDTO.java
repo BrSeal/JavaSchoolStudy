@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.model.logistic.City;
 import main.model.logistic.Order;
 import main.model.users.Driver;
@@ -15,16 +16,7 @@ import main.model.users.DriverStatus;
 @AllArgsConstructor
 public class DriverInfoDTO implements DriverDTO{
 
-    public DriverInfoDTO(Driver d) {
-        id = d.getId();
-        firstName = d.getFirstName();
-        lastName = d.getLastName();
-        currentCityId = d.getCurrentCity().getId();
-        currentOrder = d.getCurrentOrder() == null ? 0 : d.getCurrentOrder().getId();
-        hoursWorked = d.getHoursWorked();
-        status = d.getStatus();
 
-    }
 
     private int id;
     private String firstName;
@@ -33,6 +25,16 @@ public class DriverInfoDTO implements DriverDTO{
     private int currentOrder;
     private int hoursWorked;
     private DriverStatus status;
+
+    public DriverInfoDTO(Driver d) {
+        id = d.getId();
+        firstName = d.getFirstName();
+        lastName = d.getLastName();
+        currentCityId = d.getCurrentCity().getId();
+        currentOrder = d.getCurrentOrder() == null ? 0 : d.getCurrentOrder().getId();
+        hoursWorked = d.getHoursWorked();
+        status = d.getStatus();
+    }
 
     public Driver toDriver() {
         City city = new City();

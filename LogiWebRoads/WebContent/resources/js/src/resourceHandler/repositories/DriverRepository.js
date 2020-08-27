@@ -27,7 +27,16 @@ class DriverRepository {
         });
     }
 
-    update(driver) {
+    update(updatedDrv) {
+        let driver={
+            id:updatedDrv.id,
+            firstName:updatedDrv.firstName,
+            lastName:updatedDrv.lastName,
+            currentCityId:Number(updatedDrv.currentCityId),
+            hoursWorked:Number(updatedDrv.hoursWorked),
+            status:updatedDrv.status
+        }
+
         $.ajax({
             method: 'PUT',
             url: '../driver/update/',
@@ -36,6 +45,36 @@ class DriverRepository {
             success: function (response) {
                 alert('Driver was successfully added to database. \n ' +
                     'New driver id=' + response);
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    get(id) {
+        let driver;
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../driver/get/' + id,
+            success: function (response) {
+                driver = response;
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+        return driver;
+    }
+
+    delete(id){
+        $.ajax({
+            async:false,
+            method: "DELETE",
+            url: '../driver/delete/' + id,
+            success: function () {
+                alert('Driver №'+id+' was successfully removed from the database!');
             },
             error: function (response) {
                 alert(response);

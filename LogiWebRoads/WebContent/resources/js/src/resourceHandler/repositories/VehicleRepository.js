@@ -42,6 +42,20 @@ class VehicleRepository {
             }
         });
     }
+
+    delete(id){
+        $.ajax({
+            async:false,
+            method: "DELETE",
+            url: '../vehicle/delete/' + id,
+            success: function () {
+                alert('Vehicle №'+id+' was successfully removed from the database!');
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
 }
 
 const vehicleRepository = new VehicleRepository();

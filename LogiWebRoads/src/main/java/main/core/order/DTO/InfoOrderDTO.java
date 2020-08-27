@@ -5,10 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.core.waypoint.WaypointDTO;
+import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.model.logistic.Order;
+import main.model.logistic.Waypoint;
 import main.model.users.Driver;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +23,8 @@ public class InfoOrderDTO implements OrderDTO {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private int id;
-    private boolean isCompleted;
+    private boolean completed;
+    private boolean started;
     private String creationDate;
     private List<WaypointDTO> waypoints;
     private List<Integer> assignedDrivers;
@@ -28,7 +32,8 @@ public class InfoOrderDTO implements OrderDTO {
 
     public InfoOrderDTO(Order o) {
         id = o.getId();
-        isCompleted = o.isCompleted();
+        completed = o.isCompleted();
+        started = o.getWaypoints().stream().anyMatch(Waypoint::isDone);
         creationDate = dateFormat.format(o.getCreationDate());
         assignedVehicle = o.getAssignedVehicle() == null ? 0 : o.getAssignedVehicle().getId();
 
@@ -37,10 +42,7 @@ public class InfoOrderDTO implements OrderDTO {
                 .collect(Collectors.toList());                                                                         
 
         if (o.getAssignedDrivers() == null) {
-            assignedDrivers = null;
-            o.getAssignedDrivers().stream()
-                    .map(Driver::getId)
-                    .collect(Collectors.toList());
+            assignedDrivers = new ArrayList<>();
         } else {
             assignedDrivers = o.getAssignedDrivers().stream()
                     .map(Driver::getId)
@@ -49,10 +51,6 @@ public class InfoOrderDTO implements OrderDTO {
     }
 
     public Order toOrder() {
-        Order o = new Order();
-
-        return o;
+        throw new DtoConvertForbiddenException();
     }
-
-
 }

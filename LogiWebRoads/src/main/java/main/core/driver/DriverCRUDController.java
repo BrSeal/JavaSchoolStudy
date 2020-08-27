@@ -36,7 +36,7 @@ public class DriverCRUDController {
         return service.save(dto);
     }
 
-    @PostMapping("/update/")
+    @PutMapping("/update/")
     public int updateDriver(@RequestBody DriverInfoDTO dto) {
         return service.update(dto);
     }

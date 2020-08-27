@@ -4,6 +4,7 @@ import {DeliveryObjectsTable} from "./DeliveryObjectsTable";
 import {DeliveryObjectForm} from "./DeliveryObjectForm";
 import orderRepository from "../../../resourceHandler/repositories/OrderRepositoty";
 import {OrderTable} from "../OrderTable";
+import resources from "../../../resourceHandler/Resources";
 
 export class OrderForm extends Component {
     constructor(props) {
@@ -36,8 +37,13 @@ export class OrderForm extends Component {
 
         let saveOrder=()=> {
             orderRepository.save(o);
+            ReactDOM.render(<OrderTable orders={resources.orders}/>,document.getElementById('content'));
             ReactDOM.render('', document.getElementById('details'))
-            OrderTable.render();
+
+        }
+
+        let close=()=> {
+            ReactDOM.render('', document.getElementById('details'))
         }
 
         return(
@@ -45,6 +51,7 @@ export class OrderForm extends Component {
                 <DeliveryObjectsTable objects={this.state.order.deliveryObjects}/><br/>
                 <DeliveryObjectForm func={this.addDeliveryObj}/>
                 <button className='btn btn-sm btn-secondary' onClick={saveOrder}>Submit</button>
+                <button className='btn btn-sm btn-secondary' onClick={close}>Close</button>
             </div>
         )
     }
