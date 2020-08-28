@@ -3,7 +3,7 @@ package main.configuration;
 import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.orderManagement.waypoint.services.WaypointCheckProvider;
-import main.global.exceptionHandling.exceptions.NullChecker;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

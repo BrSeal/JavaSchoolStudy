@@ -9,6 +9,7 @@ import main.core.cargo.entity.Cargo;
 import main.core.cargo.entity.CargoStatus;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.orderManagement.waypoint.entity.WaypointType;
 
@@ -50,6 +51,7 @@ public class NewOrderDTO implements OrderDTO {
 
         order.setCreationDate(new Date());
         order.setWaypoints(waypoints);
+        order.setStatus(OrderStatus.ASSIGNED);
 
         return order;
     }

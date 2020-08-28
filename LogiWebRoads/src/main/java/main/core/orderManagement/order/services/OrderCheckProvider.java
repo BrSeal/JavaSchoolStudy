@@ -3,6 +3,7 @@ package main.core.orderManagement.order.services;
 import main.core.cargo.entity.CargoStatus;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.vehicle.entity.Vehicle;
 import main.core.driver.entity.Driver;
 
@@ -89,7 +90,7 @@ public class OrderCheckProvider {
     }
 
     public void isOrderCompleted(Order order) {
-        if (order.isCompleted())
+        if (order.getStatus()== OrderStatus.COMPLETED)
             throw new IllegalArgumentException(String.format(ORDER_ALREADY_COMPLETED_ERR, order.getId()));
     }
 

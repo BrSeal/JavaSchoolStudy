@@ -8,6 +8,9 @@ import lombok.Setter;
 import main.global.mappedSuperclass.IdClass;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cargo")
@@ -18,9 +21,12 @@ import javax.persistence.*;
 public class Cargo extends IdClass {
 
     @Column(name = "name")
+    @Size(min = 1, max=255)
     private String name;
 
     @Column(name = "weight")
+    @Min(1)
+    @Max(1000)
     private int weight;
 
     @Enumerated(EnumType.STRING)

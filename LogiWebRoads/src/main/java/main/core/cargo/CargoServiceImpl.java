@@ -3,6 +3,7 @@ package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
 import main.core.cargo.DTO.InfoCargoDTO;
+import main.core.cargo.DTO.NewCargoDTO;
 import main.core.cargo.services.CargoCheckProvider;
 import main.core.cargo.services.CargoLogic;
 import main.core.orderManagement.order.OrderRepository;
@@ -10,6 +11,7 @@ import main.core.orderManagement.waypoint.WaypointRepository;
 import main.core.cargo.entity.Cargo;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.waypoint.entity.Waypoint;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,15 +30,17 @@ public class CargoServiceImpl implements CargoService {
     private final CargoLogic cargoLogic;
     private final WaypointRepository waypointRepository;
     private final OrderRepository orderRepository;
+    private final NullChecker nullChecker;
 
     @Autowired
-    public CargoServiceImpl(CargoRepository cargoRepository, CargoCheckProvider checkProvider, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic) {
+    public CargoServiceImpl(CargoRepository cargoRepository, CargoCheckProvider checkProvider, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic, NullChecker nullChecker) {
 
         this.cargoRepository = cargoRepository;
         this.checkProvider = checkProvider;
         this.waypointRepository = waypointRepository;
         this.orderRepository = orderRepository;
         this.cargoLogic = cargoLogic;
+        this.nullChecker = nullChecker;
     }
 
     @Override
@@ -64,12 +68,13 @@ public class CargoServiceImpl implements CargoService {
     @Override
     public Cargo get(int id) {
         Cargo cargo=cargoRepository.get(id);
-        checkProvider.checkNPE(cargo,id);
+        nullChecker.throwNotFoundIfNull(cargo,Cargo.class,id);
         return cargo;
     }
 
     @Override
-    public int save(CargoDTO cargo) {
+    public int save(NewCargoDTO cargo) {
+        checkProvider.validateNew(cargo);
         return cargoRepository.save(cargo.toCargo());
     }
 

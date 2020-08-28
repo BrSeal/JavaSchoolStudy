@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import resources from "../../../../../../WebContent/resources/js/src/resourceHandler/Resources";
 import driverRepository from "../../../resourceHandler/repositories/DriverRepository";
 import DriverForm from "../DriverForm";
+import resources from "../../../resourceHandler/Resources";
 
 export class DriverInfo extends Component {
     constructor(props) {

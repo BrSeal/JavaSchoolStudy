@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.core.orderManagement.order.entity.OrderStatus;
 import main.global.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.waypoint.entity.Waypoint;
@@ -19,14 +20,12 @@ public class SmallInfoOrderDTO implements OrderDTO {
 
     private int id;
     private String date;
-    private boolean started;
-    private boolean completed;
+    private OrderStatus status;
 
     public SmallInfoOrderDTO(Order order) {
         id = order.getId();
         date = dateFormat.format(order.getCreationDate());
-        completed = order.isCompleted();
-        started = order.getWaypoints().stream().anyMatch(Waypoint::isDone);
+        status = order.getStatus();
     }
 
     @Override

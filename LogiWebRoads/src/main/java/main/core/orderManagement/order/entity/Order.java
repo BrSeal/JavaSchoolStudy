@@ -26,8 +26,8 @@ public class Order extends IdClass {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @Column(name = "is_completed")
-    private boolean completed;
+    @Column(name = "status")
+    private OrderStatus status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
@@ -37,4 +37,5 @@ public class Order extends IdClass {
 
     @OneToOne(cascade =CascadeType.ALL)
     private Vehicle assignedVehicle;
+
 }

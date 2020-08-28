@@ -1,10 +1,16 @@
 package main.core.vehicle;
 
+import main.core.cityAndRoads.cities.CityRepository;
+import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.OrderRepository;
-import main.core.orderManagement.order.services.OrderLogic;
-import main.core.vehicle.DTO.VehicleDTO;
 import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.order.services.OrderLogic;
+import main.core.vehicle.DTO.NewVehicleDTO;
+import main.core.vehicle.DTO.VehicleDTO;
 import main.core.vehicle.entity.Vehicle;
+import main.core.vehicle.services.VehicleCheckProvider;
+import main.core.vehicle.services.VehicleLogic;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +24,21 @@ public class VehicleServiceImpl implements VehicleService {
 
     private final VehicleRepository vehicleRepository;
     private final OrderRepository orderRepository;
+    private final VehicleCheckProvider vehicleCheckProvider;
+    private final CityRepository cityRepository;
     private final OrderLogic orderLogic;
+    private final NullChecker nullChecker;
+    private final VehicleLogic vehicleLogic;
 
     @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderRepository orderRepository, OrderLogic orderLogic) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderRepository orderRepository, VehicleCheckProvider vehicleCheckProvider, CityRepository cityRepository, OrderLogic orderLogic, NullChecker nullChecker, VehicleLogic vehicleLogic) {
         this.vehicleRepository = vehicleRepository;
         this.orderRepository = orderRepository;
+        this.vehicleCheckProvider = vehicleCheckProvider;
+        this.cityRepository = cityRepository;
         this.orderLogic = orderLogic;
+        this.nullChecker = nullChecker;
+        this.vehicleLogic = vehicleLogic;
     }
 
     @Override
@@ -44,8 +58,8 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<VehicleDTO> getAvailable(int orderId) {
-        Order order= orderRepository.get(orderId);
-        int maxLoad=orderLogic.calculateMaxLoad(order.getWaypoints());
+        Order order = orderRepository.get(orderId);
+        int maxLoad = orderLogic.calculateMaxLoad(order.getWaypoints());
 
         String hql = "from Vehicle v where v.currentOrder=null and v.ok=true and v.capacity>" + maxLoad;
         return vehicleRepository.getQueryResult(hql).stream().map(VehicleDTO::new).collect(Collectors.toList());
@@ -53,36 +67,48 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public VehicleDTO get(int id) {
-        return new VehicleDTO(vehicleRepository.get(id));
+        Vehicle vehicle = vehicleRepository.get(id);
+        nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, id);
+        return new VehicleDTO(vehicle);
     }
 
     @Override
-    public int save(VehicleDTO dto) {
-       return vehicleRepository.save(dto.toVehicle());
+    public int save(NewVehicleDTO dto) {
+        List<Integer> cityIds = cityRepository.getAll()
+                .stream()
+                .map(City::getId)
+                .collect(Collectors.toList());
+        List<String> regNums = vehicleRepository.getAll()
+                .stream()
+                .map(Vehicle::getRegNumber)
+                .collect(Collectors.toList());
+
+        vehicleCheckProvider.validateNew(dto, regNums, cityIds);
+
+        return vehicleRepository.save(dto.toVehicle());
     }
 
     @Override
     public int delete(int id) {
-        return delete(vehicleRepository.get(id));
-    }
+        Vehicle vehicle=vehicleRepository.get(id);
+        nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,id);
+        vehicleCheckProvider.canBeDeleted(vehicle);
 
-    @Override
-    public int delete(Vehicle vehicle) {
-        if (!canBeDeleted(vehicle)) {
-            throw new IllegalArgumentException("Vehicle №" + vehicle.getId()
-                    + " is currently in order №" + vehicle.getCurrentOrder() + "!");
-        }
-         vehicleRepository.delete(vehicle);
-          return vehicle.getId();
+        vehicleRepository.delete(vehicle);
+        return id;
     }
 
     @Override
     public int update(VehicleDTO dto) {
-        vehicleRepository.update(dto.toVehicle());
-        return dto.getId();
-    }
+        Vehicle vehicle=vehicleRepository.get(dto.getId());
+        nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,dto.getId());
 
-    private boolean canBeDeleted(Vehicle v) {
-        return v.getCurrentOrder() == null;
+        vehicleCheckProvider.canBeUpdated(vehicle,dto);
+
+        vehicleLogic.updateFields(vehicle,dto);
+
+        vehicleRepository.update(vehicle);
+
+        return dto.getId();
     }
 }

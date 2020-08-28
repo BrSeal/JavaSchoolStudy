@@ -13,9 +13,8 @@ import main.core.vehicle.entity.Vehicle;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleDTO {
-    private static final int MIN_CAPACITY = 100;
-    private static final String LOW_CAPACITY_ERR = "Capacity must be grater than "+MIN_CAPACITY+"!";
-    private static final String REG_NUMBER_FORMAT_ERR = "Registration number format error!";
+
+
     public VehicleDTO(Vehicle v) {
         id = v.getId();
         regNumber = v.getRegNumber().toUpperCase();
@@ -35,10 +34,6 @@ public class VehicleDTO {
     private int currentOrder;
 
     public Vehicle toVehicle() {
-        if(capacity<MIN_CAPACITY) throw new IllegalArgumentException(LOW_CAPACITY_ERR);
-        if(!regNumber.matches("^[A-Z]\\d{3}[A-Z]{2}$")) throw new IllegalArgumentException(REG_NUMBER_FORMAT_ERR);
-
-
         City city = new City();
         city.setId(currentCityId);
         Order order;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.WaypointDTO;
 import main.global.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.core.orderManagement.order.entity.Order;
@@ -23,8 +24,7 @@ public class InfoOrderDTO implements OrderDTO {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private int id;
-    private boolean completed;
-    private boolean started;
+    private OrderStatus status;
     private String creationDate;
     private List<WaypointDTO> waypoints;
     private List<Integer> assignedDrivers;
@@ -32,8 +32,7 @@ public class InfoOrderDTO implements OrderDTO {
 
     public InfoOrderDTO(Order o) {
         id = o.getId();
-        completed = o.isCompleted();
-        started = o.getWaypoints().stream().anyMatch(Waypoint::isDone);
+        status = o.getStatus();
         creationDate = dateFormat.format(o.getCreationDate());
         assignedVehicle = o.getAssignedVehicle() == null ? 0 : o.getAssignedVehicle().getId();
 

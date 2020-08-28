@@ -1,3 +1,5 @@
+import resources from "../Resources";
+
 class DriverRepository {
     init() {
         let drivers = new Map();
@@ -18,11 +20,12 @@ class DriverRepository {
             contentType: "application/json",
             data: JSON.stringify(driver),
             success: function (response) {
+                resources.updateDrivers();
                 alert('Driver was successfully added to database. \n ' +
                     'New driver id=' + response);
             },
             error: function (response) {
-                alert(response);
+                alert(Object.keys(response));
             }
         });
     }
@@ -42,9 +45,9 @@ class DriverRepository {
             url: '../driver/update/',
             contentType: "application/json",
             data: JSON.stringify(driver),
-            success: function (response) {
-                alert('Driver was successfully added to database. \n ' +
-                    'New driver id=' + response);
+            success: function () {
+                resources.updateDrivers();
+                alert('Driver №'+updatedDrv.id+' was successfully edited!');
             },
             error: function (response) {
                 alert(response);

@@ -10,7 +10,7 @@ import main.core.orderManagement.order.OrderRepository;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.entity.Vehicle;
-import main.global.exceptionHandling.exceptions.NullChecker;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

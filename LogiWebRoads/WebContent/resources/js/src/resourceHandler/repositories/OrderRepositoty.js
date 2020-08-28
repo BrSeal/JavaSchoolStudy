@@ -1,4 +1,4 @@
-import resources from "../../../../../WebContent/resources/js/src/resourceHandler/Resources";
+import resources from "../Resources";
 
 class OrderRepository {
 

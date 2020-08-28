@@ -4,7 +4,7 @@ import main.core.orderManagement.order.entity.Order;
 import main.core.cityAndRoads.roads.entity.Road;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
-import main.global.exceptionHandling.exceptions.NullChecker;
+import main.global.exceptionHandling.NullChecker;
 
 import java.util.Calendar;
 import java.util.Comparator;

@@ -32,20 +32,4 @@ public class DriverInfoDTO{
         hoursWorked = d.getHoursWorked();
         status = d.getStatus();
     }
-
-    public Driver toDriver() {
-        City city = new City();
-        city.setId(currentCityId);
-        Order order;
-
-        if (currentOrder == 0) order = null;
-        else {
-            order = new Order();
-            order.setId(currentOrder);
-        }
-        Driver driver = new Driver(firstName, lastName, hoursWorked, status, city, order);
-        driver.setId(id);
-
-        return driver;
-    }
 }

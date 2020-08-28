@@ -2,6 +2,7 @@ package main.core.cargo;
 
 
 import main.core.cargo.DTO.CargoDTO;
+import main.core.cargo.DTO.NewCargoDTO;
 import main.core.cargo.entity.Cargo;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface CargoService {
 
     Cargo get(int id);
 
-    int save(CargoDTO e);
+    int save(NewCargoDTO e);
 
     void update(CargoDTO e);
 }

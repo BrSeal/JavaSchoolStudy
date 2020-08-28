@@ -1,10 +1,11 @@
-package main.global.exceptionHandling.exceptions;
+package main.global.exceptionHandling;
+
+import main.global.exceptionHandling.exceptions.NotAssignedToOrderException;
+import main.global.exceptionHandling.exceptions.NotFoundException;
 
 import java.util.Objects;
 
 public class NullChecker {
-    public static final String NOT_FOUND = "not found";
-    public static final String NOT_ASSIGNED = "not assigned";
 
     public void throwNotFoundIfNull(Object o, String errMsg) {
         if (Objects.isNull(o)) {

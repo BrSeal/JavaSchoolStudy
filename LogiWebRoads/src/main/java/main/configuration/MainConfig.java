@@ -1,7 +1,7 @@
 package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import main.global.exceptionHandling.exceptions.NullChecker;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,8 @@ import java.util.Properties;
                 CargoConfig.class,
                 DriverConfig.class,
                 CityConfig.class,
-                OrderConfig.class
+                OrderConfig.class,
+                VehicleConfig.class
         })
 public class MainConfig implements WebMvcConfigurer {
 
@@ -64,11 +65,11 @@ public class MainConfig implements WebMvcConfigurer {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
         factory.setDataSource(myDataSource());
-        factory.setPackagesToScan("main.model");
+        factory.setPackagesToScan("main.core");
 
         Properties hibernateProps = new Properties();
         hibernateProps.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        hibernateProps.put("hibernate.hbm2ddl.auto", "create");
+        hibernateProps.put("hibernate.hbm2ddl.auto", "validate");
         hibernateProps.put("hibernate.show_sql", "true");
 
         factory.setHibernateProperties(hibernateProps);

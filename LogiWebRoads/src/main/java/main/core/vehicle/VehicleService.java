@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import main.core.vehicle.DTO.NewVehicleDTO;
 import main.core.vehicle.DTO.VehicleDTO;
 import main.core.vehicle.entity.Vehicle;
 
@@ -14,13 +15,9 @@ public interface VehicleService {
 
     List<VehicleDTO> getAvailable(int orderId);
 
-    int save(VehicleDTO e);
+    int save(NewVehicleDTO e);
 
     int update(VehicleDTO vehicle);
 
     int delete(int id);
-
-    int delete(Vehicle Vehicle);
-
-
 }

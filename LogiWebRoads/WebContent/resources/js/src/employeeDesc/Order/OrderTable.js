@@ -12,7 +12,7 @@ export class OrderTable extends Component {
             <tr>
                 <td>{order.id}</td>
                 <td>{order.date}</td>
-                <td>{order.completed ? 'Completed' : order.started ? 'In progress' : 'Accepted'}</td>
+                <td>{order.status}</td>
                 <td><OrderDetailsButton orderId={order.id}/></td>
             </tr>
         ));

@@ -86,93 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./WebContent/resources/js/src/resourceHandler/Resources.js":
-/*!******************************************************************!*\
-  !*** ./WebContent/resources/js/src/resourceHandler/Resources.js ***!
-  \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-class ResourceService {
-  constructor() {
-    this.drivers = this.initDrivers();
-    this.orders = this.initOrders();
-    this.vehicles = this.initVehicles();
-    this.cargos = this.initCargos();
-    this.cities = this.initCities();
-  }
-
-  initCities() {
-    let cities = new Map();
-    $.get("../city/").done(function (response) {
-      response.map((item, index) => cities.set(item.id, item));
-    }).fail(function (response) {
-      console.log(response);
-    });
-    return cities;
-  }
-
-  initDrivers() {
-    let drivers = new Map();
-    $.ajax({
-      method: "GET",
-      url: '../driver/',
-      success: function (response) {
-        response.forEach((item, index) => drivers.set(item.id, item));
-      }
-    });
-    return drivers;
-  }
-
-  initCargos() {
-    let cargos = new Map();
-    $.ajax({
-      method: "GET",
-      url: '../cargo/',
-      success: function (response) {
-        response.forEach((item, index) => cargos.set(item.id, item));
-      }
-    });
-    return cargos;
-  }
-
-  initOrders() {
-    let orders = new Map();
-    $.ajax({
-      method: "GET",
-      url: '../order/',
-      success: function (response) {
-        response.forEach((item, index) => orders.set(item.id, item));
-      }
-    });
-    return orders;
-  }
-
-  initVehicles() {
-    let vehicles = new Map();
-    $.ajax({
-      method: "GET",
-      url: '../vehicle/',
-      success: function (response) {
-        response.forEach((item, index) => vehicles.set(item.id, item));
-      }
-    });
-    return vehicles;
-  }
-
-}
-
-const resources = new ResourceService();
-/* harmony default export */ __webpack_exports__["default"] = (resources);
-
-/***/ }),
-
 /***/ "./node_modules/object-assign/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
@@ -8372,9 +8285,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../WebContent/resources/js/src/resourceHandler/Resources */ "./WebContent/resources/js/src/resourceHandler/Resources.js");
-/* harmony import */ var _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../resourceHandler/repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
-/* harmony import */ var _DriverForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../DriverForm */ "./resources/js/src/employeeDesc/Driver/DriverForm.js");
+/* harmony import */ var _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../resourceHandler/repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
+/* harmony import */ var _DriverForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../DriverForm */ "./resources/js/src/employeeDesc/Driver/DriverForm.js");
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8429,17 +8342,17 @@ var DriverInfo = /*#__PURE__*/function (_Component) {
       };
 
       var deleteDriver = function deleteDriver() {
-        _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"]["delete"](driver.id);
+        _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](driver.id);
       };
 
       var showEditForm = function showEditForm() {
-        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DriverForm__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DriverForm__WEBPACK_IMPORTED_MODULE_3__["default"], {
           action: 'update',
           driver: driver
         }), document.getElementById('details'));
       };
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Driver info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Personal number:"), " ", driver.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "First name:"), " ", driver.firstName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Last name:"), " ", driver.lastName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), " ", _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cities.get(driver.currentCityId).name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Hours worked:"), " ", driver.hoursWorked, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Current order id:"), " ", driver.currentOrder === 0 ? 'None' : driver.currentOrder, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Status:"), " ", driver.status, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Driver info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Personal number:"), " ", driver.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "First name:"), " ", driver.firstName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Last name:"), " ", driver.lastName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), " ", _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_4__["default"].cities.get(driver.currentCityId).name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Hours worked:"), " ", driver.hoursWorked, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Current order id:"), " ", driver.currentOrder === 0 ? 'None' : driver.currentOrder, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Status:"), " ", driver.status, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: 'btn btn-secondary',
         onClick: showEditForm
       }, "Edit"), driver.currentOrder === 0 && driver.status === 'ON_REST' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -9102,7 +9015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../WebContent/resources/js/src/resourceHandler/Resources */ "./WebContent/resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9153,19 +9066,20 @@ var OrderInfo = /*#__PURE__*/function (_Component) {
       };
 
       var order = this.state.order;
-      var vehicle = order.assignedVehicle === 0 ? 'None' : _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].vehicles.get(order.assignedVehicle).regNumber;
+      var vehicle = order.assignedVehicle === 0 ? 'None' : _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].vehicles.get(order.assignedVehicle).regNumber;
       var drivers = order.assignedDrivers.map(function (driver) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: driver.id
         }, driver.firstName + ' ' + driver.lastName + ' ' + driver.id);
       });
-      var waypoints = order.waypoints;
+      var waypoints = order.waypoints; //TODO! Make Small table
+
       var liWaypoints = waypoints.map(function (w) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: w.done ? 'alert alert-success' : ''
-        }, _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cities.get(w.cityId).name + ' ' + _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cargos.get(w.cargo).name + ' ' + w.type);
+        }, _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cities.get(w.cityId).name + ' ' + _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cargos.get(w.cargo).name + ' ' + w.type);
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Order \u2116", order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Creation date:"), " ", order.creationDate, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Is completed:"), " ", order.completed ? 'Completed' : order.started ? 'In progress' : 'Assigned', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Vehicle:"), " ", vehicle, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Drivers:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, drivers.length === 0 ? 'None' : drivers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Waypoints:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, liWaypoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Order \u2116", order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Creation date:"), " ", order.creationDate, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Is completed:"), " ", order.status, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Vehicle:"), " ", vehicle, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Drivers:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, drivers.length === 0 ? 'None' : drivers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Waypoints:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, liWaypoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: 'further-info'
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: 'btn btn-secondary',
@@ -9252,7 +9166,7 @@ var OrderTable = /*#__PURE__*/function (_Component) {
         return value;
       });
       var rows = orders.map(function (order) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.completed ? 'Completed' : order.started ? 'In progress' : 'Accepted'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderInfo_OrderDetailsButton__WEBPACK_IMPORTED_MODULE_2__["OrderDetailsButton"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.date), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, order.status), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderInfo_OrderDetailsButton__WEBPACK_IMPORTED_MODULE_2__["OrderDetailsButton"], {
           orderId: order.id
         })));
       });
@@ -9829,11 +9743,14 @@ var cityRepository = new CityRepository();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
 
 var DriverRepository = /*#__PURE__*/function () {
   function DriverRepository() {
@@ -9864,10 +9781,11 @@ var DriverRepository = /*#__PURE__*/function () {
         contentType: "application/json",
         data: JSON.stringify(driver),
         success: function success(response) {
+          _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateDrivers();
           alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
         },
         error: function error(response) {
-          alert(response);
+          alert(Object.keys(response));
         }
       });
     }
@@ -9887,8 +9805,9 @@ var DriverRepository = /*#__PURE__*/function () {
         url: '../driver/update/',
         contentType: "application/json",
         data: JSON.stringify(driver),
-        success: function success(response) {
-          alert('Driver was successfully added to database. \n ' + 'New driver id=' + response);
+        success: function success() {
+          _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateDrivers();
+          alert('Driver №' + updatedDrv.id + ' was successfully edited!');
         },
         error: function error(response) {
           alert(response);
@@ -9946,7 +9865,7 @@ var driverRepository = new DriverRepository();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../WebContent/resources/js/src/resourceHandler/Resources */ "./WebContent/resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _Resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -9985,8 +9904,8 @@ var OrderRepository = /*#__PURE__*/function () {
         data: JSON.stringify(order),
         success: function success(response) {
           alert('Order #' + response + ' was successfully saved!');
-          _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateOrders();
-          _WebContent_resources_js_src_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateCargos();
+          _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateOrders();
+          _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateCargos();
         },
         error: function error(response) {
           alert(response);

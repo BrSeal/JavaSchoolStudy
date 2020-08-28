@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import main.core.vehicle.DTO.NewVehicleDTO;
 import main.core.vehicle.DTO.VehicleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class VehicleController {
     }
 
     @PostMapping("/new/")
-    public int saveVehicle(@RequestBody VehicleDTO driver) {
+    public int saveVehicle(@RequestBody NewVehicleDTO driver) {
         return service.save(driver);
     }
 

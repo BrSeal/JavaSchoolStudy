@@ -2,15 +2,14 @@ package main.core.driver.services;
 
 import lombok.Getter;
 import lombok.Setter;
+import main.core.cityAndRoads.cities.entity.City;
 import main.core.driver.DTO.DriverUpdateDTO;
 import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.orderManagement.order.entity.Order;
 import main.core.driver.entity.Driver;
 import main.core.driver.entity.DriverStatus;
-import main.core.vehicle.entity.Vehicle;
-import main.global.exceptionHandling.exceptions.NullChecker;
-import org.jetbrains.annotations.NotNull;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
@@ -32,7 +31,18 @@ public class DriverLogic {
     }
 
     public void updateDriver(Driver driver, DriverUpdateDTO dto){
-       Need logic
+        driverCheckProvider.canBeUpdated(driver,dto);
+
+        driver.setFirstName(dto.getFirstName());
+        driver.setLastName(dto.getLastName());
+        driver.setHoursWorked(dto.getHoursWorked());
+
+        int newCityId=dto.getCurrentCityId();
+        if(newCityId!=0){
+            City city=new City();
+            city.setId(newCityId);
+            driver.setCurrentCity(city);
+        }
     }
 
     public void updateStatus(Order order, Driver driver, DriverStatus status) {

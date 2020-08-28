@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import resources from "../../../../../../WebContent/resources/js/src/resourceHandler/Resources";
+import resources from "../../../resourceHandler/Resources";
 
 export class OrderInfo extends Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export class OrderInfo extends Component {
                 <h1>Order №{order.id}</h1>
                 <label/><b>Creation date:</b> {order.creationDate}<br/>
                 <label/><b>Is
-                completed:</b> {order.completed ? 'Completed' : order.started ? 'In progress' : 'Assigned'}<br/>
+                completed:</b> {order.status}<br/>
                 <label /><b>Vehicle:</b> {vehicle}<br/>
                 <label /><b>Drivers:</b><br/>
                 <ul>
