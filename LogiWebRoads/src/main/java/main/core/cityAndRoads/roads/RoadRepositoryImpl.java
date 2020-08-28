@@ -1,6 +1,6 @@
 package main.core.cityAndRoads.roads;
 
-import main.model.logistic.Road;
+import main.core.cityAndRoads.roads.entity.Road;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

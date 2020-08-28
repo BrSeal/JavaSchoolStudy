@@ -17,12 +17,12 @@ public class DriverCRUDController {
     }
 
     @GetMapping("/")
-    public List<DriverInfoDTO> getDrivers() {
+    public List<DriverMinInfoDTO> getDrivers() {
         return service.getAll();
     }
 
     @GetMapping("/get/{id}")
-    public DriverDTO getDriverById(@PathVariable int id) {
+    public DriverInfoDTO getDriverById(@PathVariable int id) {
         return service.get(id);
     }
 
@@ -31,13 +31,23 @@ public class DriverCRUDController {
         return service.getByOrderId(id);
     }
 
+    @GetMapping("/available/{orderId}")
+    public List<DriverInfoDTO> getAvailableVehicles(@PathVariable int orderId) {
+        return service.getAvailable(orderId);
+    }
+
+    @GetMapping("/info/{id}")
+    public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable int id) {
+        return service.getDriverDeskInfo(id);
+    }
+
     @PostMapping("/new/")
     public int saveDriver(@RequestBody NewDriverDTO dto) {
         return service.save(dto);
     }
 
     @PutMapping("/update/")
-    public int updateDriver(@RequestBody DriverInfoDTO dto) {
+    public int updateDriver(@RequestBody DriverUpdateDTO dto) {
         return service.update(dto);
     }
 
@@ -51,13 +61,5 @@ public class DriverCRUDController {
         return service.delete(id);
     }
 
-    @GetMapping("/available/{orderId}")
-    public List<DriverInfoDTO> getAvailableVehicles(@PathVariable int orderId){
-        return service.getAvailable(orderId);
-    }
 
-    @GetMapping("/info/{id}")
-    public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable int id){
-        return service.getDriverDeskInfo(id);
-    }
 }

@@ -1,6 +1,6 @@
 package main.core.vehicle;
 
-import main.model.logistic.Vehicle;
+import main.core.vehicle.entity.Vehicle;
 
 import java.util.List;
 

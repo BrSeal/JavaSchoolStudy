@@ -1,10 +1,10 @@
 package main.core.vehicle;
 
-import main.core.order.OrderRepository;
-import main.core.order.services.OrderLogic;
+import main.core.orderManagement.order.OrderRepository;
+import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.DTO.VehicleDTO;
-import main.model.logistic.Order;
-import main.model.logistic.Vehicle;
+import main.core.orderManagement.order.entity.Order;
+import main.core.vehicle.entity.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

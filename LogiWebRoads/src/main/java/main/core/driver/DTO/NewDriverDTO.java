@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.model.logistic.City;
-import main.model.users.Driver;
-import main.model.users.DriverStatus;
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.driver.entity.Driver;
+import main.core.driver.entity.DriverStatus;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewDriverDTO implements DriverDTO{
+public class NewDriverDTO {
     private String firstName;
     private String lastName;
     private int currentCityId;
 
-    @Override
+
     public Driver toDriver() {
         City city=new City();
         city.setId(currentCityId);

@@ -23,6 +23,7 @@ export class OrderInfo extends Component {
 
         const waypoints=order.waypoints;
 
+        //TODO! Make Small table
         const liWaypoints=waypoints.map((w)=>(<li className={w.done?'alert alert-success':''}>{resources.cities.get(w.cityId).name+' '+resources.cargos.get(w.cargo).name+' '+w.type}</li>))
 
         return (

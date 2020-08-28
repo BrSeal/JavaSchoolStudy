@@ -1,12 +1,14 @@
 package main.core.cargo;
 
-import main.model.logistic.Cargo;
+import main.core.cargo.entity.Cargo;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 interface CargoRepository {
     List<Cargo> getAll();
 
+    @Nullable
     Cargo get(int id);
 
     int save(Cargo Cargo);

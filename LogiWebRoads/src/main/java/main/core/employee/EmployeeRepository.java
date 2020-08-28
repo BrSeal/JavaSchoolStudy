@@ -1,6 +1,6 @@
 package main.core.employee;
 
-import main.model.users.Employee;
+import main.core.employee.entity.Employee;
 
 import java.util.List;
 

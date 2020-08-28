@@ -2,7 +2,7 @@ package main.configuration;
 
 import main.core.cargo.services.CargoCheckProvider;
 import main.core.cargo.services.CargoLogic;
-import main.core.order.services.OrderCheckProvider;
+import main.core.orderManagement.order.services.OrderCheckProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

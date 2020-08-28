@@ -1,6 +1,7 @@
 package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import main.global.exceptionHandling.exceptions.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +68,7 @@ public class MainConfig implements WebMvcConfigurer {
 
         Properties hibernateProps = new Properties();
         hibernateProps.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        hibernateProps.put("hibernate.hbm2ddl.auto", "validate");
+        hibernateProps.put("hibernate.hbm2ddl.auto", "create");
         hibernateProps.put("hibernate.show_sql", "true");
 
         factory.setHibernateProperties(hibernateProps);
@@ -80,6 +81,11 @@ public class MainConfig implements WebMvcConfigurer {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public NullChecker nullChecker(){
+        return new NullChecker();
     }
 
     @Override

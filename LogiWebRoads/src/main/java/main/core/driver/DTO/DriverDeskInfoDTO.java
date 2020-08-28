@@ -4,11 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.waypoint.WaypointDTO;
-import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
-import main.model.logistic.Order;
-import main.model.users.Driver;
-import main.model.users.DriverStatus;
+import main.core.orderManagement.waypoint.WaypointDTO;
+import main.global.exceptionHandling.exceptions.DtoConvertForbiddenException;
+import main.core.orderManagement.order.entity.Order;
+import main.core.driver.entity.Driver;
+import main.core.driver.entity.DriverStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverDeskInfoDTO implements DriverDTO{
+public class DriverDeskInfoDTO {
 
     private int id;
     private DriverStatus status;
@@ -44,9 +44,5 @@ public class DriverDeskInfoDTO implements DriverDTO{
                     .map(WaypointDTO::new)
                     .collect(Collectors.toList());
         }
-    }
-    @Override
-    public Driver toDriver() {
-        throw new DtoConvertForbiddenException();
     }
 }

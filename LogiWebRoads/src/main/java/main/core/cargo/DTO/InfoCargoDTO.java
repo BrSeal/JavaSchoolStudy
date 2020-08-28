@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
-import main.model.logistic.Cargo;
-import main.model.logistic.CargoStatus;
+import main.global.exceptionHandling.exceptions.DtoConvertForbiddenException;
+import main.core.cargo.entity.Cargo;
+import main.core.cargo.entity.CargoStatus;
 
 @Getter
 @Setter

@@ -2,7 +2,7 @@ package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
 import main.core.cargo.DTO.UpdateStatusCargoDTO;
-import main.model.logistic.Cargo;
+import main.core.cargo.entity.Cargo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

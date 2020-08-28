@@ -1,6 +1,6 @@
 package main.core.cityAndRoads.cities.services;
 
-import main.model.logistic.City;
+import main.core.cityAndRoads.cities.entity.City;
 
 public class CityCheckProvider {
     private static final String NOT_FOUND = "City not found!";

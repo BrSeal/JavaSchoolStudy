@@ -1,8 +1,9 @@
 package main.configuration;
 
-import main.core.order.services.OrderCheckProvider;
-import main.core.order.services.OrderLogic;
-import main.core.waypoint.services.WaypointCheckProvider;
+import main.core.orderManagement.order.services.OrderCheckProvider;
+import main.core.orderManagement.order.services.OrderLogic;
+import main.core.orderManagement.waypoint.services.WaypointCheckProvider;
+import main.global.exceptionHandling.exceptions.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +14,8 @@ public class OrderConfig {
         return new OrderCheckProvider();
     }
     @Bean
-    public OrderLogic orderLogic(){
-        return new OrderLogic();
+    public OrderLogic orderLogic(NullChecker nullChecker){
+        return new OrderLogic(nullChecker);
     }
 
     @Bean

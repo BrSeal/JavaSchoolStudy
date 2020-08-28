@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.model.logistic.City;
-import main.model.logistic.Order;
-import main.model.logistic.Vehicle;
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.orderManagement.order.entity.Order;
+import main.core.vehicle.entity.Vehicle;
 
 @Getter
 @Setter

@@ -2,8 +2,8 @@ package main.configuration;
 
 import main.core.driver.services.DriverCheckProvider;
 import main.core.driver.services.DriverLogic;
-import main.core.order.services.OrderCheckProvider;
-import main.core.order.services.OrderLogic;
+import main.core.orderManagement.order.services.OrderCheckProvider;
+import main.core.orderManagement.order.services.OrderLogic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

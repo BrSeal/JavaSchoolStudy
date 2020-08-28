@@ -1,6 +1,6 @@
 package main.core.cityAndRoads.cities;
 
-import main.model.logistic.City;
+import main.core.cityAndRoads.cities.entity.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

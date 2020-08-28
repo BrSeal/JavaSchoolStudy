@@ -1,18 +1,23 @@
 package main.core.cargo.services;
 
-import main.core.order.services.OrderCheckProvider;
-import main.model.logistic.*;
-import main.model.users.Driver;
+import main.core.cargo.entity.Cargo;
+import main.core.cargo.entity.CargoStatus;
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.order.services.OrderCheckProvider;
+import main.core.orderManagement.waypoint.entity.Waypoint;
+import main.core.vehicle.entity.Vehicle;
+import main.core.driver.entity.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static main.model.logistic.CargoStatus.DELIVERED;
-import static main.model.logistic.CargoStatus.TRANSPORTING;
-import static main.model.logistic.WaypointType.LOAD;
-import static main.model.logistic.WaypointType.UNLOAD;
-import static main.model.users.DriverStatus.ON_DUTY_DRIVING;
-import static main.model.users.DriverStatus.ON_REST;
+import static main.core.cargo.entity.CargoStatus.DELIVERED;
+import static main.core.cargo.entity.CargoStatus.TRANSPORTING;
+import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
+import static main.core.orderManagement.waypoint.entity.WaypointType.UNLOAD;
+import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
+import static main.core.driver.entity.DriverStatus.ON_REST;
 
 public class CargoLogic {
 

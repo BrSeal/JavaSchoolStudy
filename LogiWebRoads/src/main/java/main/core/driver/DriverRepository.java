@@ -1,7 +1,6 @@
 package main.core.driver;
 
-import main.model.logistic.City;
-import main.model.users.Driver;
+import main.core.driver.entity.Driver;
 
 import java.util.List;
 
@@ -10,13 +9,11 @@ public interface DriverRepository {
 
     Driver get(int id);
 
-    List<Driver> getByQuery(String hql);
+    List<Driver> getByQuery(String hql, Object... params);
 
     int save(Driver driver);
 
-    void update(Driver driver);
+    void update( Driver driver);
 
     Driver delete(Driver driver);
-
-    List<Driver> getAvailable(int hoursPerWorker, City city);
 }

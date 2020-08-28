@@ -1,6 +1,6 @@
 package main.core.cityAndRoads.roads;
 
-import main.model.logistic.Road;
+import main.core.cityAndRoads.roads.entity.Road;
 
 import java.util.List;
 

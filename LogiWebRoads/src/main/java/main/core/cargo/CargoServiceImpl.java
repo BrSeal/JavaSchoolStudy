@@ -3,12 +3,13 @@ package main.core.cargo;
 
 import main.core.cargo.DTO.CargoDTO;
 import main.core.cargo.DTO.InfoCargoDTO;
+import main.core.cargo.services.CargoCheckProvider;
 import main.core.cargo.services.CargoLogic;
-import main.core.order.OrderRepository;
-import main.core.waypoint.WaypointRepository;
-import main.model.logistic.Cargo;
-import main.model.logistic.Order;
-import main.model.logistic.Waypoint;
+import main.core.orderManagement.order.OrderRepository;
+import main.core.orderManagement.waypoint.WaypointRepository;
+import main.core.cargo.entity.Cargo;
+import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.waypoint.entity.Waypoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +17,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static main.model.logistic.WaypointType.LOAD;
+import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 
 @Service
 @Transactional
 public class CargoServiceImpl implements CargoService {
 
     private final CargoRepository cargoRepository;
+    private final CargoCheckProvider checkProvider;
+    private final CargoLogic cargoLogic;
     private final WaypointRepository waypointRepository;
     private final OrderRepository orderRepository;
-    private final CargoLogic cargoLogic;
 
     @Autowired
-    public CargoServiceImpl(CargoRepository cargoRepository, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic) {
+    public CargoServiceImpl(CargoRepository cargoRepository, CargoCheckProvider checkProvider, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic) {
 
         this.cargoRepository = cargoRepository;
+        this.checkProvider = checkProvider;
         this.waypointRepository = waypointRepository;
         this.orderRepository = orderRepository;
         this.cargoLogic = cargoLogic;
@@ -60,7 +63,9 @@ public class CargoServiceImpl implements CargoService {
 
     @Override
     public Cargo get(int id) {
-        return cargoRepository.get(id);
+        Cargo cargo=cargoRepository.get(id);
+        checkProvider.checkNPE(cargo,id);
+        return cargo;
     }
 
     @Override

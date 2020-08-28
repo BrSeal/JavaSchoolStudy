@@ -1,9 +1,10 @@
 package main.core.driver;
 
-import main.model.logistic.City;
-import main.model.users.Driver;
+import main.core.driver.entity.Driver;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,21 +28,14 @@ public class DriverRepositoryImpl implements DriverRepository {
     }
 
     @Override
-    public List<Driver> getByQuery(String hql) {
-       return sessionFactory.getCurrentSession()
-                .createQuery(hql, Driver.class)
-                .list();
-    }
+    public List<Driver> getByQuery(String hql, Object... params) {
+        Query<Driver> query = sessionFactory.getCurrentSession()
+                .createQuery(hql, Driver.class);
 
-    @Override
-    public List<Driver> getAvailable(int hoursPerWorker, City city) {
-
-       String hql="from Driver d where d.status='ON_REST' and d.currentCity =:city and d.hoursWorked<:hours";
-        Query<Driver> query=sessionFactory.getCurrentSession()
-                .createQuery(hql, Driver.class) ;
-       query.setParameter("city", city);
-       query.setParameter("hours", hoursPerWorker);
-               return  query.list();
+        for (int i = 0; i < params.length; i++) {
+            query.setParameter(i, params[i]);
+        }
+        return query.list();
     }
 
     @Override
@@ -51,7 +45,7 @@ public class DriverRepositoryImpl implements DriverRepository {
     }
 
     @Override
-    public int save(Driver driver) {
+    public int save( Driver driver) {
         return (int) sessionFactory.getCurrentSession()
                 .save(driver);
     }

@@ -1,7 +1,8 @@
 package main.core.cargo;
 
-import main.model.logistic.Cargo;
+import main.core.cargo.entity.Cargo;
 import org.hibernate.SessionFactory;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

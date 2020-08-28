@@ -4,19 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.exceptionHandling.exceptions.DtoConvertForbiddenException;
-import main.model.logistic.City;
-import main.model.logistic.Order;
-import main.model.users.Driver;
-import main.model.users.DriverStatus;
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.orderManagement.order.entity.Order;
+import main.core.driver.entity.Driver;
+import main.core.driver.entity.DriverStatus;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverInfoDTO implements DriverDTO{
-
-
+public class DriverInfoDTO{
 
     private int id;
     private String firstName;

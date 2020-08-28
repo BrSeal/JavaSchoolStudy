@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.model.logistic.Cargo;
-import main.model.logistic.CargoStatus;
+import main.core.cargo.entity.Cargo;
+import main.core.cargo.entity.CargoStatus;
 
 @Getter
 @Setter

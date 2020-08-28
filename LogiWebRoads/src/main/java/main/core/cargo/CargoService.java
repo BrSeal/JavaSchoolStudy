@@ -2,7 +2,7 @@ package main.core.cargo;
 
 
 import main.core.cargo.DTO.CargoDTO;
-import main.model.logistic.Cargo;
+import main.core.cargo.entity.Cargo;
 
 import java.util.List;
 

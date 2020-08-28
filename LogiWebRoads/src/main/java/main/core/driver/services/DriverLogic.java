@@ -2,11 +2,15 @@ package main.core.driver.services;
 
 import lombok.Getter;
 import lombok.Setter;
-import main.core.order.services.OrderCheckProvider;
-import main.core.order.services.OrderLogic;
-import main.model.logistic.Order;
-import main.model.users.Driver;
-import main.model.users.DriverStatus;
+import main.core.driver.DTO.DriverUpdateDTO;
+import main.core.orderManagement.order.services.OrderCheckProvider;
+import main.core.orderManagement.order.services.OrderLogic;
+import main.core.orderManagement.order.entity.Order;
+import main.core.driver.entity.Driver;
+import main.core.driver.entity.DriverStatus;
+import main.core.vehicle.entity.Vehicle;
+import main.global.exceptionHandling.exceptions.NullChecker;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
@@ -17,19 +21,18 @@ public class DriverLogic {
     private DriverCheckProvider driverCheckProvider;
     private OrderCheckProvider orderCheckProvider;
     private OrderLogic orderLogic;
+    private NullChecker nullChecker;
 
     @Autowired
-    public DriverLogic(DriverCheckProvider driverCheckProvider,OrderCheckProvider orderCheckProvider,OrderLogic orderLogic) {
+    public DriverLogic(DriverCheckProvider driverCheckProvider,OrderCheckProvider orderCheckProvider,OrderLogic orderLogic,NullChecker nullChecker) {
         this.driverCheckProvider = driverCheckProvider;
         this.orderCheckProvider = orderCheckProvider;
         this.orderLogic = orderLogic;
+        this.nullChecker=nullChecker;
     }
 
-    public int getHoursPerWorker(Order order) {
-        if (!orderCheckProvider.isVehicleAssigned(order)) throw new IllegalArgumentException(VEHICLE_NOT_ASSIGNED_ERR);
-        int dutySize = order.getAssignedVehicle().getDutySize();
-
-        return (int) Math.ceil((double) orderLogic.calculateOrderWorkTimeFirstMonth(order) / dutySize);
+    public void updateDriver(Driver driver, DriverUpdateDTO dto){
+       Need logic
     }
 
     public void updateStatus(Order order, Driver driver, DriverStatus status) {
