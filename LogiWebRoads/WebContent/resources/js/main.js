@@ -8048,6 +8048,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 /* harmony import */ var _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _DriverTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DriverTable */ "./resources/js/src/employeeDesc/Driver/DriverTable.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -8086,6 +8089,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
 var DriverForm = /*#__PURE__*/function (_Component) {
   _inherits(DriverForm, _Component);
 
@@ -8102,10 +8107,16 @@ var DriverForm = /*#__PURE__*/function (_Component) {
     };
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.closeForm = _this.closeForm.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DriverForm, [{
+    key: "closeForm",
+    value: function closeForm() {
+      react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render('', document.getElementById('details'));
+    }
+  }, {
     key: "handleInputChange",
     value: function handleInputChange(e) {
       var driver = this.state.driver;
@@ -8124,6 +8135,7 @@ var DriverForm = /*#__PURE__*/function (_Component) {
       var data = this.state.driver;
       if (this.props.action === 'new') _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].save(data);
       if (this.props.action === 'update') _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].update(data);
+      _DriverTable__WEBPACK_IMPORTED_MODULE_4__["DriverTable"].render();
     }
   }, {
     key: "render",
@@ -8178,6 +8190,11 @@ var DriverForm = /*#__PURE__*/function (_Component) {
         type: "button",
         onClick: this.handleSubmit,
         value: "Save"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "btn btn-sm btn-secondary",
+        type: "button",
+        onClick: this.closeForm,
+        value: "Close"
       })));
     }
   }]);
@@ -8252,6 +8269,7 @@ var DriverDetailsButton = /*#__PURE__*/function (_Component) {
   _createClass(DriverDetailsButton, [{
     key: "showInfo",
     value: function showInfo() {
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
       react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_DriverInfo__WEBPACK_IMPORTED_MODULE_3__["DriverInfo"], {
         driver: _resourceHandler_repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].get(this.state.id)
       }), document.getElementById('details'));
@@ -8420,7 +8438,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- //TODO!!
 
 var DriverTable = /*#__PURE__*/function (_Component) {
   _inherits(DriverTable, _Component);
@@ -8890,10 +8907,11 @@ var OrderForm = /*#__PURE__*/function (_Component) {
 
       var saveOrder = function saveOrder() {
         _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_4__["default"].save(o);
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('content'));
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
         react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderTable__WEBPACK_IMPORTED_MODULE_5__["OrderTable"], {
           orders: _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_6__["default"].orders
         }), document.getElementById('content'));
-        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
       };
 
       var close = function close() {
@@ -8982,6 +9000,7 @@ var OrderDetailsButton = /*#__PURE__*/function (_Component) {
   _createClass(OrderDetailsButton, [{
     key: "showInfo",
     value: function showInfo() {
+      react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render('', document.getElementById('details'));
       react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_OrderInfo__WEBPACK_IMPORTED_MODULE_1__["OrderInfo"], {
         order: _resourceHandler_repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_2__["default"].get(this.state.id)
       }), document.getElementById('details'));
@@ -9079,7 +9098,7 @@ var OrderInfo = /*#__PURE__*/function (_Component) {
           className: w.done ? 'alert alert-success' : ''
         }, _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cities.get(w.cityId).name + ' ' + _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].cargos.get(w.cargo).name + ' ' + w.type);
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Order \u2116", order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Creation date:"), " ", order.creationDate, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Is completed:"), " ", order.status, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Vehicle:"), " ", vehicle, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Drivers:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, drivers.length === 0 ? 'None' : drivers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Waypoints:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, liWaypoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Order #", order.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Creation date:"), " ", order.creationDate, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Is completed:"), " ", order.status, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Vehicle:"), " ", vehicle, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Drivers:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, drivers.length === 0 ? 'None' : drivers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Waypoints:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, liWaypoints), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: 'further-info'
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: 'btn btn-secondary',
@@ -9223,23 +9242,20 @@ function showOrders() {
 
 /***/ }),
 
-/***/ "./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js":
-/*!***************************************************************!*\
-  !*** ./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js ***!
-  \***************************************************************/
-/*! exports provided: showVehicles */
+/***/ "./resources/js/src/employeeDesc/Vehicle/VehicleAddButton.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/VehicleAddButton.js ***!
+  \*******************************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showVehicles", function() { return showVehicles; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _VehicleForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VehicleForm */ "./resources/js/src/employeeDesc/Vehicle/VehicleForm.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9265,172 +9281,16 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-function showVehicles() {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehiclesTable, {
-    vehicles: _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].vehicles
-  }), document.getElementById('content'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleAddButton, null), document.getElementById('add-button-holder'));
-}
 
-var VehiclesTable = /*#__PURE__*/function (_React$Component) {
-  _inherits(VehiclesTable, _React$Component);
+var VehicleAddButton = /*#__PURE__*/function (_Component) {
+  _inherits(VehicleAddButton, _Component);
 
-  var _super = _createSuper(VehiclesTable);
-
-  function VehiclesTable() {
-    _classCallCheck(this, VehiclesTable);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(VehiclesTable, [{
-    key: "render",
-    value: function render() {
-      var vehiclesResult = this.props.vehicles.map(function (vehicle) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-          scope: "row"
-        }, vehicle.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vehicle.regNumber), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vehicle.ok ? 'OK' : 'Needs service'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vehicle.currentCityName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleInfoButton, {
-          key: vehicle.id,
-          vehicle: vehicle
-        })));
-      });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-        className: "table table-striped"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
-        className: "thead-light"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "Id"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "regNumber"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "State"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }, "Order"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-        scope: "col"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null));
-    }
-  }]);
-
-  return VehiclesTable;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var VehicleDetails = /*#__PURE__*/function (_React$Component2) {
-  _inherits(VehicleDetails, _React$Component2);
-
-  var _super2 = _createSuper(VehicleDetails);
-
-  function VehicleDetails() {
-    _classCallCheck(this, VehicleDetails);
-
-    return _super2.apply(this, arguments);
-  }
-
-  _createClass(VehicleDetails, [{
-    key: "render",
-    value: function render() {
-      var vehicle = this.props.vehicle;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Vehicle \u2116 ", vehicle.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Registration number: "), vehicle.regNumber), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Capacity:"), " ", vehicle.capacity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Crew size:"), " ", vehicle.dutySize), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Status:"), " ", vehicle.ok ? 'Is ok' : 'Needs service'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), " ", vehicle.currentCityId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Current order:"), " ", vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleUpdateButton, {
-        vehicle: vehicle
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleDeleteButton, {
-        vehicleId: vehicle.id
-      }));
-    }
-  }]);
-
-  return VehicleDetails;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var VehicleUpdateButton = /*#__PURE__*/function (_React$Component3) {
-  _inherits(VehicleUpdateButton, _React$Component3);
-
-  var _super3 = _createSuper(VehicleUpdateButton);
-
-  function VehicleUpdateButton() {
-    _classCallCheck(this, VehicleUpdateButton);
-
-    return _super3.apply(this, arguments);
-  }
-
-  _createClass(VehicleUpdateButton, [{
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var showForm = function showForm() {
-        var vehicle = _this.props.vehicle;
-        $.ajax({
-          method: "GET",
-          url: '../city/',
-          success: function success(response) {
-            react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleForm, {
-              vehicle: vehicle,
-              cities: response,
-              url: 'update/'
-            }), document.getElementById('details'));
-          }
-        });
-      };
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-sm btn-secondary",
-        onClick: showForm
-      }, "Update");
-    }
-  }]);
-
-  return VehicleUpdateButton;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var VehicleDeleteButton = /*#__PURE__*/function (_React$Component4) {
-  _inherits(VehicleDeleteButton, _React$Component4);
-
-  var _super4 = _createSuper(VehicleDeleteButton);
-
-  function VehicleDeleteButton() {
-    _classCallCheck(this, VehicleDeleteButton);
-
-    return _super4.apply(this, arguments);
-  }
-
-  _createClass(VehicleDeleteButton, [{
-    key: "render",
-    value: function render() {
-      var vehicleId = this.props.vehicleId;
-
-      var deleteVehicle = function deleteVehicle() {
-        $.ajax({
-          method: "DELETE",
-          url: '../vehicle/delete/' + vehicleId,
-          success: function success(response) {
-            alert(response);
-            showVehicles();
-          }
-        });
-      };
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "btn btn-sm btn-secondary",
-        onClick: deleteVehicle
-      }, "Delete");
-    }
-  }]);
-
-  return VehicleDeleteButton;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var VehicleAddButton = /*#__PURE__*/function (_React$Component5) {
-  _inherits(VehicleAddButton, _React$Component5);
-
-  var _super5 = _createSuper(VehicleAddButton);
+  var _super = _createSuper(VehicleAddButton);
 
   function VehicleAddButton() {
     _classCallCheck(this, VehicleAddButton);
 
-    return _super5.apply(this, arguments);
+    return _super.apply(this, arguments);
   }
 
   _createClass(VehicleAddButton, [{
@@ -9439,71 +9299,119 @@ var VehicleAddButton = /*#__PURE__*/function (_React$Component5) {
       var vehicle = {
         regNumber: '',
         dutySize: 0,
-        CurrentCityId: 1,
-        currentOrder: 0,
         capacity: 0,
-        ok: true
+        currentCityId: 0
       };
 
       var showForm = function showForm() {
-        $.ajax({
-          method: "GET",
-          url: '../city/',
-          success: function success(response) {
-            react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
-            react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(VehicleForm, {
-              vehicle: vehicle,
-              cities: response,
-              url: 'new/'
-            }), document.getElementById('details'));
-          }
-        });
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleForm__WEBPACK_IMPORTED_MODULE_2__["VehicleForm"], {
+          action: "new",
+          vehicle: vehicle
+        }), document.getElementById('details'));
       };
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-primary",
         onClick: showForm
-      }, "Add vehicle");
+      }, "Add new vehicle");
     }
   }]);
 
   return VehicleAddButton;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-var VehicleForm = /*#__PURE__*/function (_React$Component6) {
-  _inherits(VehicleForm, _React$Component6);
+/* harmony default export */ __webpack_exports__["default"] = (VehicleAddButton);
 
-  var _super6 = _createSuper(VehicleForm);
+/***/ }),
+
+/***/ "./resources/js/src/employeeDesc/Vehicle/VehicleForm.js":
+/*!**************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/VehicleForm.js ***!
+  \**************************************************************/
+/*! exports provided: VehicleForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VehicleForm", function() { return VehicleForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../resourceHandler/repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _VehicleTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./VehicleTable */ "./resources/js/src/employeeDesc/Vehicle/VehicleTable.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+var VehicleForm = /*#__PURE__*/function (_Component) {
+  _inherits(VehicleForm, _Component);
+
+  var _super = _createSuper(VehicleForm);
 
   function VehicleForm(props) {
-    var _this2;
+    var _this;
 
     _classCallCheck(this, VehicleForm);
 
-    _this2 = _super6.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this2), "vehicle", _this2.props.vehicle);
-
-    _this2.state = {
-      vehicle: _this2.vehicle
+    _this = _super.call(this, props);
+    _this.state = {
+      vehicle: _this.props.vehicle
     };
-    _this2.handleInputChange = _this2.handleInputChange.bind(_assertThisInitialized(_this2));
-    _this2.handleSubmit = _this2.handleSubmit.bind(_assertThisInitialized(_this2));
-    return _this2;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.closeForm = _this.closeForm.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(VehicleForm, [{
+    key: "closeForm",
+    value: function closeForm() {
+      react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render('', document.getElementById('details'));
+    }
+  }, {
     key: "handleInputChange",
     value: function handleInputChange(e) {
-      var target = e.target;
-      var value = target.value;
-      var name = target.name;
       var vehicle = this.state.vehicle;
-
-      if (name === 'ok') {
-        value = target.checked;
-      }
-
+      var target = e.target;
+      var value = target.name === 'ok' ? target.checked : target.value;
+      var name = target.name;
       vehicle[name] = value;
       this.setState({
         vehicle: vehicle
@@ -9514,73 +9422,392 @@ var VehicleForm = /*#__PURE__*/function (_React$Component6) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var data = this.state.vehicle;
-      $.ajax({
-        method: 'POST',
-        url: '../vehicle/' + this.props.url,
-        contentType: "application/json",
-        data: JSON.stringify(data),
-        success: function success(response) {
-          alert(response);
-          showVehicles();
-        }
-      });
+      if (this.props.action === 'new') _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__["default"].save(data);
+      if (this.props.action === 'update') _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__["default"].update(data);
     }
   }, {
     key: "render",
     value: function render() {
-      var vehicle = this.state.vehicle;
-      var options = this.props.cities.map(function (city) {
+      var cities = Array.from(_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].cities, function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        return value;
+      });
+      var options = cities.map(function (city) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           value: city.id
         }, city.name);
       });
+      var updateVehicleInputs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Is ok:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        name: "ok",
+        type: "checkbox",
+        checked: this.state.vehicle.ok
+      }));
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "vehicle form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Registration number:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Registration number:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "regNumber",
         type: "text",
-        defaultValue: vehicle.regNumber,
+        minLength: 6,
+        maxLength: 6,
+        defaultValue: this.state.vehicle.regNumber,
         onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Capacity:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Capacity:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "capacity",
-        type: "number",
-        defaultValue: vehicle.capacity,
+        type: "text",
+        minLength: 6,
+        maxLength: 6,
+        defaultValue: this.state.vehicle.regNumber,
         onChange: this.handleInputChange,
-        min: 100,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Crew size:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Duty size:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "dutySize",
         type: "number",
-        defaultValue: vehicle.dutySize,
-        onChange: this.handleInputChange,
         min: 1,
+        max: 3,
+        defaultValue: this.state.vehicle.lastName,
+        onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "form-control",
         name: "currentCityId",
-        defaultValue: vehicle.currentCityId,
+        defaultValue: this.state.vehicle.currentCityId,
         onChange: this.handleInputChange
-      }, options), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        name: "ok",
-        type: "checkbox",
-        checked: vehicle.ok,
-        onChange: this.handleInputChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, " Is ok"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, options), this.props.action === "new" ? '' : updateVehicleInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "btn btn-sm btn-secondary",
-        type: "submit",
+        type: "button",
+        onClick: this.handleSubmit,
         value: "Save"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "btn btn-sm btn-secondary",
+        type: "button",
+        onClick: this.closeForm,
+        value: "Close"
       })));
     }
   }]);
 
   return VehicleForm;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/***/ }),
+
+/***/ "./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleDetailsButton.js":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleDetailsButton.js ***!
+  \***********************************************************************************/
+/*! exports provided: VehicleDetailsButton */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VehicleDetailsButton", function() { return VehicleDetailsButton; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _VehicleInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VehicleInfo */ "./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleInfo.js");
+/* harmony import */ var _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../resourceHandler/repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var VehicleDetailsButton = /*#__PURE__*/function (_Component) {
+  _inherits(VehicleDetailsButton, _Component);
+
+  var _super = _createSuper(VehicleDetailsButton);
+
+  function VehicleDetailsButton(props) {
+    var _this;
+
+    _classCallCheck(this, VehicleDetailsButton);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      id: _this.props.vehicleId
+    };
+    _this.showInfo = _this.showInfo.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(VehicleDetailsButton, [{
+    key: "showInfo",
+    value: function showInfo() {
+      react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleInfo__WEBPACK_IMPORTED_MODULE_2__["VehicleInfo"], {
+        vehicle: _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__["default"].get(this.state.id)
+      }), document.getElementById('details'));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: 'btn btn-sm btn-secondary',
+        onClick: this.showInfo
+      }, "Details");
+    }
+  }]);
+
+  return VehicleDetailsButton;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/***/ }),
+
+/***/ "./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleInfo.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleInfo.js ***!
+  \**************************************************************************/
+/*! exports provided: VehicleInfo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VehicleInfo", function() { return VehicleInfo; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../resourceHandler/repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _VehicleForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../VehicleForm */ "./resources/js/src/employeeDesc/Vehicle/VehicleForm.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+var VehicleInfo = /*#__PURE__*/function (_Component) {
+  _inherits(VehicleInfo, _Component);
+
+  var _super = _createSuper(VehicleInfo);
+
+  function VehicleInfo(props) {
+    var _this;
+
+    _classCallCheck(this, VehicleInfo);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      vehicle: _this.props.vehicle
+    };
+    return _this;
+  }
+
+  _createClass(VehicleInfo, [{
+    key: "render",
+    value: function render() {
+      var vehicle = this.state.vehicle;
+
+      var close = function close() {
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+      };
+
+      var deleteVehicle = function deleteVehicle() {
+        confirm('You really want to delete vehicle #' + vehicle.id + '?');
+        _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](vehicle.id);
+      };
+
+      var showEditForm = function showEditForm() {
+        react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleForm__WEBPACK_IMPORTED_MODULE_4__["VehicleForm"], {
+          action: 'update',
+          vehicle: vehicle
+        }), document.getElementById('details'));
+      };
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Vehicle info"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Id:"), " ", vehicle.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Registration number:"), " ", vehicle.regNumber, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Capacity:"), " ", vehicle.capacity, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Duty size:"), " ", vehicle.dutySize, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), " ", _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_3__["default"].cities.get(vehicle.currentCityId).name, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Current order id:"), " ", vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Status:"), " ", vehicle.ok ? 'Ok' : 'Need service', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: 'btn btn-secondary',
+        onClick: showEditForm
+      }, "Edit"), vehicle.currentOrder === 0 && vehicle.status === 'ON_REST' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: 'btn btn-secondary',
+        onClick: deleteVehicle
+      }, "Delete") : '', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: 'btn btn-secondary',
+        onClick: close
+      }, "Close"));
+    }
+  }]);
+
+  return VehicleInfo;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/***/ }),
+
+/***/ "./resources/js/src/employeeDesc/Vehicle/VehicleTable.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/VehicleTable.js ***!
+  \***************************************************************/
+/*! exports provided: VehicleTable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VehicleTable", function() { return VehicleTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
+/* harmony import */ var _VehicleInfo_VehicleDetailsButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VehicleInfo/VehicleDetailsButton */ "./resources/js/src/employeeDesc/Vehicle/VehicleInfo/VehicleDetailsButton.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var VehicleTable = /*#__PURE__*/function (_Component) {
+  _inherits(VehicleTable, _Component);
+
+  var _super = _createSuper(VehicleTable);
+
+  function VehicleTable() {
+    _classCallCheck(this, VehicleTable);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(VehicleTable, [{
+    key: "render",
+    value: function render() {
+      var vehicles = Array.from(_resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].vehicles, function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
+
+        return value;
+      });
+      var rows = vehicles.map(function (v) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.regNumber), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.ok ? 'Ok' : 'Need service'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_1__["default"].cities.get(v.currentCityId).name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, v.currentOrderId === 0 ? 'None' : v.currentOrderId), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleInfo_VehicleDetailsButton__WEBPACK_IMPORTED_MODULE_2__["VehicleDetailsButton"], {
+          vehicleId: v.id
+        })));
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-striped"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", {
+        className: "thead-light"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Id"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Registration number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "State"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Location"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, "Current order"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, rows));
+    }
+  }]);
+
+  return VehicleTable;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/***/ }),
+
+/***/ "./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/src/employeeDesc/Vehicle/vehicleLogic.js ***!
+  \***************************************************************/
+/*! exports provided: showVehicles */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showVehicles", function() { return showVehicles; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _VehicleTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VehicleTable */ "./resources/js/src/employeeDesc/Vehicle/VehicleTable.js");
+/* harmony import */ var _VehicleAddButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VehicleAddButton */ "./resources/js/src/employeeDesc/Vehicle/VehicleAddButton.js");
+
+
+
+
+function showVehicles() {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleAddButton__WEBPACK_IMPORTED_MODULE_3__["default"], null), document.getElementById('add-button-holder'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_VehicleTable__WEBPACK_IMPORTED_MODULE_2__["VehicleTable"], null), document.getElementById('content'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render('', document.getElementById('details'));
+}
 
 /***/ }),
 
@@ -9617,7 +9844,7 @@ var ResourceService = /*#__PURE__*/function () {
 
     this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
-    this.vehicles = this.initVehicles();
+    this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
     this.cargos = this.initCargos();
     this.cities = _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
   }
@@ -9630,17 +9857,17 @@ var ResourceService = /*#__PURE__*/function () {
   }, {
     key: "updateDrivers",
     value: function updateDrivers() {
-      this.orders = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
+      this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     }
   }, {
     key: "updateVehicles",
     value: function updateVehicles() {
-      this.orders = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
+      this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
     }
   }, {
     key: "updateCargos",
     value: function updateCargos() {
-      this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+      this.cargos = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
     }
   }, {
     key: "initCargos",
@@ -9656,21 +9883,6 @@ var ResourceService = /*#__PURE__*/function () {
         }
       });
       return cargos;
-    }
-  }, {
-    key: "initVehicles",
-    value: function initVehicles() {
-      var vehicles = new Map();
-      $.ajax({
-        method: "GET",
-        url: '../vehicle/',
-        success: function success(response) {
-          response.forEach(function (item, index) {
-            return vehicles.set(item.id, item);
-          });
-        }
-      });
-      return vehicles;
     }
   }]);
 
@@ -9762,6 +9974,7 @@ var DriverRepository = /*#__PURE__*/function () {
     value: function init() {
       var drivers = new Map();
       $.ajax({
+        async: true,
         method: "GET",
         url: '../driver/',
         success: function success(response) {
@@ -9807,10 +10020,10 @@ var DriverRepository = /*#__PURE__*/function () {
         data: JSON.stringify(driver),
         success: function success() {
           _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateDrivers();
-          alert('Driver №' + updatedDrv.id + ' was successfully edited!');
+          alert('Driver #' + updatedDrv.id + ' was successfully edited!');
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -9826,7 +10039,7 @@ var DriverRepository = /*#__PURE__*/function () {
           driver = response;
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
       return driver;
@@ -9839,10 +10052,10 @@ var DriverRepository = /*#__PURE__*/function () {
         method: "DELETE",
         url: '../driver/delete/' + id,
         success: function success() {
-          alert('Driver №' + id + ' was successfully removed from the database!');
+          alert('Driver #' + id + ' was successfully removed from the database!');
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -9884,6 +10097,7 @@ var OrderRepository = /*#__PURE__*/function () {
     value: function init() {
       var orders = new Map();
       $.ajax({
+        async: true,
         method: "GET",
         url: '../order/',
         success: function success(response) {
@@ -9908,7 +10122,7 @@ var OrderRepository = /*#__PURE__*/function () {
           _Resources__WEBPACK_IMPORTED_MODULE_0__["default"].updateCargos();
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -9921,10 +10135,10 @@ var OrderRepository = /*#__PURE__*/function () {
         contentType: "application/json",
         data: JSON.stringify(order),
         success: function success() {
-          alert('Vehicle №' + order.vehicleId + ' was successfully assigned to order №!' + order.id);
+          alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #!' + order.id);
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -9937,10 +10151,10 @@ var OrderRepository = /*#__PURE__*/function () {
         contentType: "application/json",
         data: JSON.stringify(order),
         success: function success() {
-          alert('Drivers were successfully assigned to order №!' + order.id);
+          alert('Drivers were successfully assigned to order #!' + order.id);
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -9956,7 +10170,7 @@ var OrderRepository = /*#__PURE__*/function () {
           order = response;
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
       return order;
@@ -9996,6 +10210,7 @@ var VehicleRepository = /*#__PURE__*/function () {
     value: function init() {
       var vehicles = new Map();
       $.ajax({
+        async: true,
         method: "GET",
         url: '../vehicle/',
         success: function success(response) {
@@ -10018,13 +10233,38 @@ var VehicleRepository = /*#__PURE__*/function () {
           alert('Vehicle was successfully added to database. \n ' + 'New vehicle id=' + response);
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
   }, {
+    key: "get",
+    value: function get(id) {
+      var vehicle;
+      $.ajax({
+        async: false,
+        method: "GET",
+        url: '../vehicle/get/' + id,
+        success: function success(response) {
+          vehicle = response;
+        },
+        error: function error(response) {
+          alert(response.responseText);
+        }
+      });
+      return vehicle;
+    }
+  }, {
     key: "update",
-    value: function update(vehicle) {
+    value: function update(updatedVehicle) {
+      var vehicle = {
+        id: updatedVehicle.id,
+        regNumber: updatedVehicle.regNumber,
+        dutySize: Number(updatedVehicle.dutySize),
+        capacity: Number(updatedVehicle.capacity),
+        ok: updatedVehicle.ok,
+        currentCityId: Number(updatedVehicle.currentCityId)
+      };
       $.ajax({
         method: 'PUT',
         url: '../vehicle/update/',
@@ -10034,7 +10274,7 @@ var VehicleRepository = /*#__PURE__*/function () {
           alert('Vehicle was successfully added to database. \n ' + 'New driver id=' + response);
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }
@@ -10042,14 +10282,13 @@ var VehicleRepository = /*#__PURE__*/function () {
     key: "delete",
     value: function _delete(id) {
       $.ajax({
-        async: false,
         method: "DELETE",
         url: '../vehicle/delete/' + id,
         success: function success() {
-          alert('Vehicle №' + id + ' was successfully removed from the database!');
+          alert('Vehicle #' + id + ' was successfully removed from the database!');
         },
         error: function error(response) {
-          alert(response);
+          alert(response.responseText);
         }
       });
     }

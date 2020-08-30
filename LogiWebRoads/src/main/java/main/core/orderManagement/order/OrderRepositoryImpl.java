@@ -21,7 +21,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Order ", Order.class)
+                .createQuery("from Order o order by o.status", Order.class)
                 .list();
     }
 

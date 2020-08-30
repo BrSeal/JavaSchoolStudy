@@ -37,8 +37,9 @@ export class OrderForm extends Component {
 
         let saveOrder=()=> {
             orderRepository.save(o);
+            ReactDOM.render('', document.getElementById('content'));
+            ReactDOM.render('', document.getElementById('details'));
             ReactDOM.render(<OrderTable orders={resources.orders}/>,document.getElementById('content'));
-            ReactDOM.render('', document.getElementById('details'))
 
         }
 

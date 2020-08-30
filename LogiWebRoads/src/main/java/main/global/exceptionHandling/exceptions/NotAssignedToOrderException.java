@@ -1,7 +1,7 @@
 package main.global.exceptionHandling.exceptions;
 
 public class NotAssignedToOrderException extends RuntimeException{
-    private static final String NOT_ASSIGNED="%s is not assigned to order №%d!";
+    private static final String NOT_ASSIGNED="%s is not assigned to order #%d!";
     public NotAssignedToOrderException(Class clazz, int id){
         super(String.format(NOT_ASSIGNED,clazz.getSimpleName(),id));
     }

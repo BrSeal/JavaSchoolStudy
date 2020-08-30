@@ -11,16 +11,16 @@ import java.util.List;
 
 public class OrderCheckProvider {
 
-    private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle №%d is too low! Need at least %d.";
-    private static final String NOT_ENOUGH_HOURS_ERR = "Driver №%d would be overworked!";
-    private static final String ALREADY_ASSIGNED_ERR = "Vehicle №%d is already assigned to order #%d!";
-    private static final String DRIVER_IN_OTHER_CITY_ERR = "Driver №%d is in %s but vehicle is in %s!";
-    private static final String DRIVER_ALREADY_IN_ORDER_ERR = "Driver №%d is already assigned to order #%d!";
-    private static final String NO_VEHICLE_ERR = "Order №%d has no assigned vehicle! Please assign vehicle first!";
-    private static final String BROKEN_VEHICLE_ERR = "Vehicle №%d is broken and can't be used!";
-    private static final String ORDER_STARTED_ERR = "Order №%d is already in work!";
+    private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle #%d is too low! Need at least %d.";
+    private static final String NOT_ENOUGH_HOURS_ERR = "Driver #%d would be overworked!";
+    private static final String ALREADY_ASSIGNED_ERR = "Vehicle #%d is already assigned to order #%d!";
+    private static final String DRIVER_IN_OTHER_CITY_ERR = "Driver #%d is in %s but vehicle is in %s!";
+    private static final String DRIVER_ALREADY_IN_ORDER_ERR = "Driver #%d is already assigned to order #%d!";
+    private static final String NO_VEHICLE_ERR = "Order #%d has no assigned vehicle! Please assign vehicle first!";
+    private static final String BROKEN_VEHICLE_ERR = "Vehicle #%d is broken and can't be used!";
+    private static final String ORDER_STARTED_ERR = "Order #%d is already in work!";
     private static final String DUTY_SIZE_ERR = "You selected too many drivens! Assigned vehicle can handle only %d person/s";
-    private static final String ORDER_ALREADY_COMPLETED_ERR = "Order №%d is already completed!";
+    private static final String ORDER_ALREADY_COMPLETED_ERR = "Order #%d is already completed!";
     private static final String NO_DRIVERS_ASSIGNED_ERR = "No drivers assigned! Please assign at least one driver!";
     private static final String NOT_FOUND = "No drivers assigned! Please assign at least one driver!";
 

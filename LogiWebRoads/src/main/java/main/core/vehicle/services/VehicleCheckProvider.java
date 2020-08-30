@@ -2,7 +2,7 @@ package main.core.vehicle.services;
 
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.vehicle.DTO.NewVehicleDTO;
-import main.core.vehicle.DTO.VehicleDTO;
+import main.core.vehicle.DTO.VehicleFullInfoDTO;
 import main.core.vehicle.entity.Vehicle;
 import main.global.exceptionHandling.exceptions.DeletionFailedException;
 import main.global.exceptionHandling.exceptions.NotFoundException;
@@ -25,7 +25,7 @@ public class VehicleCheckProvider {
     private static final String UPDATE_FAIL_ON_ORDER_CITY = "Location can't be updated while vehicle is assigned on order!";
     private static final String UPDATE_FAIL_ORDER_UPDATE_ERR = "You cant reassign vehicle!";
 
-    public void canBeUpdated(Vehicle vehicle, VehicleDTO dto) {
+    public void canBeUpdated(Vehicle vehicle, VehicleFullInfoDTO dto) {
         if(Objects.nonNull(vehicle.getCurrentOrder())){
             if(dto.getDutySize()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_DUTY_SIZE);
             if(dto.getCapacity()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CAPACITY);

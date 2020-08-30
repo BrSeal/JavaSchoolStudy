@@ -8,7 +8,7 @@ class ResourceService {
     constructor() {
         this.drivers = driverRepository.init();
         this.orders = orderRepository.init();
-        this.vehicles = this.initVehicles();
+        this.vehicles = vehicleRepository.init();
         this.cargos = this.initCargos();
         this.cities = cityRepository.init();
     }
@@ -18,17 +18,16 @@ class ResourceService {
     }
 
     updateDrivers(){
-        this.orders = driverRepository.init();
+        this.drivers = driverRepository.init();
     }
 
     updateVehicles(){
-        this.orders = vehicleRepository.init();
+        this.vehicles = vehicleRepository.init();
     }
 
     updateCargos(){
-        this.orders = orderRepository.init();
+        this.cargos = orderRepository.init();
     }
-
 
     initCargos() {
         let cargos = new Map();
@@ -40,18 +39,6 @@ class ResourceService {
             }
         });
         return cargos;
-    }
-
-    initVehicles() {
-        let vehicles=new Map();
-        $.ajax({
-            method: "GET",
-            url: '../vehicle/',
-            success: function (response) {
-                response.forEach((item, index) => vehicles.set(item.id, item));
-            }
-        });
-        return vehicles;
     }
 }
 

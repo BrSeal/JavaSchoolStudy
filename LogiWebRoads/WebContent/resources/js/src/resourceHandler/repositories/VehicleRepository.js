@@ -2,6 +2,7 @@ class VehicleRepository {
     init() {
         let vehicles = new Map();
         $.ajax({
+            async:true,
             method: "GET",
             url: '../vehicle/',
             success: function (response) {
@@ -22,12 +23,36 @@ class VehicleRepository {
                     'New vehicle id=' + response);
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
 
-    update(vehicle) {
+    get(id) {
+        let vehicle;
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../vehicle/get/' + id,
+            success: function (response) {
+                vehicle = response;
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+        return vehicle;
+    }
+
+    update(updatedVehicle) {
+       let vehicle={
+            id:updatedVehicle.id,
+            regNumber:updatedVehicle.regNumber,
+            dutySize:Number(updatedVehicle.dutySize),
+            capacity:Number(updatedVehicle.capacity),
+            ok:updatedVehicle.ok,
+            currentCityId:Number(updatedVehicle.currentCityId)
+        }
         $.ajax({
             method: 'PUT',
             url: '../vehicle/update/',
@@ -38,21 +63,20 @@ class VehicleRepository {
                     'New driver id=' + response);
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
 
     delete(id){
         $.ajax({
-            async:false,
             method: "DELETE",
             url: '../vehicle/delete/' + id,
             success: function () {
-                alert('Vehicle №'+id+' was successfully removed from the database!');
+                alert('Vehicle #'+id+' was successfully removed from the database!');
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }

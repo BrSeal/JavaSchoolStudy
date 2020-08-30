@@ -1,11 +1,11 @@
 package main.core.vehicle.services;
 
 import main.core.cityAndRoads.cities.entity.City;
-import main.core.vehicle.DTO.VehicleDTO;
+import main.core.vehicle.DTO.VehicleFullInfoDTO;
 import main.core.vehicle.entity.Vehicle;
 
 public class VehicleLogic {
-    public void updateFields(Vehicle vehicle, VehicleDTO dto){
+    public void updateFields(Vehicle vehicle, VehicleFullInfoDTO dto){
         int cityId=dto.getCurrentCityId();
         int capacity=dto.getCapacity();
         int dutySize=dto.getDutySize();

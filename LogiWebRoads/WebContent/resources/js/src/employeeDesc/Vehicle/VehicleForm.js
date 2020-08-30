@@ -1,17 +1,16 @@
 import React, {Component} from "react";
 import resources from "../../resourceHandler/Resources";
-import driverRepository from "../../resourceHandler/repositories/DriverRepository";
+import vehicleRepository from "../../resourceHandler/repositories/VehicleRepository";
 import ReactDOM from "react-dom";
-import {DriverTable} from "./DriverTable";
+import {VehicleTable} from "./VehicleTable";
 
-
-class DriverForm extends Component {
+export class VehicleForm extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            driver: this.props.driver,
+            vehicle: this.props.vehicle,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,67 +24,74 @@ class DriverForm extends Component {
     }
 
     handleInputChange(e) {
-        let driver = this.state.driver;
+        let vehicle = this.state.vehicle;
         const target = e.target;
-        let value = target.value;
+        const value = target.name === 'ok' ? target.checked : target.value;
         const name = target.name;
 
 
-        driver[name] = value;
+        vehicle[name] = value;
         this.setState({
-            driver: driver
+            vehicle: vehicle
         });
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        let data = this.state.driver;
+        let data = this.state.vehicle;
 
-        if (this.props.action === 'new') driverRepository.save(data);
-        if (this.props.action === 'update') driverRepository.update(data);
-        DriverTable.render();
+        if (this.props.action === 'new') vehicleRepository.save(data);
+        if (this.props.action === 'update') vehicleRepository.update(data);
     }
 
     render() {
         let cities = Array.from(resources.cities, ([key, value]) => (value));
         const options = cities.map((city) => (<option value={city.id}>{city.name}</option>));
 
-        let updateDriverInputs =
-            (
-                <div>
-                    <label/><b>Hours worked:</b>
-                    <input
-                        className="form-control"
-                        name="hoursWorked"
-                        type="number"
-                        defaultValue={this.state.driver.hoursWorked}
-                        onChange={this.handleInputChange}
-                        min={0}
-                        max={176}
-                        required
-                    />
-                </div>)
-        ;
+        let updateVehicleInputs = (<div>
+            <label/><b>Is ok:</b>
+            <input
+                className="form-control"
+                name="ok"
+                type="checkbox"
+                checked={this.state.vehicle.ok}
+            />
+                </div>);
 
         return (
             <form onSubmit={this.handleSubmit}>
-                <h1>Driver form</h1>
+                <h1>vehicle form</h1>
                 <div className="form-group">
-                    <label/><b>First name:</b>
+                    <label/><b>Registration number:</b>
                     <input
                         className="form-control"
-                        name="firstName"
+                        name="regNumber"
                         type="text"
-                        defaultValue={this.state.driver.firstName}
+                        minLength={6}
+                        maxLength={6}
+                        defaultValue={this.state.vehicle.regNumber}
                         onChange={this.handleInputChange}
                         required/>
                     <br/>
-                    <label/><b>Last name:</b>
+                    <label/><b>Capacity:</b>
                     <input
                         className="form-control"
-                        name="lastName"
+                        name="capacity"
                         type="text"
-                        defaultValue={this.state.driver.lastName}
+                        minLength={6}
+                        maxLength={6}
+                        defaultValue={this.state.vehicle.regNumber}
+                        onChange={this.handleInputChange}
+                        required/>
+                    <br/>
+                    <label/><b>Duty size:</b>
+                    <input
+                        className="form-control"
+                        name="dutySize"
+                        type="number"
+                        min={1}
+                        max={3}
+                        defaultValue={this.state.vehicle.lastName}
                         onChange={this.handleInputChange}
                         required/>
                     <br/>
@@ -93,12 +99,12 @@ class DriverForm extends Component {
                     <select
                         className="form-control"
                         name="currentCityId"
-                        defaultValue={this.state.driver.currentCityId}
+                        defaultValue={this.state.vehicle.currentCityId}
                         onChange={this.handleInputChange}>
                         {options}
                     </select>
 
-                    {this.props.action === "new" ? '' : updateDriverInputs}
+                    {this.props.action === "new" ? '' : updateVehicleInputs}
 
                     <input className='btn btn-sm btn-secondary' type="button" onClick={this.handleSubmit} value="Save"/>
                     <input className='btn btn-sm btn-secondary' type="button" onClick={this.closeForm} value="Close"/>
@@ -107,5 +113,3 @@ class DriverForm extends Component {
         );
     }
 }
-
-export default DriverForm;

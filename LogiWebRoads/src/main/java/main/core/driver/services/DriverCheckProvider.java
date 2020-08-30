@@ -26,10 +26,10 @@ public class DriverCheckProvider {
     private static final String NOT_IN_ORDER_STATUS_CHANGE_ERR = "You can't change status being on rest!";
     private static final String CANT_LEAVE_ORDER = "You are on duty!";
     private static final String SAME_STATUS_ERR = "You tried to assign the same status!";
-    private static final String UPDATE_FAIL_EMPTY_NAME = "Driver №%d cant be updated! First name and last name can't be empty!";
-    private static final String UPDATE_FAIL_WRONG_HOURS_WORKED = "Driver №%d cant be updated! Working hours must be greater than 0 and less or equal to 176!";
-    private static final String UPDATE_FAIL_ORDER = "Driver №%d cant be updated! You can reassign driver only from order menu!";
-    private static final String UPDATE_FAIL_CITY_CHANGE_FORBIDDEN = "Driver №%d cant be updated! You can't change current location while driver is on order. It changes automatically!";
+    private static final String UPDATE_FAIL_EMPTY_NAME = "Driver #%d cant be updated! First name and last name can't be empty!";
+    private static final String UPDATE_FAIL_WRONG_HOURS_WORKED = "Driver #%d cant be updated! Working hours must be greater than 0 and less or equal to 176!";
+    private static final String UPDATE_FAIL_ORDER = "Driver #%d cant be updated! You can reassign driver only from order menu!";
+    private static final String UPDATE_FAIL_CITY_CHANGE_FORBIDDEN = "Driver #%d cant be updated! You can't change current location while driver is on order. It changes automatically!";
 
     public void canBeDeleted(Driver driver) {
         boolean canBeDeleted = driver.getCurrentOrder() == null && driver.getStatus().equals(DriverStatus.ON_REST);

@@ -6,7 +6,8 @@ import main.core.orderManagement.order.OrderRepository;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.DTO.NewVehicleDTO;
-import main.core.vehicle.DTO.VehicleDTO;
+import main.core.vehicle.DTO.VehicleFullInfoDTO;
+import main.core.vehicle.DTO.VehicleSmallInfoDTO;
 import main.core.vehicle.entity.Vehicle;
 import main.core.vehicle.services.VehicleCheckProvider;
 import main.core.vehicle.services.VehicleLogic;
@@ -42,34 +43,34 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<VehicleDTO> getAll() {
+    public List<VehicleSmallInfoDTO> getAll() {
         return vehicleRepository.getAll().stream()
-                .map(VehicleDTO::new)
+                .map(VehicleSmallInfoDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<VehicleDTO> getByOrderId(int orderId) {
+    public List<VehicleFullInfoDTO> getByOrderId(int orderId) {
         String hql = "from Vehicle v where v.currentOrder=" + orderId;
         return vehicleRepository.getQueryResult(hql).stream()
-                .map(VehicleDTO::new)
+                .map(VehicleFullInfoDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<VehicleDTO> getAvailable(int orderId) {
+    public List<VehicleFullInfoDTO> getAvailable(int orderId) {
         Order order = orderRepository.get(orderId);
         int maxLoad = orderLogic.calculateMaxLoad(order.getWaypoints());
 
         String hql = "from Vehicle v where v.currentOrder=null and v.ok=true and v.capacity>" + maxLoad;
-        return vehicleRepository.getQueryResult(hql).stream().map(VehicleDTO::new).collect(Collectors.toList());
+        return vehicleRepository.getQueryResult(hql).stream().map(VehicleFullInfoDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public VehicleDTO get(int id) {
+    public VehicleFullInfoDTO get(int id) {
         Vehicle vehicle = vehicleRepository.get(id);
         nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, id);
-        return new VehicleDTO(vehicle);
+        return new VehicleFullInfoDTO(vehicle);
     }
 
     @Override
@@ -99,7 +100,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public int update(VehicleDTO dto) {
+    public int update(VehicleFullInfoDTO dto) {
         Vehicle vehicle=vehicleRepository.get(dto.getId());
         nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,dto.getId());
 

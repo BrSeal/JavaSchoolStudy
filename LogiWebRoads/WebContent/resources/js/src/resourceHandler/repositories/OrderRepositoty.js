@@ -5,6 +5,7 @@ class OrderRepository {
     init() {
         let orders = new Map();
         $.ajax({
+            async:true,
             method: "GET",
             url: '../order/',
             success: function (response) {
@@ -26,7 +27,7 @@ class OrderRepository {
                 resources.updateCargos();
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
@@ -38,10 +39,10 @@ class OrderRepository {
             contentType: "application/json",
             data: JSON.stringify(order),
             success: function () {
-                alert('Vehicle №' + order.vehicleId + ' was successfully assigned to order №!' + order.id);
+                alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #!' + order.id);
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
@@ -53,10 +54,10 @@ class OrderRepository {
             contentType: "application/json",
             data: JSON.stringify(order),
             success: function () {
-                alert('Drivers were successfully assigned to order №!' + order.id);
+                alert('Drivers were successfully assigned to order #!' + order.id);
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
@@ -71,7 +72,7 @@ class OrderRepository {
                 order = response;
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
         return order;

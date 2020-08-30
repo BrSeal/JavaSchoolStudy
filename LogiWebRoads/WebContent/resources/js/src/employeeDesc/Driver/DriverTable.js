@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import resources from "../../resourceHandler/Resources";
 import {DriverDetailsButton} from "./DriverInfo/DriverDetailsButton";
 
-//TODO!!
 export class DriverTable extends Component{
     render() {
         let drivers = Array.from(resources.drivers, ([key, value]) => (value));

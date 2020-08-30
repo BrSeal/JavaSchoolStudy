@@ -4,6 +4,7 @@ class DriverRepository {
     init() {
         let drivers = new Map();
         $.ajax({
+            async:true,
             method: "GET",
             url: '../driver/',
             success: function (response) {
@@ -47,10 +48,10 @@ class DriverRepository {
             data: JSON.stringify(driver),
             success: function () {
                 resources.updateDrivers();
-                alert('Driver №'+updatedDrv.id+' was successfully edited!');
+                alert('Driver #'+updatedDrv.id+' was successfully edited!');
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }
@@ -65,7 +66,7 @@ class DriverRepository {
                 driver = response;
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
         return driver;
@@ -77,10 +78,10 @@ class DriverRepository {
             method: "DELETE",
             url: '../driver/delete/' + id,
             success: function () {
-                alert('Driver №'+id+' was successfully removed from the database!');
+                alert('Driver #'+id+' was successfully removed from the database!');
             },
             error: function (response) {
-                alert(response);
+               alert(response.responseText);
             }
         });
     }

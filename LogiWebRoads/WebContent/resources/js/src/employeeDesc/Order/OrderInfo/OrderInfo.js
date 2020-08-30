@@ -28,7 +28,7 @@ export class OrderInfo extends Component {
 
         return (
             <div>
-                <h1>Order №{order.id}</h1>
+                <h1>Order #{order.id}</h1>
                 <label/><b>Creation date:</b> {order.creationDate}<br/>
                 <label/><b>Is
                 completed:</b> {order.status}<br/>

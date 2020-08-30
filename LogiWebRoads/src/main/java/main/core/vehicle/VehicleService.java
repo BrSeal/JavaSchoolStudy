@@ -1,23 +1,23 @@
 package main.core.vehicle;
 
 import main.core.vehicle.DTO.NewVehicleDTO;
-import main.core.vehicle.DTO.VehicleDTO;
-import main.core.vehicle.entity.Vehicle;
+import main.core.vehicle.DTO.VehicleFullInfoDTO;
+import main.core.vehicle.DTO.VehicleSmallInfoDTO;
 
 import java.util.List;
 
 public interface VehicleService {
-    List<VehicleDTO> getAll();
+    List<VehicleSmallInfoDTO> getAll();
 
-    VehicleDTO get(int id);
+    VehicleFullInfoDTO get(int id);
 
-    List<VehicleDTO> getByOrderId(int order);
+    List<VehicleFullInfoDTO> getByOrderId(int order);
 
-    List<VehicleDTO> getAvailable(int orderId);
+    List<VehicleFullInfoDTO> getAvailable(int orderId);
 
     int save(NewVehicleDTO e);
 
-    int update(VehicleDTO vehicle);
+    int update(VehicleFullInfoDTO vehicle);
 
     int delete(int id);
 }
