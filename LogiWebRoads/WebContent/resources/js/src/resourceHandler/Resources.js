@@ -42,6 +42,5 @@ class ResourceService {
     }
 }
 
-
 const resources = new ResourceService();
 export default resources;

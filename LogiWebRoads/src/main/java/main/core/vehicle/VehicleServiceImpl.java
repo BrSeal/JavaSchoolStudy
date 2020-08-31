@@ -6,6 +6,7 @@ import main.core.orderManagement.order.OrderRepository;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.DTO.NewVehicleDTO;
+import main.core.vehicle.DTO.VehicleAssignmentToOrderDTO;
 import main.core.vehicle.DTO.VehicleFullInfoDTO;
 import main.core.vehicle.DTO.VehicleSmallInfoDTO;
 import main.core.vehicle.entity.Vehicle;
@@ -16,12 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
+
 
     private final VehicleRepository vehicleRepository;
     private final OrderRepository orderRepository;
@@ -58,12 +61,19 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<VehicleFullInfoDTO> getAvailable(int orderId) {
+    public List<VehicleAssignmentToOrderDTO> getAvailable(int orderId) {
         Order order = orderRepository.get(orderId);
+        nullChecker.throwNotFoundIfNull(order,Order.class,orderId);
+
         int maxLoad = orderLogic.calculateMaxLoad(order.getWaypoints());
 
         String hql = "from Vehicle v where v.currentOrder=null and v.ok=true and v.capacity>" + maxLoad;
-        return vehicleRepository.getQueryResult(hql).stream().map(VehicleFullInfoDTO::new).collect(Collectors.toList());
+        List<VehicleAssignmentToOrderDTO> dtos= vehicleRepository.getQueryResult(hql).stream()
+                .map(VehicleAssignmentToOrderDTO::new)
+                .collect(Collectors.toList());
+        nullChecker.throwNotFoundIfEmptyList(dtos,Vehicle.class,orderId);
+
+        return dtos;
     }
 
     @Override

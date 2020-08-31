@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewOrderDTO implements OrderDTO {
+public class NewOrderDTO{
     private static final String EMPTY_WAYPOINTS_LIST_ERR = "Add some cargo to deliver!";
 
     List<DeliveryObject> deliveryObjects;

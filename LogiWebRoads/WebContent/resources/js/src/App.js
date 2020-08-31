@@ -7,15 +7,10 @@ import {Footer} from "./Footer";
 export const baseUrl = document.body.dataset.url;
 
 
-function App() {
-
-    return (
-        <div>
-            <NavigationBar/>
-            <MainContainer/>
-            <Footer/>
-        </div>
-    )
-}
-
-ReactDOM.render(<App/>, document.getElementById('root'))
+ReactDOM.render(
+    <div>
+        <NavigationBar/>
+        <MainContainer/>
+        <Footer/>
+    </div>,
+    document.getElementById('root'))

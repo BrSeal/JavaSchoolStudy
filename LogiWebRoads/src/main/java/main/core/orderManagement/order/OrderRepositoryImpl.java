@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-//TODO Сделать адекватное добавление заказов пока что без логики
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
+    private static final String GET_ALL_ORDERS_HQL = "from Order o order by o.status";
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -21,7 +20,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public List<Order> getAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Order o order by o.status", Order.class)
+                .createQuery(GET_ALL_ORDERS_HQL, Order.class)
                 .list();
     }
 
@@ -36,9 +35,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order delete(Order order) {
+    public void delete(Order order) {
         sessionFactory.getCurrentSession().delete(order);
-        return order;
     }
 
     @Override

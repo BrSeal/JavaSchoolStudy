@@ -32,12 +32,17 @@ class OrderRepository {
         });
     }
 
-    assignVehicle(order) {
+    assignVehicle(vehicle, order) {
+        let data= JSON.stringify({
+            id:order,
+            vehicleId:vehicle
+        });
+        alert('Sending: '+data);
         $.ajax({
             method: "PUT",
             url: '../order/assignVehicle/',
             contentType: "application/json",
-            data: JSON.stringify(order),
+            data: data,
             success: function () {
                 alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #!' + order.id);
             },

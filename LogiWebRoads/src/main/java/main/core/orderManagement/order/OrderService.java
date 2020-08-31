@@ -1,17 +1,16 @@
 package main.core.orderManagement.order;
 
-import main.core.orderManagement.order.DTO.OrderDTO;
-
+import main.core.orderManagement.order.DTO.*;
 import java.util.List;
 
 public interface OrderService {
-    List<OrderDTO> getAll();
+    List<SmallInfoOrderDTO> getAll();
 
-    OrderDTO get(int it);
+    InfoOrderDTO get(int it);
 
-    int save(OrderDTO order);
+    int save(NewOrderDTO order);
 
-    void assignVehicle(OrderDTO order);
+    void assignVehicle(AssignVehicleOrderDTO order);
 
-    void assignDrivers(OrderDTO order);
+    void assignDrivers(AssignDriversOrderDTO order);
 }

@@ -32,7 +32,7 @@ export class VehicleInfo extends Component {
 
         return (
             <div>
-                <h1>Vehicle info</h1>
+                <h1>Vehicle #{vehicle.id}</h1>
                 <label/><b>Id:</b> {vehicle.id}<br/>
                 <label/><b>Registration number:</b> {vehicle.regNumber}<br/>
                 <label/><b>Capacity:</b> {vehicle.capacity}<br/>

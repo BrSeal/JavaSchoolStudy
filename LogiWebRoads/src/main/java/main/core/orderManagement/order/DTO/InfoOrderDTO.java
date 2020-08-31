@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InfoOrderDTO implements OrderDTO {
+public class InfoOrderDTO {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private int id;
@@ -47,9 +47,5 @@ public class InfoOrderDTO implements OrderDTO {
                     .map(Driver::getId)
                     .collect(Collectors.toList());
         }
-    }
-
-    public Order toOrder() {
-        throw new DtoConvertForbiddenException();
     }
 }

@@ -44,6 +44,22 @@ class VehicleRepository {
         return vehicle;
     }
 
+    getAvailable(id) {
+        let vehicles;
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../vehicle/available/' + id,
+            success: function (response) {
+                vehicles = response;
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+        return vehicles;
+    }
+
     update(updatedVehicle) {
        let vehicle={
             id:updatedVehicle.id,

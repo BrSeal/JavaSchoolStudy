@@ -31,14 +31,14 @@ export class DriverInfo extends Component {
 
         return (
             <div>
-                <h1>Driver info</h1>
-                <label/><b>Personal number:</b> {driver.id}<br/>
-                <label/><b>First name:</b> {driver.firstName}<br/>
-                <label/><b>Last name:</b> {driver.lastName}<br/>
-                <label/><b>Location:</b> {resources.cities.get(driver.currentCityId).name}<br/>
-                <label/><b>Hours worked:</b> {driver.hoursWorked}<br/>
-                <label/><b>Current order id:</b> {driver.currentOrder===0?'None':driver.currentOrder}<br/>
-                <label/><b>Status:</b> {driver.status}<br/>
+                <h1>Driver #{driver.id}</h1>
+                <div><b>Personal number:</b> {driver.id}</div>
+                <div><b>First name:</b> {driver.firstName}</div>
+                <div><b>Last name:</b> {driver.lastName}</div>
+                <div><b>Location:</b> {resources.cities.get(driver.currentCityId).name}</div>
+                <div><b>Hours worked:</b> {driver.hoursWorked}</div>
+                <div><b>Current order id:</b> {driver.currentOrder===0?'None':driver.currentOrder}</div>
+                <div><b>Status:</b> {driver.status}</div>
 
                 <br/>
                 <button className={'btn btn-secondary'} onClick={showEditForm}>Edit</button>

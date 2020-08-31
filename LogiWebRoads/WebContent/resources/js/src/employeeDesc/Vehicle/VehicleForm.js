@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import resources from "../../resourceHandler/Resources";
 import vehicleRepository from "../../resourceHandler/repositories/VehicleRepository";
 import ReactDOM from "react-dom";
-import {VehicleTable} from "./VehicleTable";
 
 export class VehicleForm extends Component {
 
@@ -45,22 +44,22 @@ export class VehicleForm extends Component {
     }
 
     render() {
-        let cities = Array.from(resources.cities, ([key, value]) => (value));
-        const options = cities.map((city) => (<option value={city.id}>{city.name}</option>));
-
-        let updateVehicleInputs = (<div>
-            <label/><b>Is ok:</b>
-            <input
-                className="form-control"
-                name="ok"
-                type="checkbox"
-                checked={this.state.vehicle.ok}
-            />
-                </div>);
+        let updateVehicleInputs = (
+            <div className={'form-check'}>
+                <input
+                    className="form-check-input"
+                    name="ok"
+                    type="checkbox"
+                    checked={this.state.vehicle.ok}
+                    onChange={this.handleInputChange}
+                    value={'Is ok'}
+                />
+                <label>Is ok</label>
+            </div>);
 
         return (
             <form onSubmit={this.handleSubmit}>
-                <h1>vehicle form</h1>
+                <h1>{this.props.action === 'new' ? 'New vehicle' : 'Edit vehicle #' + this.state.vehicle.id}</h1>
                 <div className="form-group">
                     <label/><b>Registration number:</b>
                     <input
@@ -101,7 +100,15 @@ export class VehicleForm extends Component {
                         name="currentCityId"
                         defaultValue={this.state.vehicle.currentCityId}
                         onChange={this.handleInputChange}>
-                        {options}
+                        {
+                            Array
+                                .from(resources.cities, ([key, value]) => (value))
+                                .map(
+                                    (city) => (
+                                        <option value={city.id}>{city.name}</option>
+                                    )
+                                )
+                        }
                     </select>
 
                     {this.props.action === "new" ? '' : updateVehicleInputs}

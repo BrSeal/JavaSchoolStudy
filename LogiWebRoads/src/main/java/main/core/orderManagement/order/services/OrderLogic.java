@@ -14,6 +14,7 @@ import java.util.List;
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 
 public class OrderLogic {
+    private static final String CORRUPTED_DATA= "Data corrupted! Empty waypoint list!";
 
     private final NullChecker nullChecker;
 
@@ -22,6 +23,8 @@ public class OrderLogic {
     }
 
     public int calculateMaxLoad(List<Waypoint> waypoints) {
+        nullChecker.throwNotFoundIfNull(waypoints,CORRUPTED_DATA);
+
         waypoints.sort(Comparator.comparingInt(Waypoint::getPathIndex));
 
         int maxLoad = 0;

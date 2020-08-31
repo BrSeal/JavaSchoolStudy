@@ -18,11 +18,9 @@ export class MainContainer extends Component{
                 </div>
                 <div className="row">
                     <div id="content" className="col-8 p-0">
-
                     </div>
 
                     <div id="details" className="col-4">
-
                     </div>
                 </div>
             </div>

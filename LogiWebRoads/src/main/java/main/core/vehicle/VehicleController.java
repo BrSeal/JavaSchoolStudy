@@ -1,6 +1,7 @@
 package main.core.vehicle;
 
 import main.core.vehicle.DTO.NewVehicleDTO;
+import main.core.vehicle.DTO.VehicleAssignmentToOrderDTO;
 import main.core.vehicle.DTO.VehicleFullInfoDTO;
 import main.core.vehicle.DTO.VehicleSmallInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class VehicleController {
     }
 
     @GetMapping("/available/{orderId}")
-    public List<VehicleFullInfoDTO> getAvailableVehicles(@PathVariable int orderId){
+    public List<VehicleAssignmentToOrderDTO> getAvailableVehicles(@PathVariable int orderId){
         return service.getAvailable(orderId);
     }
 

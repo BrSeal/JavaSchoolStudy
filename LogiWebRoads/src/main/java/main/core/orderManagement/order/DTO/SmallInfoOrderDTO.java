@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SmallInfoOrderDTO implements OrderDTO {
+public class SmallInfoOrderDTO{
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     private int id;
@@ -26,10 +26,5 @@ public class SmallInfoOrderDTO implements OrderDTO {
         id = order.getId();
         date = dateFormat.format(order.getCreationDate());
         status = order.getStatus();
-    }
-
-    @Override
-    public Order toOrder() {
-        throw new DtoConvertForbiddenException();
     }
 }

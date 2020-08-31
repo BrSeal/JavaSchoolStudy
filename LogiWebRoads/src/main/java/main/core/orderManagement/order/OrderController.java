@@ -1,9 +1,6 @@
 package main.core.orderManagement.order;
 
-import main.core.orderManagement.order.DTO.AssignDriversOrderDTO;
-import main.core.orderManagement.order.DTO.AssignVehicleOrderDTO;
-import main.core.orderManagement.order.DTO.NewOrderDTO;
-import main.core.orderManagement.order.DTO.OrderDTO;
+import main.core.orderManagement.order.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +17,12 @@ public class OrderController {
     }
 
     @GetMapping("/")
-    public List<OrderDTO> getOrders() {
+    public List<SmallInfoOrderDTO> getOrders() {
         return service.getAll();
     }
 
     @GetMapping("/get/{id}")
-    public OrderDTO getOrderById(@PathVariable int id) {
+    public InfoOrderDTO getOrderById(@PathVariable int id) {
         return service.get(id);
     }
 

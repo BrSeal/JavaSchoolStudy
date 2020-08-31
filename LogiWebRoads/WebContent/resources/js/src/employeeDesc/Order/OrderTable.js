@@ -6,17 +6,6 @@ export class OrderTable extends Component {
 
 
     render() {
-
-        let orders = Array.from(resources.orders, ([key, value]) => (value));
-        const rows = orders.map((order) => (
-            <tr>
-                <td>{order.id}</td>
-                <td>{order.date}</td>
-                <td>{order.status}</td>
-                <td><OrderDetailsButton orderId={order.id}/></td>
-            </tr>
-        ));
-
         return (
             <table className="table table-striped">
                 <thead className="thead-light">
@@ -28,7 +17,18 @@ export class OrderTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                {rows}
+                {
+                    Array.from(resources.orders, ([key, value]) => (value))
+                        .map((order) => (
+                            <tr>
+                                <td>{order.id}</td>
+                                <td>{order.date}</td>
+                                <td>{order.status}</td>
+                                <td><OrderDetailsButton orderId={order.id}/></td>
+                            </tr>
+                        )
+                    )
+                }
                 </tbody>
             </table>)
     }
