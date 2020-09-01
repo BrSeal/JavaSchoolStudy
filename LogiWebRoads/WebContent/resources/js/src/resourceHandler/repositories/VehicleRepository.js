@@ -1,3 +1,5 @@
+import resources from "../Resources";
+
 class VehicleRepository {
     init() {
         let vehicles = new Map();
@@ -21,6 +23,7 @@ class VehicleRepository {
             success: function (response) {
                 alert('Vehicle was successfully added to database. \n ' +
                     'New vehicle id=' + response);
+                resources.updateVehicles();
             },
             error: function (response) {
                alert(response.responseText);
@@ -77,6 +80,7 @@ class VehicleRepository {
             success: function (response) {
                 alert('Vehicle was successfully added to database. \n ' +
                     'New driver id=' + response);
+                resources.updateVehicles();
             },
             error: function (response) {
                alert(response.responseText);
@@ -90,6 +94,7 @@ class VehicleRepository {
             url: '../vehicle/delete/' + id,
             success: function () {
                 alert('Vehicle #'+id+' was successfully removed from the database!');
+                resources.updateVehicles();
             },
             error: function (response) {
                alert(response.responseText);

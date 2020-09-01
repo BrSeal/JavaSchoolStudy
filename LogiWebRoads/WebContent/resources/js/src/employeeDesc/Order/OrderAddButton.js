@@ -12,7 +12,7 @@ export class OrderAddButton extends Component {
             );
         }
         return (
-            <button className='btn btn-sm btn-primary' onClick={showForm}>Add order</button>
+            <button className='btn btn-sm btn-info' onClick={showForm}>Add order</button>
         );
     }
 }

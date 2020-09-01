@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.WaypointDTO;
-import main.global.exceptionHandling.exceptions.DtoConvertForbiddenException;
 import main.core.orderManagement.order.entity.Order;
-import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.driver.entity.Driver;
 
 import java.text.SimpleDateFormat;

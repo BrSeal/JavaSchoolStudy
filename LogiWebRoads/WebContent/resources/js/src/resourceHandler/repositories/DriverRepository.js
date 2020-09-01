@@ -78,6 +78,7 @@ class DriverRepository {
             method: "DELETE",
             url: '../driver/delete/' + id,
             success: function () {
+                resources.updateDrivers()
                 alert('Driver #'+id+' was successfully removed from the database!');
             },
             error: function (response) {

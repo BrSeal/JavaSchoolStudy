@@ -16,7 +16,7 @@ class DriverAddButton extends Component {
             );
         }
         return (
-            <button className='btn btn-sm btn-primary' onClick={showForm}>Add driver</button>
+            <button className='btn btn-sm btn-info' onClick={showForm}>Add driver</button>
         );
     }
 }

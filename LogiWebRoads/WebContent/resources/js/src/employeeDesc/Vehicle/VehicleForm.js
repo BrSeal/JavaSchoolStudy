@@ -17,7 +17,6 @@ export class VehicleForm extends Component {
         this.closeForm = this.closeForm.bind(this)
     }
 
-
     closeForm() {
         ReactDOM.render('', document.getElementById('details'))
     }
