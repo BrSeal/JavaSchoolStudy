@@ -33,13 +33,13 @@ export class VehicleInfo extends Component {
         return (
             <div>
                 <h1>Vehicle #{vehicle.id}</h1>
-                <label/><b>Id:</b> {vehicle.id}<br/>
-                <label/><b>Registration number:</b> {vehicle.regNumber}<br/>
-                <label/><b>Capacity:</b> {vehicle.capacity}<br/>
-                <label/><b>Duty size:</b> {vehicle.dutySize}<br/>
-                <label/><b>Location:</b> {resources.cities.get(vehicle.currentCityId).name}<br/>
-                <label/><b>Current order id:</b> {vehicle.currentOrder===0?'None':vehicle.currentOrder}<br/>
-                <label/><b>Status:</b> {vehicle.ok?'Ok':'Need service'}<br/>
+                <div><b>Id:</b> {vehicle.id}</div>
+                <div><b>Registration number:</b> {vehicle.regNumber}</div>
+                <div><b>Capacity:</b> {vehicle.capacity}</div>
+                <div><b>Duty size:</b> {vehicle.dutySize}</div>
+                <div><b>Location:</b> {resources.cities.get(vehicle.currentCityId).name}</div>
+                <div><b>Current order id:</b> {vehicle.currentOrder===0?'None':vehicle.currentOrder}</div>
+                <div><b>Status:</b> {vehicle.ok?'Ok':'Need service'}</div>
 
                 <br/>
                 <button className={'btn btn-secondary'} onClick={showEditForm}>Edit</button>

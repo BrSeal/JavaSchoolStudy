@@ -45,7 +45,7 @@ public class MainConfig implements WebMvcConfigurer {
         ComboPooledDataSource cpds = new ComboPooledDataSource();
 
         try {
-            cpds.setDriverClass("com.mysql.jdbc.Driver");
+            cpds.setDriverClass("com.mysql.cj.jdbc.Driver");
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }

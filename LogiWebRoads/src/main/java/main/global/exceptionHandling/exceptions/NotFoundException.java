@@ -1,6 +1,6 @@
 package main.global.exceptionHandling.exceptions;
 
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends RestException{
     private static final String NOT_FOUND="%s #%d not found in database!";
     public NotFoundException(Class clazz, int id){
         super(String.format(NOT_FOUND,clazz.getSimpleName(),id));

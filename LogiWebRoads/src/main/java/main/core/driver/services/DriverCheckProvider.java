@@ -7,7 +7,7 @@ import main.core.driver.DTO.DriverUpdateDTO;
 import main.core.driver.entity.Driver;
 import main.core.driver.entity.DriverStatus;
 import main.core.orderManagement.order.entity.Order;
-import main.global.exceptionHandling.exceptions.DeletionFailedException;
+import main.global.exceptionHandling.exceptions.DeletionFailException;
 import main.global.exceptionHandling.exceptions.UpdateFailException;
 
 import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
@@ -37,7 +37,7 @@ public class DriverCheckProvider {
         if (!canBeDeleted) {
             int id = driver.getId();
             int orderId = driver.getCurrentOrder().getId();
-            throw new DeletionFailedException(String.format(DELETE_ERR, id, orderId));
+            throw new DeletionFailException(String.format(DELETE_ERR, id, orderId));
         }
     }
 

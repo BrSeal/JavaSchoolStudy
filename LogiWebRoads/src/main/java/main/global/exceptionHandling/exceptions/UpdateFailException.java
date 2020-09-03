@@ -1,6 +1,6 @@
 package main.global.exceptionHandling.exceptions;
 
-public class UpdateFailException extends RuntimeException {
+public class UpdateFailException extends RestException {
     private static final String UPDATE_FAILED = "Failed to update %s #%d!";
 
     public UpdateFailException(Class clazz, int id) {

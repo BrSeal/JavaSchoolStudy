@@ -1,5 +1,6 @@
 package main.core.vehicle;
 
+import lombok.extern.log4j.Log4j;
 import main.core.cityAndRoads.cities.CityRepository;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.OrderRepository;
@@ -17,14 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class VehicleServiceImpl implements VehicleService {
-
 
     private final VehicleRepository vehicleRepository;
     private final OrderRepository orderRepository;
@@ -89,6 +88,7 @@ public class VehicleServiceImpl implements VehicleService {
                 .stream()
                 .map(City::getId)
                 .collect(Collectors.toList());
+
         List<String> regNums = vehicleRepository.getAll()
                 .stream()
                 .map(Vehicle::getRegNumber)
@@ -112,9 +112,15 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public int update(VehicleFullInfoDTO dto) {
         Vehicle vehicle=vehicleRepository.get(dto.getId());
+
+        List<String> regNums = vehicleRepository.getAll()
+                .stream()
+                .map(Vehicle::getRegNumber)
+                .collect(Collectors.toList());
+
         nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,dto.getId());
 
-        vehicleCheckProvider.canBeUpdated(vehicle,dto);
+        vehicleCheckProvider.canBeUpdated(vehicle,dto, regNums);
 
         vehicleLogic.updateFields(vehicle,dto);
 

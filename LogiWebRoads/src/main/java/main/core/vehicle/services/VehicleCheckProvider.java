@@ -4,7 +4,7 @@ import main.core.cityAndRoads.cities.entity.City;
 import main.core.vehicle.DTO.NewVehicleDTO;
 import main.core.vehicle.DTO.VehicleFullInfoDTO;
 import main.core.vehicle.entity.Vehicle;
-import main.global.exceptionHandling.exceptions.DeletionFailedException;
+import main.global.exceptionHandling.exceptions.DeletionFailException;
 import main.global.exceptionHandling.exceptions.NotFoundException;
 import main.global.exceptionHandling.exceptions.SaveFailedException;
 import main.global.exceptionHandling.exceptions.UpdateFailException;
@@ -25,18 +25,20 @@ public class VehicleCheckProvider {
     private static final String UPDATE_FAIL_ON_ORDER_CITY = "Location can't be updated while vehicle is assigned on order!";
     private static final String UPDATE_FAIL_ORDER_UPDATE_ERR = "You cant reassign vehicle!";
 
-    public void canBeUpdated(Vehicle vehicle, VehicleFullInfoDTO dto) {
+    public void canBeUpdated(Vehicle vehicle, VehicleFullInfoDTO dto, List<String> regNums) {
+
+        if(!vehicle.getRegNumber().equals(dto.getRegNumber())) {
+            regNumCheck(dto.getRegNumber(), regNums);
+        }
+
+        if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ORDER_UPDATE_ERR);
+
         if(Objects.nonNull(vehicle.getCurrentOrder())){
             if(dto.getDutySize()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_DUTY_SIZE);
             if(dto.getCapacity()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CAPACITY);
             if(dto.getCurrentCityId()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CITY);
             if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CAPACITY);
         }
-
-        if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ORDER_UPDATE_ERR);
-
-
-
     }
 
     public void canBeDeleted(Vehicle vehicle) {
@@ -45,18 +47,13 @@ public class VehicleCheckProvider {
         if (!canBeDeleted) {
             int id = vehicle.getId();
             int orderId = vehicle.getCurrentOrder().getId();
-            throw new DeletionFailedException(String.format(DELETE_ERR, id, orderId));
+            throw new DeletionFailException(String.format(DELETE_ERR, id, orderId));
         }
     }
 
     public void validateNew(NewVehicleDTO dto, List<String> regNums, List<Integer> cities) {
 
-        if(!dto.getRegNumber().matches(REGNUM_PATTERN)) throw new SaveFailedException(REG_NUMBER_FORMAT_ERR);
-
-        if (regNums.contains(dto.getRegNumber())) {
-            String errMsg = String.format(NOT_UNIQUE_REGNUM, dto.getRegNumber());
-            throw new SaveFailedException(errMsg);
-        }
+       regNumCheck(dto.getRegNumber(),regNums);
 
         if (dto.getDutySize() <= 0 || dto.getDutySize() > 4) {
             throw new SaveFailedException(WRONG_DUTY_SIZE);
@@ -69,5 +66,14 @@ public class VehicleCheckProvider {
         int cityId = dto.getCurrentCityId();
 
         if (!cities.contains(cityId)) throw new NotFoundException(City.class, cityId);
+    }
+
+    private void regNumCheck(String regNumber, List<String> regNums){
+        if(!regNumber.matches(REGNUM_PATTERN)) throw new UpdateFailException(REG_NUMBER_FORMAT_ERR);
+
+        if (regNums.contains(regNumber)) {
+            String errMsg = String.format(NOT_UNIQUE_REGNUM, regNumber);
+            throw new UpdateFailException(errMsg);
+        }
     }
 }

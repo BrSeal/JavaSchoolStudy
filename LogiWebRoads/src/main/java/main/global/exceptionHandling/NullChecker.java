@@ -11,7 +11,7 @@ public class NullChecker {
 
     public void throwNotFoundIfEmptyList(List<? extends Object> objects, Class clazz, int orderId){
         if(objects.isEmpty()) {
-            String errMsg=String.format(NO_MATCHES_FOUND,clazz,orderId);
+            String errMsg=String.format(NO_MATCHES_FOUND,clazz.getSimpleName(),orderId);
             throw new NotFoundException(errMsg);
         }
     }
