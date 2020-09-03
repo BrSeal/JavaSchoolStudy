@@ -32,11 +32,8 @@ class OrderRepository {
         });
     }
 
-    assignVehicle(vehicle, order) {
-        let data= JSON.stringify({
-            id:order,
-            vehicleId:vehicle
-        });
+    assignVehicle(order) {
+        let data= JSON.stringify(order);
         alert('Sending: '+data);
         $.ajax({
             method: "PUT",
@@ -44,7 +41,9 @@ class OrderRepository {
             contentType: "application/json",
             data: data,
             success: function () {
-                alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #!' + order.id);
+                alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #' + order.id);
+                resources.updateVehicles();
+                resources.updateOrders();
             },
             error: function (response) {
                alert(response.responseText);
@@ -60,6 +59,8 @@ class OrderRepository {
             data: JSON.stringify(order),
             success: function () {
                 alert('Drivers were successfully assigned to order #!' + order.id);
+                resources.updateOrders();
+                resources.updateDrivers();
             },
             error: function (response) {
                alert(response.responseText);

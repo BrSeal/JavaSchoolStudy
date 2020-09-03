@@ -13,14 +13,10 @@ export class OrderDetailsButton extends Component {
     }
 
     showInfo() {
-        ReactDOM.render('', document.getElementById('details'));
-
         ReactDOM.render(<OrderInfo order={orderRepository.get(this.state.id)}/>, document.getElementById('details'));
     }
 
     render() {
-        return (
-            <button className={'btn btn-sm btn-secondary'} onClick={this.showInfo}>Details</button>
-        );
+        return <button className={'btn btn-sm btn-secondary'} onClick={this.showInfo}>Details</button>;
     }
 }

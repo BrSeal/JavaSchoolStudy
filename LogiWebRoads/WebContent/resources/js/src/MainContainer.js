@@ -9,9 +9,9 @@ export class MainContainer extends Component{
             <div className="container">
 
                 <div id="buttons" className="btn-group row" role="group">
-                    <button id="orders-btn" className="btn btn-primary" onClick={showOrders}>Orders</button>
-                    <button id="Drivers-btn" className="btn btn-primary" onClick={showDrivers}>Drivers</button>
-                    <button id="Vehicles-btn" className="btn btn-primary" onClick={showVehicles}>Vehicles</button>
+                    <button id="orders-btn" className="btn btn-info" onClick={showOrders}>Orders</button>
+                    <button id="Drivers-btn" className="btn btn-info" onClick={showDrivers}>Drivers</button>
+                    <button id="Vehicles-btn" className="btn btn-info" onClick={showVehicles}>Vehicles</button>
                 </div>
                 <div id="add-button-holder" className="row">
 

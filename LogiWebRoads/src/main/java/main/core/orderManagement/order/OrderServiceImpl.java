@@ -85,6 +85,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderCheckProvider.isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
 
         vehicle.setCurrentOrder(order);
+        order.setAssignedVehicle(vehicle);
 
         orderRepository.update(order);
     }

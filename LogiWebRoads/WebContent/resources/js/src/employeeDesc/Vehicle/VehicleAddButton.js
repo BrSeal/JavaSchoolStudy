@@ -8,16 +8,18 @@ class VehicleAddButton extends Component {
            regNumber:'',
             dutySize:0,
             capacity:0,
-            currentCityId:0
+            currentCityId:1
         }
+
         const showForm = function () {
             ReactDOM.render(
                 <VehicleForm action="new" vehicle={vehicle}/>,
                 document.getElementById('details')
             );
         }
+
         return (
-            <button className='btn btn-sm btn-primary' onClick={showForm}>Add new vehicle</button>
+            <button className='btn btn-sm btn-info' onClick={showForm}>Add new vehicle</button>
         );
     }
 }
