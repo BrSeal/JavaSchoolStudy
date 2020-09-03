@@ -12,26 +12,30 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import main.global.exceptionHandling.exceptions.RestException;
 
+import javax.persistence.ManyToOne;
+import java.util.Arrays;
+
 @ControllerAdvice
 @Log4j2
 public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Marker BAD_REQUEST_MARKER= MarkerManager.getMarker("BAD_REQUEST");
     private static final Marker RUNTIME_ERROR_MARKER= MarkerManager.getMarker("RUNTIME_ERROR");
+    private static final Marker FATAL_ERROR_MARKER= MarkerManager.getMarker("FATAL_ERROR");
 
     @ExceptionHandler(RestException.class)
     protected ResponseEntity<String> handleE(RestException ex) {
-     logger.warn(BAD_REQUEST_MARKER,ex);
+     log.warn(BAD_REQUEST_MARKER,ex.getMessage());
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RuntimeException.class)
     protected ResponseEntity<String> handleE(RuntimeException ex) {
-        logger.warn(RUNTIME_ERROR_MARKER,ex);
-        return new ResponseEntity<>("Something gone completely wrong!", HttpStatus.BAD_REQUEST);
+        log.error(RUNTIME_ERROR_MARKER,ex.getMessage()+'\n'+ Arrays.toString(ex.getStackTrace()));
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> handleE(Exception ex) {
-        logger.error(ex);
+        log.error(FATAL_ERROR_MARKER,ex.getMessage()+'\n'+ Arrays.toString(ex.getStackTrace()));
         return new ResponseEntity<>("Nobody hears your screams but you can press any button!", HttpStatus.BAD_REQUEST);
     }
 }

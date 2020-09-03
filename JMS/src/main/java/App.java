@@ -56,7 +56,7 @@ public class App {
         public void run() {
             try {
                 // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8161/");
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8162/");
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();
@@ -66,7 +66,7 @@ public class App {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
-                Destination destination = session.createQueue("testQueue");
+                Destination destination = session.createQueue("Test");
 
                 // Create a MessageProducer from the Session to the Topic or Queue
                 MessageProducer producer = session.createProducer(destination);
@@ -96,7 +96,7 @@ public class App {
             try {
 
                 // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8161/");
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8162/");
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();
@@ -108,7 +108,7 @@ public class App {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
-                Destination destination = session.createQueue("testQueue");
+                Destination destination = session.createQueue("Test");
 
                 // Create a MessageConsumer from the Session to the Topic or Queue
                 MessageConsumer consumer = session.createConsumer(destination);

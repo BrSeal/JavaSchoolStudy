@@ -1,15 +1,19 @@
 package main.core.orderManagement.order.services;
 
+import main.core.orderManagement.cargo.DTO.NewCargoDTO;
+import main.core.orderManagement.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.entity.CargoStatus;
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.orderManagement.order.DTO.NewOrderDTO;
 import main.core.orderManagement.order.entity.Order;
 import main.core.cityAndRoads.roads.entity.Road;
+import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.entity.Waypoint;
+import main.core.orderManagement.waypoint.entity.WaypointType;
 import main.core.vehicle.entity.Vehicle;
 import main.global.exceptionHandling.NullChecker;
 
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 
@@ -88,5 +92,37 @@ public class OrderLogic {
         int dutySize = order.getAssignedVehicle().getDutySize();
 
         return (int) Math.ceil((double) calculateOrderWorkTimeFirstMonth(order) / dutySize);
+    }
+
+    public Order getOrderFromDTO(NewOrderDTO dto) {
+        Order order = new Order();
+        List<Waypoint> waypoints = new ArrayList<>();
+
+        dto.getDeliveryObjects().forEach(d->{
+            NewCargoDTO cargoDTO=d.getCargo();
+
+            Cargo cargo=new Cargo(cargoDTO.getName(),cargoDTO.getWeight(),CargoStatus.PREPARED);
+
+            int fromCityId=d.getCityIdFrom();
+            int toCityId=d.getCityIdTo();
+
+            Waypoint from=waypointFromDeliveryObj(fromCityId,order,cargo, WaypointType.LOAD);
+            Waypoint to=waypointFromDeliveryObj(toCityId,order,cargo,WaypointType.UNLOAD);
+            waypoints.add(from);
+            waypoints.add(to);
+        });
+
+        order.setCreationDate(new Date());
+        order.setWaypoints(waypoints);
+        order.setStatus(OrderStatus.ASSIGNED);
+
+        return order;
+    }
+
+    private Waypoint waypointFromDeliveryObj(int cityId, Order o, Cargo cargo, WaypointType type) {
+        City city = new City();
+        city.setId(cityId);
+
+        return new Waypoint(city, cargo, type, 0, 0, false, o);
     }
 }

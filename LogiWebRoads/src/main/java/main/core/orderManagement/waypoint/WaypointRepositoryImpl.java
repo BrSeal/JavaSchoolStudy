@@ -1,6 +1,6 @@
 package main.core.orderManagement.waypoint;
 
-import main.core.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -19,12 +19,6 @@ public class WaypointRepositoryImpl implements WaypointRepository {
     @Autowired
     public WaypointRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-    }
-
-    @Override
-    public int save(Waypoint waypoint) {
-       return (int) sessionFactory.getCurrentSession().save(waypoint);
-
     }
 
     @Override
@@ -50,11 +44,5 @@ public class WaypointRepositoryImpl implements WaypointRepository {
     @Override
     public Waypoint get(int id) {
         return sessionFactory.getCurrentSession().get(Waypoint.class, id);
-    }
-
-    @Override
-    public Waypoint delete(Waypoint waypoint) {
-        sessionFactory.getCurrentSession().delete(waypoint);
-        return waypoint;
     }
 }

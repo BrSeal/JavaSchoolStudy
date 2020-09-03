@@ -7,20 +7,18 @@ import resources from "../../../resourceHandler/Resources";
 export class DriverInfo extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            driver: this.props.driver
-        }
     }
 
     render() {
-        const driver=this.state.driver;
+        const driver=this.props.driver;
 
         const close = function () {
             ReactDOM.render('', document.getElementById('details'));
         }
 
         const deleteDriver = function () {
-            driverRepository.delete(driver.id);
+            let bool=confirm('This will permanently delete driver #'+driver.id+' from the database! Will you proceed?')
+           bool?driverRepository.delete(driver.id):'';
         }
 
         const showEditForm = function () {

@@ -17,7 +17,7 @@ public class VehicleCheckProvider {
     private static final String REG_NUMBER_FORMAT_ERR = "Registration number format error!";
     private static final String NOT_UNIQUE_REGNUM = "Can't save new vehicle! Registration number %s already presented in database!";
     private static final String WRONG_DUTY_SIZE = "Can't save new vehicle! Duty size must be from 1 to 4!";
-    private static final String WRONG_CAPACITY = "Can't save new vehicle! Duty size must be from 1 to 4!";
+    private static final String WRONG_CAPACITY = "Can't save new vehicle! Capacity must be from 100 to 4000!";
     private static final String DELETE_ERR = "Deletion failed! Vehicle #%d is currently on order #%d! Vehicle can be deleted after finishing current order!";
 
     private static final String UPDATE_FAIL_ON_ORDER_DUTY_SIZE = "Duty size can't be updated while vehicle is assigned on order!";
@@ -32,6 +32,8 @@ public class VehicleCheckProvider {
         }
 
         if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ORDER_UPDATE_ERR);
+
+
 
         if(Objects.nonNull(vehicle.getCurrentOrder())){
             if(dto.getDutySize()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_DUTY_SIZE);

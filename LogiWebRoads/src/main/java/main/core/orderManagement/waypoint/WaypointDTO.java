@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.cargo.entity.Cargo;
-import main.core.cityAndRoads.cities.entity.City;
-import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.orderManagement.waypoint.entity.WaypointType;
 
@@ -35,22 +32,5 @@ public class WaypointDTO {
         pathLength= w.getPathLength();
         order = w.getOrder().getId();
         done=w.isDone();
-    }
-
-    public Waypoint toWaypoint() {
-        City city = new City();
-        city.setId(this.cityId);
-
-        Cargo cargo = new Cargo();
-        cargo.setId(this.cargo);
-
-        Order order = new Order();
-        order.setId(this.order);
-
-        Waypoint w = new Waypoint(city, cargo, type, pathIndex, pathLength, done, order);
-
-        w.setId(id);
-
-        return w;
     }
 }

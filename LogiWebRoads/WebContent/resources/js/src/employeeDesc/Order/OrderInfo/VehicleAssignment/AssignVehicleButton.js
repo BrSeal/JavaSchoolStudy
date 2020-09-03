@@ -4,11 +4,10 @@ import {AssignVehicleForm} from "./AssignVehicleForm";
 
 export class AssignVehicleButton extends Component {
 
+
     render() {
         let id=this.props.id;
-
         const showForm= function() {
-
             ReactDOM.render(<AssignVehicleForm id={id}/>, document.getElementById('assignVehicle'))
         }
 

@@ -1,11 +1,16 @@
 package main.core.orderManagement.order.services;
 
+import main.core.orderManagement.cargo.services.CargoCheckProvider;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.driver.entity.Driver;
+import main.core.orderManagement.order.DTO.DeliveryObject;
+import main.core.orderManagement.order.DTO.NewOrderDTO;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.vehicle.entity.Vehicle;
+import main.global.exceptionHandling.exceptions.SaveFailedException;
 import main.global.exceptionHandling.exceptions.UpdateFailException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -22,8 +27,16 @@ public class OrderCheckProvider {
     private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle #%d is too low! Need at least %d.";
     private static final String NO_VEHICLE_ERR = "Order #%d has no assigned vehicle! Please assign vehicle first!";
     private static final String DUTY_SIZE_ERR = "You selected too many drivens! Assigned vehicle can handle only %d person/s";
-
+    private static final String EMPTY_WAYPOINTS_LIST_ERR = "Can't save empty order!";
+    private static final String CITY_DOES_NOT_EXIST = "City #%d does not exist in database!";
     private static final int WORK_HOURS_PER_MONTH = 176;
+
+    private final CargoCheckProvider cargoCheckProvider;
+
+    @Autowired
+    public OrderCheckProvider(CargoCheckProvider cargoCheckProvider) {
+        this.cargoCheckProvider = cargoCheckProvider;
+    }
 
     public boolean isVehicleAssigned(Order order) {
         return order.getAssignedVehicle() != null;
@@ -91,5 +104,26 @@ public class OrderCheckProvider {
     public void isOrderCompleted(Order order) {
         String errMsg = String.format(ORDER_ALREADY_COMPLETED_ERR, order.getId());
         if (order.getStatus() == OrderStatus.COMPLETED) throw new UpdateFailException(errMsg);
+    }
+
+    public  void validateNew(NewOrderDTO dto, List<Integer> cities){
+        List<DeliveryObject> deliveryObjects=dto.getDeliveryObjects();
+
+        if (deliveryObjects == null || deliveryObjects.isEmpty())
+            throw new SaveFailedException(EMPTY_WAYPOINTS_LIST_ERR);
+
+        deliveryObjects.forEach(obj -> {
+            cargoCheckProvider.validateNew(obj.getCargo());
+            cityIdExists(obj.getCityIdFrom(), cities);
+            cityIdExists(obj.getCityIdTo(), cities);
+        });
+    }
+
+
+    private void cityIdExists(int id,  List<Integer> cities){
+        if(id<=0||!cities.contains(id)) {
+            String errMsg=String.format(CITY_DOES_NOT_EXIST,id);
+            throw new SaveFailedException(errMsg);
+        }
     }
 }

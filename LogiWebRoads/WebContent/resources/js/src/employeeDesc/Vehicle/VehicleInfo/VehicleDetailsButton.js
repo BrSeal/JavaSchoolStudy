@@ -6,15 +6,13 @@ import vehicleRepository from "../../../resourceHandler/repositories/VehicleRepo
 export class VehicleDetailsButton extends Component{
     constructor(props) {
         super(props);
-        this.state={
-            id:this.props.vehicleId
-        }
         this.showInfo=this.showInfo.bind(this);
     }
 
     showInfo(){
+        let id=this.props.id;
         ReactDOM.render(<VehicleInfo vehicle={
-                vehicleRepository.get(this.state.id)}/>,
+                vehicleRepository.get(id)}/>,
             document.getElementById('details'));
     }
 

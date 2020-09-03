@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import driverRepository from "../../../resourceHandler/repositories/DriverRepository";
-import {DriverInfo} from "./DriverInfo";
+import {CargoInfo} from "./CargoInfo";
+import cargoRepository from "../../resourceHandler/repositories/CargoRepository";
 
-export class DriverDetailsButton extends Component {
+export class CargoDetailsButton extends Component {
     constructor(props) {
         super(props);
         this.showInfo = this.showInfo.bind(this);
@@ -11,7 +11,7 @@ export class DriverDetailsButton extends Component {
 
     showInfo(){
         let id=this.props.id;
-        ReactDOM.render(<DriverInfo driver={driverRepository.get(id)}/>,
+        ReactDOM.render(<CargoInfo cargo={cargoRepository.get(id)}/>,
             document.getElementById('details'));
     }
 

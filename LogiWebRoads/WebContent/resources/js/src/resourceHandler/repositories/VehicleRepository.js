@@ -78,8 +78,7 @@ class VehicleRepository {
             contentType: "application/json",
             data: JSON.stringify(vehicle),
             success: function (response) {
-                alert('Vehicle was successfully added to database. \n ' +
-                    'New driver id=' + response);
+                alert('Vehicle '+response+' was successfully updated!');
                 resources.updateVehicles();
             },
             error: function (response) {

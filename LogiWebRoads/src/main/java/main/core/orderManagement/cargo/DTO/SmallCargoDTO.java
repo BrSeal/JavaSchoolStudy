@@ -1,0 +1,28 @@
+package main.core.orderManagement.cargo.DTO;
+
+import main.core.orderManagement.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.entity.CargoStatus;
+
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class SmallCargoDTO {
+    private int id;
+    private String name;
+    private int weight;
+    private CargoStatus status;
+
+    public SmallCargoDTO(Cargo cargo) {
+        id=cargo.getId();
+        name = cargo.getName();
+        weight = cargo.getWeight();
+        status = cargo.getStatus();
+    }
+}

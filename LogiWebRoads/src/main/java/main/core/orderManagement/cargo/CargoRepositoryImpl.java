@@ -1,8 +1,7 @@
-package main.core.cargo;
+package main.core.orderManagement.cargo;
 
-import main.core.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.entity.Cargo;
 import org.hibernate.SessionFactory;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,18 +27,6 @@ public class CargoRepositoryImpl implements CargoRepository {
     public Cargo get(int id) {
         return sessionFactory.getCurrentSession()
                 .get(Cargo.class, id);
-    }
-
-    @Override
-    public int save(Cargo Cargo) {
-        return (int) sessionFactory.getCurrentSession()
-                .save(Cargo);
-    }
-
-    @Override
-    public Cargo delete(Cargo Cargo) {
-        sessionFactory.getCurrentSession().delete(Cargo);
-        return Cargo;
     }
 
     @Override

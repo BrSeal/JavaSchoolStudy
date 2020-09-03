@@ -1,17 +1,16 @@
 package main.core.orderManagement.order;
 
 import main.core.cityAndRoads.cities.CityRepository;
+import main.core.cityAndRoads.cities.entity.City;
 import main.core.cityAndRoads.roads.RoadRepository;
 import main.core.driver.DriverRepository;
+import main.core.driver.entity.Driver;
 import main.core.orderManagement.order.DTO.*;
+import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.VehicleRepository;
-import main.core.orderManagement.waypoint.services.WaypointCheckProvider;
-import main.core.cityAndRoads.cities.entity.City;
-import main.core.orderManagement.order.entity.Order;
 import main.core.vehicle.entity.Vehicle;
-import main.core.driver.entity.Driver;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,29 +28,29 @@ public class OrderServiceImpl implements OrderService {
     private final RoadRepository roadRepository;
     private final OrderCheckProvider orderCheckProvider;
     private final OrderLogic orderLogic;
-    private final WaypointCheckProvider waypointCheckProvider;
     private final CityRepository cityRepository;
     private final NullChecker nullChecker;
 
+
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, WaypointCheckProvider waypointCheckProvider, CityRepository cityRepository, NullChecker nullChecker) {
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic,CityRepository cityRepository, NullChecker nullChecker) {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.roadRepository = roadRepository;
         this.orderCheckProvider = orderCheckProvider;
         this.orderLogic = orderLogic;
-        this.waypointCheckProvider = waypointCheckProvider;
         this.cityRepository = cityRepository;
         this.nullChecker = nullChecker;
     }
 
     @Override
     public int save(NewOrderDTO dto) {
-        Order order = dto.toOrder();
-        List<City> cities=cityRepository.getAll();
+        List<Integer> cityIds=cityRepository.getAll().stream().map(City::getId).collect(Collectors.toList());
+        orderCheckProvider.validateNew(dto,cityIds);
 
-        waypointCheckProvider.cityCheck(order.getWaypoints(),cities);
+        Order order = orderLogic.getOrderFromDTO(dto);
+
         orderLogic.calculateRoute(order, roadRepository.getAll());
         return orderRepository.save(order);
     }
@@ -70,14 +69,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void assignVehicle(AssignVehicleOrderDTO dto) {
-        int orderId=dto.getId();
-        int assignedVehicleId=dto.getVehicleId();
+        int orderId = dto.getId();
+        int assignedVehicleId = dto.getVehicleId();
 
         Order order = orderRepository.get(orderId);
-        nullChecker.throwNotFoundIfNull(order,Order.class,orderId);
+        nullChecker.throwNotFoundIfNull(order, Order.class, orderId);
 
         Vehicle vehicle = vehicleRepository.get(assignedVehicleId);
-        nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,assignedVehicleId);
+        nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, assignedVehicleId);
 
 
         orderCheckProvider.vehicleAssignmentCheck(order, vehicle, orderLogic.calculateMaxLoad(order.getWaypoints()));
@@ -98,9 +97,9 @@ public class OrderServiceImpl implements OrderService {
                 .map(d -> driverRepository.get(dto.getId()))
                 .collect(Collectors.toList());
 
-        int hoursPerWorker=orderLogic.calculateOrderWorkTimeFirstMonth(order);
+        int hoursPerWorker = orderLogic.calculateOrderWorkTimeFirstMonth(order);
 
-        orderCheckProvider.driverAssignmentCheck(order, drivers,hoursPerWorker);
+        orderCheckProvider.driverAssignmentCheck(order, drivers, hoursPerWorker);
 
         drivers.forEach(d -> d.setCurrentOrder(order));
 

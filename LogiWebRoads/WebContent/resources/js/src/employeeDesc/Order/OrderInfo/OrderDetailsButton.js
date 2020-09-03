@@ -6,14 +6,13 @@ import ReactDOM from "react-dom";
 export class OrderDetailsButton extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            id: this.props.orderId
-        }
         this.showInfo = this.showInfo.bind(this);
     }
 
     showInfo() {
-        ReactDOM.render(<OrderInfo order={orderRepository.get(this.state.id)}/>, document.getElementById('details'));
+        let id=this.props.id;
+        ReactDOM.render(<OrderInfo order={orderRepository.get(id)}/>,
+            document.getElementById('details'));
     }
 
     render() {

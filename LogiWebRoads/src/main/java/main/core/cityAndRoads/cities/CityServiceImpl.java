@@ -1,7 +1,7 @@
 package main.core.cityAndRoads.cities;
 
-import main.core.cityAndRoads.cities.services.CityCheckProvider;
 import main.core.cityAndRoads.cities.entity.City;
+import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,12 +12,12 @@ import java.util.List;
 @Transactional
 public class CityServiceImpl implements CityService {
     private final CityRepository repository;
-    private final CityCheckProvider checkIf;
+    private final NullChecker nullChecker;
 
     @Autowired
-    public CityServiceImpl(CityRepository repository, CityCheckProvider checkIf) {
+    public CityServiceImpl(CityRepository repository, NullChecker nullChecker) {
         this.repository = repository;
-        this.checkIf = checkIf;
+        this.nullChecker = nullChecker;
     }
 
     @Override
@@ -27,8 +27,8 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City get(int id) {
-        City city=repository.get(id);
-        checkIf.ifNotFound(city);
+        City city = repository.get(id);
+        nullChecker.throwNotFoundIfNull(city, City.class, id);
         return city;
     }
 

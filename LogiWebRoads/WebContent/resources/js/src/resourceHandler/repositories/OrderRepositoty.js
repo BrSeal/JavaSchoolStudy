@@ -5,7 +5,7 @@ class OrderRepository {
     init() {
         let orders = new Map();
         $.ajax({
-            async:true,
+            async:false,
             method: "GET",
             url: '../order/',
             success: function (response) {
@@ -33,13 +33,12 @@ class OrderRepository {
     }
 
     assignVehicle(order) {
-        let data= JSON.stringify(order);
         alert('Sending: '+data);
         $.ajax({
             method: "PUT",
             url: '../order/assignVehicle/',
             contentType: "application/json",
-            data: data,
+            data: JSON.stringify(order),
             success: function () {
                 alert('Vehicle #' + order.vehicleId + ' was successfully assigned to order #' + order.id);
                 resources.updateVehicles();
@@ -51,14 +50,14 @@ class OrderRepository {
         });
     }
 
-    assignDriver(order) {
+    assignDriver(driver) {
         $.ajax({
             method: "PUT",
             url: '../order/assignDrivers/',
             contentType: "application/json",
-            data: JSON.stringify(order),
+            data: JSON.stringify(driver),
             success: function () {
-                alert('Drivers were successfully assigned to order #!' + order.id);
+                alert('Drivers were successfully assigned to order #!' + driver.id);
                 resources.updateOrders();
                 resources.updateDrivers();
             },

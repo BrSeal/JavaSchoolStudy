@@ -1,24 +1,28 @@
 class CargoRepository {
     init() {
-        let cities = new Map();
-        $.get("../cargo/")
-            .done(function (response) {
-                response.forEach((item) => cities.set(item.id, item));
-            })
-            .fail(function (response) {
-                console.log(response);
-            })
-        return cities;
+        let cargos = new Map();
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../cargo/',
+            success: function (response) {
+                response.forEach((item) => cargos.set(item.id, item));
+            }
+        });
+        return cargos;
     }
 
-    getCity(id) {
-        $.get("../city/" + id)
-            .done(function (response) {
-                return response;
-            })
-            .fail(function (response) {
-                console.log(response);
-            })
+    get(id) {
+        let cargo;
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../cargo/get/'+id,
+            success: function (response) {
+                cargo=response;
+            }
+        });
+        return cargo;
     }
 }
 

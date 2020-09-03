@@ -1,4 +1,4 @@
-package main.core.cargo.entity;
+package main.core.orderManagement.cargo.entity;
 
 public enum CargoStatus {
     PREPARED,

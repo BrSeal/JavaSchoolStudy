@@ -2,19 +2,10 @@
 <configuration status="WARN">
 
     <appenders>
-        <File name="requestErrors" fileName="logging/requestErrors.log">
-            <PatternLayout pattern="%d{dd.MM.yyy HH:mm:ss} [%t] %msg%n"/>
-            <Filters>
-                <MarkerFilter marker="BAD_REQUEST"/>
-            </Filters>
+        <File name="requestErrors" fileName="log/requestErrors.log">
+            <PatternLayout pattern="%d{dd.MM.yyy HH:mm:ss}[%p] [%t] %msg%n"/>
         </File>
-        <File name="runtimeErrors" fileName="logging/runtimeErrors.log">
-            <PatternLayout pattern="%d{dd.MM.yyy HH:mm:ss} [%t] %msg%n"/>
-            <Filters>
-                <MarkerFilter marker="RUNTIME_ERROR"/>
-            </Filters>
-        </File>
-        <File name="errors" fileName="logging/errors.log">
+        <File name="errors" fileName="log/errors.log">
             <PatternLayout pattern="%d{dd.MM.yyy HH:mm:ss} [%t] %msg%n"/>
         </File>
     </appenders>
@@ -22,7 +13,6 @@
     <loggers>
         <root level="warn">
             <appender-ref ref="requestErrors"/>
-            <appender-ref ref="runtimeErrors"/>
             <appender-ref ref="errors" level="error"/>
         </root>
 

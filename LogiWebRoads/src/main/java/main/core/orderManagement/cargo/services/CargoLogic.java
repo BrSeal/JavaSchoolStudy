@@ -1,7 +1,8 @@
-package main.core.cargo.services;
+package main.core.orderManagement.cargo.services;
 
-import main.core.cargo.entity.Cargo;
-import main.core.cargo.entity.CargoStatus;
+import main.core.orderManagement.cargo.DTO.UpdateStatusCargoDTO;
+import main.core.orderManagement.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.entity.CargoStatus;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.entity.OrderStatus;
@@ -14,16 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static main.core.cargo.entity.CargoStatus.DELIVERED;
-import static main.core.cargo.entity.CargoStatus.TRANSPORTING;
+import static main.core.orderManagement.cargo.entity.CargoStatus.DELIVERED;
+import static main.core.orderManagement.cargo.entity.CargoStatus.TRANSPORTING;
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 import static main.core.orderManagement.waypoint.entity.WaypointType.UNLOAD;
 import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
 import static main.core.driver.entity.DriverStatus.ON_REST;
 
 public class CargoLogic {
-    private static final String WAYPOINT_LOAD_NOT_FOUND="Load waypoint not found!";
-    private static final String WAYPOINT_UNLOAD_NOT_FOUND="Unoad waypoint not found!";
+    private static final String WAYPOINT_LOAD_NOT_FOUND="Loading waypoint for cargo %s not found!";
+    private static final String WAYPOINT_UNLOAD_NOT_FOUND="Unloading waypoint for cargo %s not found!";
 
     private final CargoCheckProvider cargoCheckProvider;
     private final OrderCheckProvider orderCheckProvider;
@@ -36,7 +37,7 @@ public class CargoLogic {
         this.nullChecker = nullChecker;
     }
 
-    public void updateStatusLogic(Cargo cargo, Cargo dto, Order order) {
+    public void updateStatusLogic(Cargo cargo, UpdateStatusCargoDTO dto, Order order) {
         nullChecker.throwNotFoundIfNull(cargo,Cargo.class,dto.getId());
 
         CargoStatus cargoStatus = cargo.getStatus();
@@ -58,7 +59,7 @@ public class CargoLogic {
                 .findFirst()
                 .get();
 
-        nullChecker.throwNotFoundIfNull(waypoint,WAYPOINT_LOAD_NOT_FOUND);
+        nullChecker.throwNotFoundIfNull(waypoint,String.format(WAYPOINT_LOAD_NOT_FOUND,cargo.getName()));
 
         waypoint.setDone(true);
 
@@ -75,7 +76,7 @@ public class CargoLogic {
                 .findFirst()
                 .get();
 
-        nullChecker.throwNotFoundIfNull(waypoint,WAYPOINT_UNLOAD_NOT_FOUND);
+        nullChecker.throwNotFoundIfNull(waypoint,String.format(WAYPOINT_UNLOAD_NOT_FOUND,cargo.getName()));
 
         waypoint.setDone(true);
         setCurrentCity(order.getAssignedDrivers(), order.getAssignedVehicle(), waypoint.getCity());

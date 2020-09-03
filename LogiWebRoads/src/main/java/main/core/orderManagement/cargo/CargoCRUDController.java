@@ -1,8 +1,8 @@
-package main.core.cargo;
+package main.core.orderManagement.cargo;
 
-import main.core.cargo.DTO.CargoDTO;
-import main.core.cargo.DTO.UpdateStatusCargoDTO;
-import main.core.cargo.entity.Cargo;
+import main.core.orderManagement.cargo.DTO.InfoCargoDTO;
+import main.core.orderManagement.cargo.DTO.SmallCargoDTO;
+import main.core.orderManagement.cargo.DTO.UpdateStatusCargoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +19,12 @@ public class CargoCRUDController {
     }
 
     @GetMapping("/")
-    public List<CargoDTO> getCargos() {
+    public List<SmallCargoDTO> getCargos() {
         return service.getAll();
     }
 
     @GetMapping("/get/{id}")
-    public Cargo getCargoById(@PathVariable int id) {
+    public InfoCargoDTO getCargoById(@PathVariable int id) {
         return service.get(id);
     }
 

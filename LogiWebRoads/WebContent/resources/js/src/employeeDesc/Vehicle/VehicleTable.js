@@ -25,7 +25,7 @@ export class VehicleTable extends Component {
                                 <td>{v.ok ? 'Ok' : 'Need service'}</td>
                                 <td>{resources.cities.get(v.currentCityId).name}</td>
                                 <td>{v.currentOrderId === 0 ? 'None' : v.currentOrderId}</td>
-                                <td><VehicleDetailsButton vehicleId={v.id}/></td>
+                                <td><VehicleDetailsButton id={v.id}/></td>
                             </tr>
                         )
                     )

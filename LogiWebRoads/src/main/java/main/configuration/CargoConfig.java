@@ -1,7 +1,7 @@
 package main.configuration;
 
-import main.core.cargo.services.CargoCheckProvider;
-import main.core.cargo.services.CargoLogic;
+import main.core.orderManagement.cargo.services.CargoCheckProvider;
+import main.core.orderManagement.cargo.services.CargoLogic;
 import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.context.annotation.Bean;

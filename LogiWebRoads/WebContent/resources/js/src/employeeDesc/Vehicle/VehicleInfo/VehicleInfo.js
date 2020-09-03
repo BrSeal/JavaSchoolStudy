@@ -7,13 +7,10 @@ import {VehicleForm} from "../VehicleForm";
 export class VehicleInfo extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            vehicle: this.props.vehicle
-        }
     }
 
     render() {
-        const vehicle=this.state.vehicle;
+        const vehicle=this.props.vehicle;
 
         const close = function () {
             ReactDOM.render('', document.getElementById('details'));

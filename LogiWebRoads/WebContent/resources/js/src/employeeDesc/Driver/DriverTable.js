@@ -25,7 +25,7 @@ export class DriverTable extends Component {
                                     <td>{d.lastName}</td>
                                     <td>{resources.cities.get(d.currentCityId).name}</td>
                                     <td>{d.status}</td>
-                                    <td><DriverDetailsButton driverId={d.id}/></td>
+                                    <td><DriverDetailsButton id={d.id}/></td>
                                 </tr>
                             )
                         )

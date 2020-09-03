@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import resources from "../../resourceHandler/Resources";
 import {OrderDetailsButton} from "./OrderInfo/OrderDetailsButton";
 
 export class OrderTable extends Component {
 
-
     render() {
+        let orders=this.props.orders;
         return (
             <table className="table table-striped">
                 <thead className="thead-light">
@@ -18,13 +17,13 @@ export class OrderTable extends Component {
                 </thead>
                 <tbody>
                 {
-                    Array.from(resources.orders, ([key, value]) => (value))
+                    Array.from(orders, ([key, value]) => (value))
                         .map((order) => (
                             <tr>
                                 <td>{order.id}</td>
                                 <td>{order.date}</td>
                                 <td>{order.status}</td>
-                                <td><OrderDetailsButton orderId={order.id}/></td>
+                                <td><OrderDetailsButton id={order.id}/></td>
                             </tr>
                         )
                     )

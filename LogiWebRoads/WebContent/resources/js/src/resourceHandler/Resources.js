@@ -3,13 +3,14 @@ import orderRepository from "./repositories/OrderRepositoty";
 import cityRepository from "./repositories/CityRepository";
 import driverRepository from "./repositories/DriverRepository";
 import vehicleRepository from "./repositories/VehicleRepository";
+import cargoRepository from "./repositories/CargoRepository";
 
 class ResourceService {
     constructor() {
         this.drivers = driverRepository.init();
         this.orders = orderRepository.init();
         this.vehicles = vehicleRepository.init();
-        this.cargos = this.initCargos();
+        this.cargos = cargoRepository.init();
         this.cities = cityRepository.init();
     }
 
@@ -26,19 +27,7 @@ class ResourceService {
     }
 
     updateCargos(){
-        this.cargos = orderRepository.init();
-    }
-
-    initCargos() {
-        let cargos = new Map();
-        $.ajax({
-            method: "GET",
-            url: '../cargo/',
-            success: function (response) {
-                response.forEach((item, index) => cargos.set(item.id, item));
-            }
-        });
-        return cargos;
+        this.cargos = cargoRepository.init();
     }
 }
 

@@ -26,7 +26,6 @@ import java.util.Properties;
 @Import({
                 CargoConfig.class,
                 DriverConfig.class,
-                CityConfig.class,
                 OrderConfig.class,
                 VehicleConfig.class
         })

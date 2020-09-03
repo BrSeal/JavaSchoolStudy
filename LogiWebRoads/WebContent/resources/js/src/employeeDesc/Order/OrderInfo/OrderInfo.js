@@ -8,17 +8,14 @@ import {AssignDriversButton} from "./AssignDrivers/AssignDriversButton";
 export class OrderInfo extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            order: this.props.order
-        }
     }
 
     render() {
+        const order = this.props.order;
+
         const close = function () {
             ReactDOM.render('', document.getElementById('details'));
         }
-
-        const order = this.state.order;
 
         const drivers =
             <ul>

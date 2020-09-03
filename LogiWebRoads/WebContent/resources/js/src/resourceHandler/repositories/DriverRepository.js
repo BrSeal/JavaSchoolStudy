@@ -4,7 +4,7 @@ class DriverRepository {
     init() {
         let drivers = new Map();
         $.ajax({
-            async:true,
+            async:false,
             method: "GET",
             url: '../driver/',
             success: function (response) {
@@ -26,7 +26,7 @@ class DriverRepository {
                     'New driver id=' + response);
             },
             error: function (response) {
-                alert(Object.keys(response));
+                alert(response.responseText);
             }
         });
     }
@@ -48,6 +48,7 @@ class DriverRepository {
             data: JSON.stringify(driver),
             success: function () {
                 resources.updateDrivers();
+                resources.updateOrders();
                 alert('Driver #'+updatedDrv.id+' was successfully edited!');
             },
             error: function (response) {
@@ -74,7 +75,6 @@ class DriverRepository {
 
     delete(id){
         $.ajax({
-            async:false,
             method: "DELETE",
             url: '../driver/delete/' + id,
             success: function () {

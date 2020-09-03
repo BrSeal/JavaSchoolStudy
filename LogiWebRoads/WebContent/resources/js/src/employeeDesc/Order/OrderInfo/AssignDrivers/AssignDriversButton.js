@@ -7,7 +7,7 @@ export class AssignDriversButton extends Component{
         }
 
         return (
-            <button onClick={doSmth}>Assign drivers</button>
+            <button className={'btn btn-secondary btn-sm'} onClick={doSmth}>Assign drivers</button>
         );
     }
 }

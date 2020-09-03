@@ -7,8 +7,7 @@ export class AssignVehicleForm extends Component {
     constructor(props) {
         super(props);
 
-        let available=vehicleRepository.getAvailable(this.props.id)
-
+        let available=vehicleRepository.getAvailable(this.props.id);
 
         this.state = {
             available: available,
