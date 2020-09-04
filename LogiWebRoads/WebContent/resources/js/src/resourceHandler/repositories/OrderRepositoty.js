@@ -33,7 +33,6 @@ class OrderRepository {
     }
 
     assignVehicle(order) {
-        alert('Sending: '+data);
         $.ajax({
             method: "PUT",
             url: '../order/assignVehicle/',

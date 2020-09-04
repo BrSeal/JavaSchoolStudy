@@ -60,10 +60,14 @@ export class OrderInfo extends Component {
                     </table>
                 </div>
                 <div id={'assignVehicle'}>
-                    {order.assignedVehicle === 0 ? <AssignVehicleButton id={order.id}/> : ''}
+                    {
+                        order.assignedVehicle === 0 ?
+                        <AssignVehicleButton id={order.id}/>
+                        : vehicleRepository.get(order.assignedVehicle).regNumber
+                    }
                 </div>
                 <div id={'assignDrivers'}>
-                    {order.assignedVehicle !== 0 && order.assignedDrivers.length === 0 ? <AssignDriversButton/> : ''}
+                    {order.assignedVehicle !== 0 && order.assignedDrivers.length === 0 ? <AssignDriversButton/> : drivers}
                 </div>
                 <button className={'btn btn-sm btn-secondary'} onClick={close}>Close</button>
             </div>
