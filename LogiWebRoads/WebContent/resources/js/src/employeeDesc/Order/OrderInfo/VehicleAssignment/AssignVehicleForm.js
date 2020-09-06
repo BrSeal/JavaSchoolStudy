@@ -53,6 +53,4 @@ export class AssignVehicleForm extends Component {
             </form>
         );
     }
-
-
 }

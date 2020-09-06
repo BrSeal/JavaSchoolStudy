@@ -3,13 +3,14 @@ package main.core.driver;
 import main.core.driver.entity.Driver;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DriverRepository {
     List<Driver> getAll();
 
     Driver get(int id);
 
-    List<Driver> getByQuery(String hql, Object... params);
+    List<Driver> getByQuery(String hql, Map<String,Object> params);
 
     int save(Driver driver);
 

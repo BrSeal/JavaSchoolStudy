@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Repository
@@ -28,12 +29,12 @@ public class DriverRepositoryImpl implements DriverRepository {
     }
 
     @Override
-    public List<Driver> getByQuery(String hql, Object... params) {
+    public List<Driver> getByQuery(String hql, Map<String,Object> params) {
         Query<Driver> query = sessionFactory.getCurrentSession()
                 .createQuery(hql, Driver.class);
 
-        for (int i = 0; i < params.length; i++) {
-            query.setParameter(i, params[i]);
+        for(Map.Entry<String,Object> param:params.entrySet()){
+            query.setParameter(param.getKey(),param.getValue());
         }
         return query.list();
     }

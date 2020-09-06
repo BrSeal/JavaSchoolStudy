@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public class DriverServiceImpl implements DriverService {
     public List<DriverInfoDTO> getByOrderId(int orderId) {
         String hql = "from Driver d where d.currentOrder= " + orderId;
 
-        return driverRepository.getByQuery(hql).stream()
+        return driverRepository.getByQuery(hql, null).stream()
                 .map(DriverInfoDTO::new)
                 .collect(Collectors.toList());
     }
@@ -77,8 +78,13 @@ public class DriverServiceImpl implements DriverService {
         nullChecker.throwNotFoundIfNull(city, City.class, orderId);
 
         int hoursPerWorker = orderLogic.getHoursPerWorker(order);
-        String hql = "from Driver d where d.status='ON_REST' and d.currentCity =:city and d.hoursWorked<:hours";
-        return driverRepository.getByQuery(hql, city, hoursPerWorker).stream()
+        String hql = "from Driver d where d.status='ON_REST' and d.currentCity =:city and d.hoursWorked>:hours";
+
+        HashMap<String,Object> params=new HashMap<>();
+        params.put("city",city);
+        params.put("hours",hoursPerWorker);
+
+        return driverRepository.getByQuery(hql, params).stream()
                 .map(DriverInfoDTO::new)
                 .collect(Collectors.toList());
     }

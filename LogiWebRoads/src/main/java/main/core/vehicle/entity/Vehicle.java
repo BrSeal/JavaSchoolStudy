@@ -7,7 +7,6 @@ import lombok.Setter;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
-import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
 
@@ -37,6 +36,5 @@ public class Vehicle extends IdClass {
 
     @OneToOne
     @JoinColumn(name = "current_order_id")
-    @Nullable
     private Order currentOrder;
 }

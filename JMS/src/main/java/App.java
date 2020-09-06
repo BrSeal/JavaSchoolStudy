@@ -1,15 +1,9 @@
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import javax.jms.Connection;
-import javax.jms.DeliveryMode;
-import javax.jms.Destination;
-import javax.jms.ExceptionListener;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import java.util.Hashtable;
 
 /**
  * Hello world!
@@ -55,8 +49,16 @@ public class App {
     public static class HelloWorldProducer implements Runnable {
         public void run() {
             try {
-                // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8162/");
+                Hashtable<String, String> props = new Hashtable<String, String>();
+                props.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+                props.put("java.naming.provider.url", "tcp://localhost:61616");
+                props.put("queue.js-queue", "test");
+                props.put("connectionFactoryNames", "queueCF");
+
+                Context context = new InitialContext(props);
+                QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
+                Queue queue = (Queue) context.lookup("js-queue");
+
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();
@@ -94,9 +96,16 @@ public class App {
     public static class HelloWorldConsumer implements Runnable, ExceptionListener {
         public void run() {
             try {
+                Hashtable<String, String> props = new Hashtable<String, String>();
+                props.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+                props.put("java.naming.provider.url", "tcp://localhost:61616");
+                props.put("queue.js-queue", "test");
+                props.put("connectionFactoryNames", "queueCF");
 
-                // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("http://127.0.0.1:8162/");
+                Context context = new InitialContext(props);
+                QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
+                Queue queue = (Queue) context.lookup("js-queue");
+
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();

@@ -1,8 +1,9 @@
 1. Logging +
 2. Security
-3. FrontEnd Employee
+3. FrontEnd Employee+
 4. FrontEnd Driver
 5. Tests
-6. Checks
+6. Checks+
 7. JMS
 8. Algorithms
+9. PrimeFaces RichFaces for JSF

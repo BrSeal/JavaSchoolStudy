@@ -73,6 +73,22 @@ class DriverRepository {
         return driver;
     }
 
+    getAvailable(id) {
+        let drivers;
+        $.ajax({
+            async:false,
+            method: "GET",
+            url: '../driver/available/' + id,
+            success: function (response) {
+                drivers = response;
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+        return drivers;
+    }
+
     delete(id){
         $.ajax({
             method: "DELETE",

@@ -26,9 +26,10 @@ public class OrderCheckProvider {
     private static final String ORDER_STARTED_ERR = "Order #%d is already in work!";
     private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle #%d is too low! Need at least %d.";
     private static final String NO_VEHICLE_ERR = "Order #%d has no assigned vehicle! Please assign vehicle first!";
-    private static final String DUTY_SIZE_ERR = "You selected too many drivens! Assigned vehicle can handle only %d person/s";
+    private static final String DUTY_SIZE_ERR = "You selected too many drivers! Assigned vehicle can handle only %d person/s";
     private static final String EMPTY_WAYPOINTS_LIST_ERR = "Can't save empty order!";
     private static final String CITY_DOES_NOT_EXIST = "City #%d does not exist in database!";
+    private static final String LOW_DUTY_SIZE = "Vehicle #%d has too little duty size for order #%d!";
     private static final int WORK_HOURS_PER_MONTH = 176;
 
     private final CargoCheckProvider cargoCheckProvider;
@@ -47,11 +48,13 @@ public class OrderCheckProvider {
 
         if (drivers == null || drivers.isEmpty()) throw new UpdateFailException(NO_DRIVERS_ASSIGNED_ERR);
 
+        int driversCount=drivers.size();
+
         if (!isVehicleAssigned(order)) throw new UpdateFailException(String.format(NO_VEHICLE_ERR, order.getId()));
 
         Vehicle vehicle = order.getAssignedVehicle();
 
-        if (drivers.size() > vehicle.getDutySize()) {
+        if ( driversCount> vehicle.getDutySize()) {
             String errMsg = String.format(DUTY_SIZE_ERR, vehicle.getDutySize());
             throw new UpdateFailException(errMsg);
         }
@@ -76,13 +79,18 @@ public class OrderCheckProvider {
 
     }
 
-    public void vehicleAssignmentCheck(Order order, Vehicle vehicle, int maxLoad) {
+    public void vehicleAssignmentCheck(Order order, Vehicle vehicle, int maxLoad, int workHours) {
         isOrderCompleted(order);
 
         int capacity = vehicle.getCapacity();
 
         if (order.getAssignedVehicle() != null && order.getStatus() == OrderStatus.IN_PROGRESS) {
             String errMsg = String.format(ORDER_STARTED_ERR, order.getId());
+            throw new UpdateFailException(errMsg);
+        }
+
+        if(workHours/vehicle.getDutySize()<WORK_HOURS_PER_MONTH) {
+            String errMsg=String.format(LOW_DUTY_SIZE, vehicle.getId(),order.getId());
             throw new UpdateFailException(errMsg);
         }
 

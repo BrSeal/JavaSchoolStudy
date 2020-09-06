@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic,CityRepository cityRepository, NullChecker nullChecker) {
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, CityRepository cityRepository, NullChecker nullChecker) {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
@@ -46,8 +46,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int save(NewOrderDTO dto) {
-        List<Integer> cityIds=cityRepository.getAll().stream().map(City::getId).collect(Collectors.toList());
-        orderCheckProvider.validateNew(dto,cityIds);
+        List<Integer> cityIds = cityRepository.getAll().stream().map(City::getId).collect(Collectors.toList());
+        orderCheckProvider.validateNew(dto, cityIds);
 
         Order order = orderLogic.getOrderFromDTO(dto);
 
@@ -78,8 +78,10 @@ public class OrderServiceImpl implements OrderService {
         Vehicle vehicle = vehicleRepository.get(assignedVehicleId);
         nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, assignedVehicleId);
 
+        int workingHours=orderLogic.calculateOrderWorkTimeFirstMonth(order);
+        int maxLoad=orderLogic.calculateMaxLoad(order.getWaypoints());
 
-        orderCheckProvider.vehicleAssignmentCheck(order, vehicle, orderLogic.calculateMaxLoad(order.getWaypoints()));
+        orderCheckProvider.vehicleAssignmentCheck(order, vehicle,maxLoad ,workingHours);
 
         if (orderCheckProvider.isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
 
@@ -91,17 +93,28 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void assignDrivers(AssignDriversOrderDTO dto) {
-        Order order = orderRepository.get(dto.getId());
+        int id = dto.getId();
+        Order order = orderRepository.get(id);
+        nullChecker.throwNotFoundIfNull(order, Order.class, id);
 
         List<Driver> drivers = dto.getDriverIds().stream()
-                .map(d -> driverRepository.get(dto.getId()))
-                .collect(Collectors.toList());
+                        .map(driverId -> {
+                            Driver driver=  driverRepository.get(driverId);
+                            nullChecker.throwNotFoundIfNull(driver,Driver.class,driverId);
+                            return driver;
+                        })
+                        .collect(Collectors.toList());
 
         int hoursPerWorker = orderLogic.calculateOrderWorkTimeFirstMonth(order);
 
         orderCheckProvider.driverAssignmentCheck(order, drivers, hoursPerWorker);
 
+        order.setAssignedDrivers(drivers);
+
+        //надо ли??
         drivers.forEach(d -> d.setCurrentOrder(order));
+
+
 
         orderRepository.update(order);
     }
