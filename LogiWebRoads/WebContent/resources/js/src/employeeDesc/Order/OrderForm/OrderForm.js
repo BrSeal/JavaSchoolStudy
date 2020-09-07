@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import {DeliveryObjectsTable} from "./DeliveryObjectsTable";
 import {DeliveryObjectForm} from "./DeliveryObjectForm";
 import orderRepository from "../../../resourceHandler/repositories/OrderRepositoty";
-import {OrderTable} from "../OrderTable";
-import resources from "../../../resourceHandler/Resources";
 
 export class OrderForm extends Component {
     constructor(props) {
@@ -39,8 +37,6 @@ export class OrderForm extends Component {
             orderRepository.save(o);
 
             ReactDOM.render('', document.getElementById('details'));
-          OrderTable.setState({orders:resources.orders});
-
         }
 
         let close=()=> {

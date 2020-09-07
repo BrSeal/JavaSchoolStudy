@@ -19,8 +19,10 @@ export class OrderInfo extends Component {
 
         const drivers =
             <ul>
-                {order.assignedDrivers.map((driver) => (
-                    <li key={driver.id}>{driver.firstName + ' ' + driver.lastName + ' ' + driver.id}</li>))}
+                {order.assignedDrivers.map((id) =>{
+                    let driver=resources.drivers.get(id);
+                 return <li key={driver.id}>{driver.firstName + ' ' + driver.lastName + ' ' + driver.id}</li>
+                })}
             </ul>
 
         return (
@@ -59,15 +61,9 @@ export class OrderInfo extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div id={'assignVehicle'}>
-                    {
-                        order.assignedVehicle === 0 ?
-                        <AssignVehicleButton id={order.id}/>
-                        : vehicleRepository.get(order.assignedVehicle).regNumber
-                    }
-                </div>
-                <div id={'assignDrivers'}>
-                    {order.assignedVehicle !== 0 && order.assignedDrivers.length === 0 ? <AssignDriversButton/> : drivers}
+                <div id={'assign'}>
+                    {order.assignedVehicle === 0 ? <AssignVehicleButton id={order.id}/> :
+                    order.assignedVehicle !== 0 && order.assignedDrivers.length === 0 ? <AssignDriversButton order={order}/> : ''}
                 </div>
                 <button className={'btn btn-sm btn-secondary'} onClick={close}>Close</button>
             </div>

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import main.global.exceptionHandling.exceptions.RestException;
 
-import javax.persistence.ManyToOne;
 import java.util.Arrays;
 
 @ControllerAdvice

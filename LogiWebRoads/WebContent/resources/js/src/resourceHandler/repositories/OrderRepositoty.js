@@ -49,14 +49,14 @@ class OrderRepository {
         });
     }
 
-    assignDriver(driver) {
+    assignDrivers(order) {
         $.ajax({
             method: "PUT",
             url: '../order/assignDrivers/',
             contentType: "application/json",
-            data: JSON.stringify(driver),
+            data: JSON.stringify(order),
             success: function () {
-                alert('Drivers were successfully assigned to order #!' + driver.id);
+                alert('Drivers were successfully assigned to order #' + order.id);
                 resources.updateOrders();
                 resources.updateDrivers();
             },

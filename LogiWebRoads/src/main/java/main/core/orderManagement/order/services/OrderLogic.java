@@ -45,18 +45,13 @@ public class OrderLogic {
         return maxLoad;
     }
 
-    /*TODO написать логигку подсчета времени заказа с учетом смены месяцев(
-       нужна только первая часть, так как вторая у всех водителей будет полная)
-       (рассчитывается по карте городов и путевым точкам)
-       Сейчас считается с момента создания заказа!!!
-     */
     public int calculateOrderWorkTimeFirstMonth(Order order){
-        Date start=order.getCreationDate();
+        long start=System.currentTimeMillis();
         Calendar c=Calendar.getInstance();
-        c.setTime(start);
+        c.setTime(new Date(start));
         c.add(Calendar.MONTH,1);
         c.set(Calendar.DAY_OF_MONTH,1);
-        int result=(int)(c.getTimeInMillis()-start.getTime())/3_600_000;
+        int result=(int)(c.getTimeInMillis()-start)/3_600_000;
         for (Waypoint w : order.getWaypoints()) {
             result -= w.getPathLength();
         }
