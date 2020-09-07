@@ -10479,7 +10479,7 @@ var VehicleInfo = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Vehicle #", vehicle.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Id:"), " ", vehicle.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Registration number:"), " ", vehicle.regNumber), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Capacity:"), " ", vehicle.capacity), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Duty size:"), " ", vehicle.dutySize), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), " ", _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_3__["default"].cities.get(vehicle.currentCityId).name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Current order id:"), " ", vehicle.currentOrder === 0 ? 'None' : vehicle.currentOrder), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Status:"), " ", vehicle.ok ? 'Ok' : 'Need service'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: 'btn btn-secondary',
         onClick: showEditForm
-      }, "Edit"), vehicle.currentOrder === 0 && vehicle.status === 'ON_REST' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Edit"), vehicle.currentOrder === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: 'btn btn-secondary',
         onClick: deleteVehicle
       }, "Delete") : '', /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -10653,6 +10653,13 @@ var ResourceService = /*#__PURE__*/function () {
   function ResourceService() {
     _classCallCheck(this, ResourceService);
 
+    $(function () {
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+      $(document).ajaxSend(function (e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+      });
+    });
     this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
     this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();

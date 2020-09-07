@@ -4,7 +4,6 @@
 <!doctype html>
 <html>
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,7 +31,7 @@
 <div class="container fixed-bottom" style="margin-bottom: 50px">
     <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-            <div class="px-2" style="background-color: #95999c; border-radius:10px">
+            <div class="px-2" style="background-color: #c2c2c2; border-radius:10px">
 
                 <form:form class="form-signin" action="${pageContext.request.contextPath}/authenticate" method="POST">
                     <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
