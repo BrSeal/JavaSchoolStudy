@@ -40,7 +40,7 @@ export class VehicleInfo extends Component {
 
                 <br/>
                 <button className={'btn btn-secondary'} onClick={showEditForm}>Edit</button>
-                {vehicle.currentOrder===0&&vehicle.status==='ON_REST'?(<button className={'btn btn-secondary'} onClick={deleteVehicle}>Delete</button>):''}
+                {vehicle.currentOrder===0?(<button className={'btn btn-secondary'} onClick={deleteVehicle}>Delete</button>):''}
                     <br/>
                 <button className={'btn btn-secondary'} onClick={close}>Close</button>
 

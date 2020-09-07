@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class DriverServiceImpl implements DriverService {
 
+    private static final int WORKING_HOURS_PER_MONTH=176;
     private final DriverRepository driverRepository;
     private final DriverCheckProvider checkProvider;
     private final DriverLogic driverLogic;
@@ -77,12 +78,12 @@ public class DriverServiceImpl implements DriverService {
         City city = assignedVehicle.getCurrentCity();
         nullChecker.throwNotFoundIfNull(city, City.class, orderId);
 
-        int hoursPerWorker = orderLogic.getHoursPerWorker(order);
-        String hql = "from Driver d where d.status='ON_REST' and d.currentCity =:city and d.hoursWorked>:hours";
+        int hoursRemainPerWorker =WORKING_HOURS_PER_MONTH - orderLogic.getHoursPerWorker(order);
+        String hql = "from Driver d where d.status='ON_REST' and d.currentOrder=null and d.currentCity =:city and d.hoursWorked<=:hours";
 
         HashMap<String,Object> params=new HashMap<>();
         params.put("city",city);
-        params.put("hours",hoursPerWorker);
+        params.put("hours",hoursRemainPerWorker);
 
         return driverRepository.getByQuery(hql, params).stream()
                 .map(DriverInfoDTO::new)

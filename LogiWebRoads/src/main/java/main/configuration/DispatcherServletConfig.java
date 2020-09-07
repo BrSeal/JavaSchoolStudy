@@ -1,8 +1,9 @@
 package main.configuration;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;
@@ -14,7 +15,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
     }
 
     @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
+    protected String @NotNull [] getServletMappings() {
+        return new String[]{"/"};
     }
 }

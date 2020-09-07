@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<VehicleFullInfoDTO> getByOrderId(int orderId) {
         String hql = "from Vehicle v where v.currentOrder=" + orderId;
-        return vehicleRepository.getQueryResult(hql).stream()
+        return vehicleRepository.getByQuery(hql, null).stream()
                 .map(VehicleFullInfoDTO::new)
                 .collect(Collectors.toList());
     }
@@ -65,11 +66,21 @@ public class VehicleServiceImpl implements VehicleService {
         nullChecker.throwNotFoundIfNull(order,Order.class,orderId);
 
         int maxLoad = orderLogic.calculateMaxLoad(order.getWaypoints());
+        int minDutySize= orderLogic.calculateMinDutySize(order);
+        String hql = "from Vehicle v where v.currentOrder=null " +
+                "and v.ok=true " +
+                "and v.capacity>:maxLoad " +
+                "and v.dutySize>=:minDutySize";
 
-        String hql = "from Vehicle v where v.currentOrder=null and v.ok=true and v.capacity>" + maxLoad;
-        List<VehicleAssignmentToOrderDTO> dtos= vehicleRepository.getQueryResult(hql).stream()
+        HashMap<String,Object> params=new HashMap<>();
+        params.put("maxLoad", maxLoad);
+        params.put("minDutySize", minDutySize);
+
+        List<VehicleAssignmentToOrderDTO> dtos = vehicleRepository.getByQuery(hql,params)
+                .stream()
                 .map(VehicleAssignmentToOrderDTO::new)
                 .collect(Collectors.toList());
+
         nullChecker.throwNotFoundIfEmptyList(dtos,Vehicle.class,orderId);
 
         return dtos;

@@ -1,7 +1,6 @@
 package main.core.driver;
 
 import main.core.driver.DTO.*;
-import main.core.driver.entity.Driver;
 
 import java.util.List;
 

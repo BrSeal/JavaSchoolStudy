@@ -3,8 +3,6 @@ package main.core.driver;
 import main.core.driver.entity.Driver;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,8 +31,10 @@ public class DriverRepositoryImpl implements DriverRepository {
         Query<Driver> query = sessionFactory.getCurrentSession()
                 .createQuery(hql, Driver.class);
 
-        for(Map.Entry<String,Object> param:params.entrySet()){
-            query.setParameter(param.getKey(),param.getValue());
+        if(params!=null) {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                query.setParameter(param.getKey(), param.getValue());
+            }
         }
         return query.list();
     }

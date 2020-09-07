@@ -30,6 +30,7 @@ public class OrderCheckProvider {
     private static final String EMPTY_WAYPOINTS_LIST_ERR = "Can't save empty order!";
     private static final String CITY_DOES_NOT_EXIST = "City #%d does not exist in database!";
     private static final String LOW_DUTY_SIZE = "Vehicle #%d has too little duty size for order #%d!";
+    private static final String NOT_ENOUGH_DRIVERS_ERR = "You need to assign more driver on order #%d!";
     private static final int WORK_HOURS_PER_MONTH = 176;
 
     private final CargoCheckProvider cargoCheckProvider;
@@ -43,7 +44,7 @@ public class OrderCheckProvider {
         return order.getAssignedVehicle() != null;
     }
 
-    public void driverAssignmentCheck(Order order, List<Driver> drivers, int hoursPerDriver) {
+    public void driverAssignmentCheck(Order order, List<Driver> drivers, int hoursPerDriver, int minDutySize) {
         isOrderCompleted(order);
 
         if (drivers == null || drivers.isEmpty()) throw new UpdateFailException(NO_DRIVERS_ASSIGNED_ERR);
@@ -53,6 +54,11 @@ public class OrderCheckProvider {
         if (!isVehicleAssigned(order)) throw new UpdateFailException(String.format(NO_VEHICLE_ERR, order.getId()));
 
         Vehicle vehicle = order.getAssignedVehicle();
+
+        if(driversCount<minDutySize){
+            String errMsg = String.format(NOT_ENOUGH_DRIVERS_ERR, order.getId());
+            throw new UpdateFailException(errMsg);
+        }
 
         if ( driversCount> vehicle.getDutySize()) {
             String errMsg = String.format(DUTY_SIZE_ERR, vehicle.getDutySize());
@@ -79,7 +85,7 @@ public class OrderCheckProvider {
 
     }
 
-    public void vehicleAssignmentCheck(Order order, Vehicle vehicle, int maxLoad, int workHours) {
+    public void vehicleAssignmentCheck(Order order, Vehicle vehicle, int maxLoad, int minDutySize) {
         isOrderCompleted(order);
 
         int capacity = vehicle.getCapacity();
@@ -89,7 +95,7 @@ public class OrderCheckProvider {
             throw new UpdateFailException(errMsg);
         }
 
-        if(workHours/vehicle.getDutySize()<WORK_HOURS_PER_MONTH) {
+        if(minDutySize>vehicle.getDutySize()) {
             String errMsg=String.format(LOW_DUTY_SIZE, vehicle.getId(),order.getId());
             throw new UpdateFailException(errMsg);
         }

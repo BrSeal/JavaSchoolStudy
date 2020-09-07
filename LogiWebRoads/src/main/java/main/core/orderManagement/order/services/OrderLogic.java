@@ -18,7 +18,9 @@ import java.util.*;
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 
 public class OrderLogic {
-    private static final String CORRUPTED_DATA= "Data corrupted! Empty waypoint list!";
+    private static final int MILLISECONDS_IN_HOUR = 3_600_000;
+    private static final int WORKING_HOURS_PER_MONTH = 176;
+    private static final int MAX_HOURS_IN_MONTH = 31 * 24;
 
     private final NullChecker nullChecker;
 
@@ -27,7 +29,6 @@ public class OrderLogic {
     }
 
     public int calculateMaxLoad(List<Waypoint> waypoints) {
-        nullChecker.throwNotFoundIfNull(waypoints,CORRUPTED_DATA);
 
         waypoints.sort(Comparator.comparingInt(Waypoint::getPathIndex));
 
@@ -45,44 +46,49 @@ public class OrderLogic {
         return maxLoad;
     }
 
-    public int calculateOrderWorkTimeFirstMonth(Order order){
-        long start=System.currentTimeMillis();
-        Calendar c=Calendar.getInstance();
+    public int calculateOrderWorkTimeFirstMonth(Order order) {
+        long start = System.currentTimeMillis();
+        Calendar c = Calendar.getInstance();
         c.setTime(new Date(start));
-        c.add(Calendar.MONTH,1);
-        c.set(Calendar.DAY_OF_MONTH,1);
-        int result=(int)(c.getTimeInMillis()-start)/3_600_000;
-        for (Waypoint w : order.getWaypoints()) {
-            result -= w.getPathLength();
-        }
+        c.add(Calendar.MONTH, 1);
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        int firstMonthHoursRemaining = (int) (c.getTimeInMillis() - start) / MILLISECONDS_IN_HOUR;
 
-        return result;
+        return Math.min(firstMonthHoursRemaining, calcOrderLength(order));
+    }
+
+    public int calcOrderLength(Order order) {
+        int orderLength = 0;
+        for (Waypoint w : order.getWaypoints()) {
+            orderLength += w.getPathLength();
+        }
+        return orderLength;
     }
 
     //TODO Написать логику подсчета пути!!!!!!
-    public void calculateRoute(Order order,List<Road> roadMap) {
-        List<Waypoint> waypoints=order.getWaypoints();
+    public void calculateRoute(Order order, List<Road> roadMap) {
+        List<Waypoint> waypoints = order.getWaypoints();
         int count = 1;
         for (Waypoint w : waypoints) {
             w.setPathIndex(count++);
         }
 
-        calculateRouteLength(waypoints,roadMap);
+        calculateRouteLength(waypoints, roadMap);
     }
 
     //TODO Написать логику подсчета пути!!!!!! (Дейкстра)
-    private void calculateRouteLength(List<Waypoint> waypoints,List<Road> roadMap){
+    private void calculateRouteLength(List<Waypoint> waypoints, List<Road> roadMap) {
         // В каждом waypoint'e хранится длина пути от предыдущего.
         // У первого - путь до первого waypoint'a если водитель
         // находится в другом городе
         for (Waypoint w : waypoints) {
-             w.setPathLength(10);
+            w.setPathLength(10);
         }
     }
 
     public int getHoursPerWorker(Order order) {
-        Vehicle vehicle= order.getAssignedVehicle();
-        nullChecker.throwNotAssignedIfNull(vehicle,Vehicle.class,order.getId());
+        Vehicle vehicle = order.getAssignedVehicle();
+        nullChecker.throwNotAssignedIfNull(vehicle, Vehicle.class, order.getId());
 
         int dutySize = order.getAssignedVehicle().getDutySize();
 
@@ -93,16 +99,16 @@ public class OrderLogic {
         Order order = new Order();
         List<Waypoint> waypoints = new ArrayList<>();
 
-        dto.getDeliveryObjects().forEach(d->{
-            NewCargoDTO cargoDTO=d.getCargo();
+        dto.getDeliveryObjects().forEach(d -> {
+            NewCargoDTO cargoDTO = d.getCargo();
 
-            Cargo cargo=new Cargo(cargoDTO.getName(),cargoDTO.getWeight(),CargoStatus.PREPARED);
+            Cargo cargo = new Cargo(cargoDTO.getName(), cargoDTO.getWeight(), CargoStatus.PREPARED);
 
-            int fromCityId=d.getCityIdFrom();
-            int toCityId=d.getCityIdTo();
+            int fromCityId = d.getCityIdFrom();
+            int toCityId = d.getCityIdTo();
 
-            Waypoint from=waypointFromDeliveryObj(fromCityId,order,cargo, WaypointType.LOAD);
-            Waypoint to=waypointFromDeliveryObj(toCityId,order,cargo,WaypointType.UNLOAD);
+            Waypoint from = waypointFromDeliveryObj(fromCityId, order, cargo, WaypointType.LOAD);
+            Waypoint to = waypointFromDeliveryObj(toCityId, order, cargo, WaypointType.UNLOAD);
             waypoints.add(from);
             waypoints.add(to);
         });
@@ -119,5 +125,16 @@ public class OrderLogic {
         city.setId(cityId);
 
         return new Waypoint(city, cargo, type, 0, 0, false, o);
+    }
+
+    public int calculateMinDutySize(Order order) {
+        int workingHoursFirstMonth = calculateOrderWorkTimeFirstMonth(order);
+        int orderLength = calcOrderLength(order);
+        int hoursAfterFirstMonth = orderLength - workingHoursFirstMonth;
+
+        double maxWorkHoursPerMonth = Math.max(workingHoursFirstMonth, hoursAfterFirstMonth);
+        maxWorkHoursPerMonth = Math.min(maxWorkHoursPerMonth,MAX_HOURS_IN_MONTH);
+
+        return (int) Math.ceil(maxWorkHoursPerMonth / WORKING_HOURS_PER_MONTH);
     }
 }

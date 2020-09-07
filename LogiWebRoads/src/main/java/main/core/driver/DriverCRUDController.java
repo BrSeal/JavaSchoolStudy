@@ -60,6 +60,4 @@ public class DriverCRUDController {
     public int deleteDriver(@PathVariable int id) {
         return service.delete(id);
     }
-
-
 }

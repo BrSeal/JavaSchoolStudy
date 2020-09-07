@@ -106,15 +106,11 @@ public class OrderServiceImpl implements OrderService {
                         .collect(Collectors.toList());
 
         int hoursPerWorker = orderLogic.calculateOrderWorkTimeFirstMonth(order);
-
-        orderCheckProvider.driverAssignmentCheck(order, drivers, hoursPerWorker);
+        int minDutySize=orderLogic.calculateMinDutySize(order);
+        orderCheckProvider.driverAssignmentCheck(order, drivers, hoursPerWorker,minDutySize);
 
         order.setAssignedDrivers(drivers);
-
-        //надо ли??
         drivers.forEach(d -> d.setCurrentOrder(order));
-
-
 
         orderRepository.update(order);
     }

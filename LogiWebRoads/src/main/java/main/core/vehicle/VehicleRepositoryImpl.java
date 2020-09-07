@@ -2,10 +2,13 @@ package main.core.vehicle;
 
 import main.core.vehicle.entity.Vehicle;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 @Repository
 public class VehicleRepositoryImpl implements VehicleRepository {
@@ -43,11 +46,16 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public List<Vehicle> getQueryResult(String hql) {
-        return sessionFactory
+    public List<Vehicle> getByQuery(String hql, Map<String,Object> params) {
+        Query<Vehicle> query= sessionFactory
                 .getCurrentSession()
-                .createQuery(hql, Vehicle.class)
-                .list();
+                .createQuery(hql, Vehicle.class);
+        if(params!=null) {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                query.setParameter(param.getKey(), param.getValue());
+            }
+        }
+        return query.list();
     }
 
     @Override

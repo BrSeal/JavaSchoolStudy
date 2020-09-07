@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <head>
@@ -21,43 +22,39 @@
     </button>
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link active" href="#">Home</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="about">About</a>
             </li>
         </ul>
     </div>
 </nav>
+
 <div class="container fixed-bottom" style="margin-bottom: 50px">
     <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-            <div class="px-2">
-                <form:form class="form-signin" action="${pageContext.request.contextPath}/authUser"
-                method="POST">
-                    <h1 class="h3 mb-3 font-weight-normal">Log in</h1>
-                    <label for="username" class="sr-only">Login</label>
-                    <input type="text"
-                           name="username"
-                           id="username"
-                           class="form-control"
-                           placeholder="login"
+            <div class="px-2" style="background-color: #95999c; border-radius:10px">
+
+                <form:form class="form-signin" action="${pageContext.request.contextPath}/authenticate" method="POST">
+                    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+                    <c:if test="${param.error !=null}">
+                        <div class="alert alert-danger">Wrong Username or password</div>
+                    </c:if>
+                    <c:if test="${param.logout !=null}">
+                        <div class="alert alert-success">You successfully logged out</div>
+                    </c:if>
+                    <label for="inputUsername" class="sr-only">Login</label>
+                    <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username"
                            required=""
-                           autofocus=""/>
+                           autofocus="">
                     <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password"
-                           name="password"
-                           id="inputPassword"
-                           class="form-control"
-                           placeholder="Password"
-                           required=""/>
+                    <input type="password" name="password" id="inputPassword" class="form-control"
+                           placeholder="Password" required="">
                     <div class="checkbox mb-3">
                         <label>
                             <input type="checkbox" value="remember-me"> Remember me
                         </label>
                     </div>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 </form:form>
             </div>
         </div>
