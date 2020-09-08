@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -9,7 +10,7 @@
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
     <link href='${pageContext.request.contextPath}/resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
-    <title>LogiWeb</title>
+    <title>LogiWeb Employee Desk</title>
 </head>
 <body data-url="${pageContext.request.contextPath}">
 

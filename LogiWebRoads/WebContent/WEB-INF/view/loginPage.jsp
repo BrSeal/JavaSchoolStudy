@@ -19,13 +19,6 @@
             aria-expanded="true">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div id="navb" class="navbar-collapse collapse hide">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="about">About</a>
-            </li>
-        </ul>
-    </div>
 </nav>
 
 <div class="container fixed-bottom" style="margin-bottom: 50px">

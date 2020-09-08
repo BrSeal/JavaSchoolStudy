@@ -7875,6 +7875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App */ "./resources/js/src/App.js");
+/* harmony import */ var _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resourceHandler/Resources */ "./resources/js/src/resourceHandler/Resources.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7896,6 +7897,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -7946,7 +7948,18 @@ var NavigationBar = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "nav-link",
         href: _App__WEBPACK_IMPORTED_MODULE_1__["baseUrl"] + "/about"
-      }, "About")))));
+      }, "About")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form-inline mt-2 mt-md-0 pull-right",
+        action: _App__WEBPACK_IMPORTED_MODULE_1__["baseUrl"] + "/logout",
+        method: "post"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: 'hidden',
+        name: '_csrf',
+        value: _resourceHandler_Resources__WEBPACK_IMPORTED_MODULE_2__["default"].token
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-success my-2 my-sm-0",
+        type: "submit"
+      }, "Log out")));
     }
   }]);
 
@@ -10629,19 +10642,16 @@ function showVehicles() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
-/* harmony import */ var _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./repositories/CityRepository */ "./resources/js/src/resourceHandler/repositories/CityRepository.js");
-/* harmony import */ var _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
-/* harmony import */ var _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
-/* harmony import */ var _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./repositories/CargoRepository */ "./resources/js/src/resourceHandler/repositories/CargoRepository.js");
+/* harmony import */ var _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./repositories/OrderRepositoty */ "./resources/js/src/resourceHandler/repositories/OrderRepositoty.js");
+/* harmony import */ var _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./repositories/CityRepository */ "./resources/js/src/resourceHandler/repositories/CityRepository.js");
+/* harmony import */ var _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./repositories/DriverRepository */ "./resources/js/src/resourceHandler/repositories/DriverRepository.js");
+/* harmony import */ var _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./repositories/VehicleRepository */ "./resources/js/src/resourceHandler/repositories/VehicleRepository.js");
+/* harmony import */ var _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./repositories/CargoRepository */ "./resources/js/src/resourceHandler/repositories/CargoRepository.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 
 
 
@@ -10655,37 +10665,38 @@ var ResourceService = /*#__PURE__*/function () {
 
     $(function () {
       var token = $("meta[name='_csrf']").attr("content");
+      this.token = token;
       var header = $("meta[name='_csrf_header']").attr("content");
       $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
       });
     });
-    this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
-    this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
-    this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
-    this.cargos = _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_5__["default"].init();
-    this.cities = _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
+    this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
+    this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_0__["default"].init();
+    this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
+    this.cargos = _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
+    this.cities = _repositories_CityRepository__WEBPACK_IMPORTED_MODULE_1__["default"].init();
   }
 
   _createClass(ResourceService, [{
     key: "updateOrders",
     value: function updateOrders() {
-      this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_1__["default"].init();
+      this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_0__["default"].init();
     }
   }, {
     key: "updateDrivers",
     value: function updateDrivers() {
-      this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
+      this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
     }
   }, {
     key: "updateVehicles",
     value: function updateVehicles() {
-      this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
+      this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();
     }
   }, {
     key: "updateCargos",
     value: function updateCargos() {
-      this.cargos = _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_5__["default"].init();
+      this.cargos = _repositories_CargoRepository__WEBPACK_IMPORTED_MODULE_4__["default"].init();
     }
   }]);
 

@@ -1,5 +1,6 @@
 package main.configuration.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +20,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String DRIVER = "DRIVER";
     private static final String EMPLOYEE = "EMPLOYEE";
 
+    private final DataSource dataSource;
+
+    @Autowired
+    public SecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -25,33 +34,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource);
+
         User.UserBuilder users = User.withDefaultPasswordEncoder();
 
-        auth.inMemoryAuthentication()
-                .withUser(users.username("admin").password("admin").roles(ADMIN, EMPLOYEE, MANAGER, DRIVER))
-                .withUser(users.username("employee").password("employee").roles(EMPLOYEE, MANAGER))
-                .withUser(users.username("driver").password("driver").roles(EMPLOYEE, DRIVER));
-
+        auth.jdbcAuthentication()
+                .withUser(users.username("admin").password("admin").roles(ADMIN, EMPLOYEE, MANAGER, DRIVER));
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasRole(EMPLOYEE)
-                .antMatchers("/**").hasRole(ADMIN)
-                .antMatchers("/employeeDesk/",
+                .antMatchers(
+                        "/",
+                        "/about",
+                        "/home",
                         "/city/**",
+                        "/cargo/**").hasRole(EMPLOYEE)
+                .antMatchers(
+                        "/employees/**",
+                        "/adminPage/**").hasRole(ADMIN)
+                .antMatchers(
+                        "/driverDesk/**",
+                        "/driver/info/**").hasRole(DRIVER)
+                .antMatchers(
+                        "/employeeDesk/**",
                         "/driver/**",
                         "/vehicle/**",
-                        "/cargo/**",
-                        "/order/**"
-                ).hasRole(MANAGER)
-                .antMatchers("/driverDesk/**",
-                        "/driver/info/**",
-                        "/driver/updateStatus/",
-                        "/cargo/get/**",
-                        "/cargo/updateStatus/",
-                        "/city/").hasRole(DRIVER)
+                        "/order/**").hasRole(MANAGER)
                 .and()
                 .formLogin()
                 .loginPage("/loginPage")

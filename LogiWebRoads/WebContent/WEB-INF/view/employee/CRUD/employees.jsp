@@ -21,7 +21,7 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="home">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/home">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="about">About</a>

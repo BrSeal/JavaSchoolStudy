@@ -23,10 +23,10 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="home">Home</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="about">About</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
             </li>
         </ul>
     </div>
@@ -37,9 +37,8 @@
 
 <div id="content">
     <h1>Access denied!</h1>
-
-    <div>Name:<security:authentication property="principal.username"/></div>
-    <div>Roles:<security:authentication property="principal.authorities"/></div>
+    <h5>You are not authorized to access this resource!</h5>
+    <a href="${pageContext.request.contextPath}/">Back to home page</a>
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">

@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -7,18 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href='${pageContext.request.contextPath}/resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
-    <title>LogiWeb</title>
+    <title>LogiWeb Driver Desk</title>
 </head>
-<body data-url="${pageContext.request.contextPath}">
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">LogiWeb</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb"
+            aria-expanded="true">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navb" class="navbar-collapse collapse hide">
+        <ul class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
+            </li>
+        </ul>
+    </div>
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+    </form:form>
+</nav>
 
 <div id="root">
+    <h1>Driver desktop</h1>
 </div>
 
 
 <script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
-<script src="${pageContext.request.contextPath}/resources/js/main.js" crossorigin></script>
 
 </body>
 </html>

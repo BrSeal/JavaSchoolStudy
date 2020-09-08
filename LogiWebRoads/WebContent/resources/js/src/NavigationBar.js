@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {baseUrl} from "./App";
+import resources from "./resourceHandler/Resources";
 
 export class NavigationBar extends Component{
     render() {
@@ -24,6 +25,12 @@ export class NavigationBar extends Component{
                         </li>
                     </ul>
                 </div>
+                <form className="form-inline mt-2 mt-md-0 pull-right"
+                           action={baseUrl+"/logout"}method="post">
+                    <input type={'hidden'} name={'_csrf'} value={resources.token}/>
+                    <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+
+                </form>
             </nav>
         );
     }

@@ -12,7 +12,7 @@
     <title>LogiWeb</title>
 </head>
 
-<body style="background-image: url(resources/pic/back.jpg); background-position:50%  -15%">
+<body>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
     <a class="navbar-brand" href="#">LogiWeb</a>
@@ -26,24 +26,21 @@
                 <a class="nav-link active" href="#">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="about">About</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="employees/">Employee list</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="employees/">Login page</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/employees/">Employee list</a>
             </li>
         </ul>
-
+    </div>
         <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
         </form:form>
-    </div>
 </nav>
 
-<div class="container fixed-bottom" style="margin-bottom: 50px">
+<div class="container">
     <h1>Admin page</h1>
+    <a href="${pageContext.request.contextPath}/employees/">Employee management</a>
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">

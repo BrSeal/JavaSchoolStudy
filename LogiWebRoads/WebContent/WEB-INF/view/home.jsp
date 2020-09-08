@@ -23,22 +23,42 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="3">Home</a>
+                <a class="nav-link active" href="#">Home</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="about">About</a>
             </li>
         </ul>
     </div>
-    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout"
+               method="post">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
     </form:form>
 </nav>
 
 <div id="content">
     <h1>Home page</h1>
-    <div>Name:<security:authentication property="principal.username"/></div>
+    <div><h5>You logged as:<security:authentication property="principal.username"/></h5></div>
+   <!--
     <div>Roles:<security:authentication property="principal.authorities"/></div>
+-->
+    <security:authorize access="hasRole('ADMIN')">
+        <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/adminPage">
+            Administration Page (Admin)
+        </a></div>
+    </security:authorize>
+
+    <security:authorize access="hasRole('MANAGER')">
+        <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/employeeDesk/">Employee Desk
+            (Manager)</a>
+        </div>
+    </security:authorize>
+
+    <security:authorize access="hasRole('DRIVER')">
+        <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/driverDesk/">Drivers Desk (Driver)</a>
+        </div>
+    </security:authorize>
+
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">
