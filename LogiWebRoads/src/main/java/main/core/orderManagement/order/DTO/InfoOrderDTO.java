@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.core.driver.entity.Driver;
+import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.WaypointDTO;
-import main.core.orderManagement.order.entity.Order;
-import main.core.driver.entity.Driver;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -1,26 +1,26 @@
 package main.core.orderManagement.cargo.services;
 
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.driver.entity.Driver;
 import main.core.orderManagement.cargo.DTO.UpdateStatusCargoDTO;
 import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.orderManagement.cargo.entity.CargoStatus;
-import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
-import main.core.driver.entity.Driver;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
+import static main.core.driver.entity.DriverStatus.ON_REST;
 import static main.core.orderManagement.cargo.entity.CargoStatus.DELIVERED;
 import static main.core.orderManagement.cargo.entity.CargoStatus.TRANSPORTING;
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 import static main.core.orderManagement.waypoint.entity.WaypointType.UNLOAD;
-import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
-import static main.core.driver.entity.DriverStatus.ON_REST;
 
 public class CargoLogic {
     private static final String WAYPOINT_LOAD_NOT_FOUND="Loading waypoint for cargo %s not found!";

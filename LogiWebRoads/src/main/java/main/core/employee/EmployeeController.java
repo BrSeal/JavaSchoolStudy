@@ -54,9 +54,4 @@ public class EmployeeController {
         employeeService.delete(id);
         return "redirect:/employees/";
     }
-
-    @GetMapping("/employeeDesk")
-    public String showEmployeeDesk() {
-        return "employee/desktop/employeeDesk";
-    }
 }

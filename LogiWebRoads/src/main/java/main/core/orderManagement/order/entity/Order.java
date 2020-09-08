@@ -5,10 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.global.mappedSuperclass.IdClass;
 import main.core.driver.entity.Driver;
-import main.core.vehicle.entity.Vehicle;
 import main.core.orderManagement.waypoint.entity.Waypoint;
+import main.core.vehicle.entity.Vehicle;
+import main.global.mappedSuperclass.IdClass;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,16 +1,16 @@
 package main.core.orderManagement.cargo.services;
 
+import main.core.driver.entity.Driver;
 import main.core.orderManagement.cargo.DTO.NewCargoDTO;
 import main.core.orderManagement.cargo.entity.CargoStatus;
-import main.core.driver.entity.Driver;
 import main.global.exceptionHandling.exceptions.SaveFailedException;
 import main.global.exceptionHandling.exceptions.UpdateFailException;
 
 import java.util.List;
 
+import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
 import static main.core.orderManagement.cargo.entity.CargoStatus.DELIVERED;
 import static main.core.orderManagement.cargo.entity.CargoStatus.PREPARED;
-import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
 
 public class CargoCheckProvider {
     private static final String STATUS_UPDATE_ERR = "Cargo status can be changed in order PREPARED->TRANSPORTING->DELIVERED only!";

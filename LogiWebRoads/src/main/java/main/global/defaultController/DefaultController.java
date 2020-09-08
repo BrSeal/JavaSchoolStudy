@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DefaultController {
 
-    @RequestMapping("/")
+    @RequestMapping({"/","/home"})
     public String showHomePage() {
         return "home";
     }
@@ -24,6 +24,11 @@ public class DefaultController {
     @RequestMapping({"/about"})
     public String showAbout() {
         return "about";
+    }
+
+    @RequestMapping({"/accessDenied"})
+    public String showAccessDenied() {
+        return "accessDenied";
     }
 }
 

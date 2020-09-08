@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.order.entity.OrderStatus;
 
 import java.text.SimpleDateFormat;
 

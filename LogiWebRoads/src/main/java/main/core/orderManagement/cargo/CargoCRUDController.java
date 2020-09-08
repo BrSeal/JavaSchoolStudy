@@ -28,7 +28,7 @@ public class CargoCRUDController {
         return service.get(id);
     }
 
-    @PutMapping("/update/")
+    @PutMapping("/updateStatus/")
     public void updateCargo(@RequestBody UpdateStatusCargoDTO cargo) {
       service.update(cargo);
     }

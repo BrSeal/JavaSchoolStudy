@@ -11,6 +11,13 @@ import org.springframework.security.core.userdetails.User;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String MANAGER = "MANAGER";
+    private static final String ADMIN = "ADMIN";
+    private static final String DRIVER = "DRIVER";
+    private static final String EMPLOYEE = "EMPLOYEE";
+
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**");
@@ -18,21 +25,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        User.UserBuilder users=User.withDefaultPasswordEncoder();
+        User.UserBuilder users = User.withDefaultPasswordEncoder();
 
         auth.inMemoryAuthentication()
-                .withUser(users.username("admin").password("admin").roles("ADMIN","EMPLOYEE","DRIVER"))
-                .withUser(users.username("employee").password("employee").roles("EMPLOYEE"))
-                .withUser(users.username("driver").password("driver").roles("DRIVER"));
+                .withUser(users.username("admin").password("admin").roles(ADMIN, EMPLOYEE, MANAGER, DRIVER))
+                .withUser(users.username("employee").password("employee").roles(EMPLOYEE, MANAGER))
+                .withUser(users.username("driver").password("driver").roles(EMPLOYEE, DRIVER));
 
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/").hasRole(EMPLOYEE)
+                .antMatchers("/**").hasRole(ADMIN)
+                .antMatchers("/employeeDesk/",
+                        "/city/**",
+                        "/driver/**",
+                        "/vehicle/**",
+                        "/cargo/**",
+                        "/order/**"
+                ).hasRole(MANAGER)
+                .antMatchers("/driverDesk/**",
+                        "/driver/info/**",
+                        "/driver/updateStatus/",
+                        "/cargo/get/**",
+                        "/cargo/updateStatus/",
+                        "/city/").hasRole(DRIVER)
                 .and()
-                .formLogin().loginPage("/loginPage").loginProcessingUrl("/authenticate").permitAll()
+                .formLogin()
+                .loginPage("/loginPage")
+                .loginProcessingUrl("/authenticate")
+                .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied");
     }
 }

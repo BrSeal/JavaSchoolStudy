@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.global.mappedSuperclass.IdClass;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
+import main.global.mappedSuperclass.IdClass;
 import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;

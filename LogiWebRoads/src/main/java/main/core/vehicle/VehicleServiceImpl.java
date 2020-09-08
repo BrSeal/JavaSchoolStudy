@@ -1,6 +1,5 @@
 package main.core.vehicle;
 
-import lombok.extern.log4j.Log4j;
 import main.core.cityAndRoads.cities.CityRepository;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.OrderRepository;

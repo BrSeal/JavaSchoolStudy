@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -21,17 +22,20 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="loginPage">Home</a>
+                <a class="nav-link" href="home">Home</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="about">About</a>
             </li>
         </ul>
     </div>
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+    </form:form>
 </nav>
 
 <div id="content">
-
+    <h1>About</h1>
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">

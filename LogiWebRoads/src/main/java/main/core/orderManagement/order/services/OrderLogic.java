@@ -1,12 +1,12 @@
 package main.core.orderManagement.order.services;
 
+import main.core.cityAndRoads.cities.entity.City;
+import main.core.cityAndRoads.roads.entity.Road;
 import main.core.orderManagement.cargo.DTO.NewCargoDTO;
 import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.orderManagement.cargo.entity.CargoStatus;
-import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.DTO.NewOrderDTO;
 import main.core.orderManagement.order.entity.Order;
-import main.core.cityAndRoads.roads.entity.Road;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.orderManagement.waypoint.entity.WaypointType;

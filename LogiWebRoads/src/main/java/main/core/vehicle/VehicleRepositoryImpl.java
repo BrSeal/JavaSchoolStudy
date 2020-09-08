@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 @Repository
 public class VehicleRepositoryImpl implements VehicleRepository {

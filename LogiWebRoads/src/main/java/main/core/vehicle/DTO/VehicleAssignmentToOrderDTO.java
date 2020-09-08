@@ -1,11 +1,10 @@
 package main.core.vehicle.DTO;
 
-import main.core.vehicle.entity.Vehicle;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import main.core.vehicle.entity.Vehicle;
 
 @Getter
 @Setter

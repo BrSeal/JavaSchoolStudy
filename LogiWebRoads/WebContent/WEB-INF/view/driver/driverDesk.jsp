@@ -12,7 +12,6 @@
 <body data-url="${pageContext.request.contextPath}">
 
 <div id="root">
-
 </div>
 
 

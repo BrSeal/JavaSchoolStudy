@@ -1,8 +1,8 @@
 package main.core.orderManagement.order.services;
 
-import main.core.orderManagement.cargo.services.CargoCheckProvider;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.driver.entity.Driver;
+import main.core.orderManagement.cargo.services.CargoCheckProvider;
 import main.core.orderManagement.order.DTO.DeliveryObject;
 import main.core.orderManagement.order.DTO.NewOrderDTO;
 import main.core.orderManagement.order.entity.Order;

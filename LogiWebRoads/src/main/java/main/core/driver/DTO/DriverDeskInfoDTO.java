@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.orderManagement.waypoint.WaypointDTO;
-import main.core.orderManagement.order.entity.Order;
 import main.core.driver.entity.Driver;
 import main.core.driver.entity.DriverStatus;
+import main.core.orderManagement.order.entity.Order;
+import main.core.orderManagement.waypoint.WaypointDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,14 +24,12 @@ public class DriverDeskInfoDTO {
     private String vehicleRegNum;
     private int orderId;
     private List<WaypointDTO> waypoints;
-    private int currentCity;
 
     public DriverDeskInfoDTO(Driver driver){
         Order order=driver.getCurrentOrder();
 
         id=driver.getId();
         status=driver.getStatus();
-        currentCity=driver.getCurrentCity().getId();
         if(order!=null) {
             orderId = order.getId();
             vehicleRegNum = order.getAssignedVehicle().getRegNumber();

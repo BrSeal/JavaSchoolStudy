@@ -1,3 +1,5 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
@@ -7,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href='${pageContext.request.contextPath}/resources/css/bootstrap.min.css' rel="stylesheet" type="text/css">
-    <title>LogiWeb Add new Employee</title>
+    <title>LogiWeb</title>
 </head>
 
 <body>
@@ -23,42 +25,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="home">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/">Employee list</a>
             </li>
         </ul>
     </div>
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+    </form:form>
 </nav>
 
 <div id="content">
-    <h3>Save new employee form</h3>
-   <form:form action="save" modelAttribute="employee" method="POST">
-       <form:hidden path="id"/>
-        <table>
-            <tbody>
-            <tr>
-            <td><label>Login</label></td>
-            <td><form:input path="login"/></td>
-            </tr>
-            <tr>
-                <td><label>Password</label></td>
-                <td><form:input path="password"/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Save"/></td>
-                <td> <input type="button" value="Back to list" onclick="location.href='${pageContext.request.contextPath}/employees/';return false;"/></td>
+    <h1>Access denied!</h1>
 
-            </tr>
-            </tbody>
-        </table>
-
-
-   </form:form>
+    <div>Name:<security:authentication property="principal.username"/></div>
+    <div>Roles:<security:authentication property="principal.authorities"/></div>
 </div>
-
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">
     <div class="container-flexible">

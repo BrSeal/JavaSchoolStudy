@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.cityAndRoads.cities.entity.City;
+import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
 
