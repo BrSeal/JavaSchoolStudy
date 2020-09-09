@@ -37,8 +37,8 @@ public class DriverCRUDController {
     }
 
     @GetMapping("/info/{id}")
-    public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable int id) {
-        return service.getDriverDeskInfo(id);
+    public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable String username) {
+        return service.getDriverDeskInfo(username);
     }
 
     @PostMapping("/new/")

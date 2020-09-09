@@ -33,6 +33,12 @@ public class NullChecker {
         }
     }
 
+    public void throwNotFoundIfNull(Object o, Class clazz, String id) {
+        if (Objects.isNull(o)) {
+            throw new NotFoundException(clazz, id);
+        }
+    }
+
     public void throwNotAssignedIfNull(Object o, Class objectClass, int id) {
         if (Objects.isNull(o)) {
             throw new NotAssignedToOrderException(objectClass, id);

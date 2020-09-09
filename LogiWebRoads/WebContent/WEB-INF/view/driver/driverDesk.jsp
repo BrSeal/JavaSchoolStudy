@@ -20,10 +20,10 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item ">
-                <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+                <a class="nav-link" href="../">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/about">About</a>
+                <a class="nav-link" href="../about">About</a>
             </li>
         </ul>
     </div>

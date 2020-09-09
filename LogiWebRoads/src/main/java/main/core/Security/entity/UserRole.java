@@ -1,8 +1,8 @@
 package main.core.Security.entity;
 
 public enum  UserRole {
-    EMPLOYEE,
-    MANAGER,
-    DRIVER,
-    ADMIN
+    ROLE_USER,
+    ROLE_EMPLOYEE,
+    ROLE_DRIVER,
+    ROLE_ADMIN
 }

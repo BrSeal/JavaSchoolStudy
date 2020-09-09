@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 
 import javax.sql.DataSource;
 
@@ -15,10 +14,10 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String MANAGER = "MANAGER";
+    private static final String EMPLOYEE = "EMPLOYEE";
     private static final String ADMIN = "ADMIN";
     private static final String DRIVER = "DRIVER";
-    private static final String EMPLOYEE = "EMPLOYEE";
+    private static final String USER = "USER";
 
     private final DataSource dataSource;
 
@@ -35,11 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource);
-
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-
-        auth.jdbcAuthentication()
-                .withUser(users.username("admin").password("admin").roles(ADMIN, EMPLOYEE, MANAGER, DRIVER));
     }
 
     @Override
@@ -50,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/about",
                         "/home",
                         "/city/**",
-                        "/cargo/**").hasRole(EMPLOYEE)
+                        "/cargo/**").hasRole(USER)
                 .antMatchers(
                         "/employees/**",
                         "/adminPage/**").hasRole(ADMIN)
@@ -61,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/employeeDesk/**",
                         "/driver/**",
                         "/vehicle/**",
-                        "/order/**").hasRole(MANAGER)
+                        "/order/**").hasRole(EMPLOYEE)
                 .and()
                 .formLogin()
                 .loginPage("/loginPage")

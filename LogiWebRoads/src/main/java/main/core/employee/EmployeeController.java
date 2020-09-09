@@ -1,5 +1,6 @@
 package main.core.employee;
 
+import main.core.employee.DTO.EmployeeDTO;
 import main.core.employee.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,34 +22,34 @@ public class EmployeeController {
 
     @GetMapping("/")
     public String listEmployees(Model model) {
-        List<Employee> employeeList = employeeService.getAll();
+        List<EmployeeDTO> employeeList = employeeService.getAll();
         model.addAttribute("employees", employeeList);
         return "employee/CRUD/employees";
     }
 
     @GetMapping("/create")
     public String createEmployee(Model model) {
-        Employee employee = new Employee();
-        model.addAttribute("employee", employee);
+        EmployeeDTO employee = new EmployeeDTO();
+        model.addAttribute("employeeDTO", employee);
 
         return "employee/CRUD/employeeForm";
     }
 
     @PostMapping("/save")
-    public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-        employeeService.save(employee);
+    public String saveEmployee(@ModelAttribute("employeeDTO") EmployeeDTO dto) {
+        if (dto.getId() != 0) employeeService.update(dto.toEmployee());
+        else employeeService.save(dto.toEmployee());
         return "redirect:/employees/";
     }
 
     @GetMapping("/update")
     public String updateEmployee(@RequestParam("employeeId") int id, Model model) {
-        Employee e = employeeService.get(id);
-        model.addAttribute("employee", e);
+        Employee employee = employeeService.get(id);
+        model.addAttribute("employeeDTO", new EmployeeDTO(employee));
 
         return "employee/CRUD/employeeForm";
     }
 
-    //TODO сделать Delete-метод
     @GetMapping("/delete")
     public String deleteEmployee(@RequestParam("employeeId") int id) {
         employeeService.delete(id);

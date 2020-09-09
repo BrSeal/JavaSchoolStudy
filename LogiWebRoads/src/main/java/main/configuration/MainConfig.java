@@ -1,6 +1,8 @@
 package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import main.configuration.security.UserConfig;
+import main.core.employee.entity.Employee;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,13 +26,15 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "main")
 @Import({
-                CargoConfig.class,
-                DriverConfig.class,
-                OrderConfig.class,
-                VehicleConfig.class
-        })
+        CargoConfig.class,
+        DriverConfig.class,
+        OrderConfig.class,
+        VehicleConfig.class,
+        UserConfig.class,
+        EmployeeConfig.class
+})
 public class MainConfig implements WebMvcConfigurer {
-
+    private static final String HIBERNATE_DDL_AUTO  = "validate";
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -45,7 +49,7 @@ public class MainConfig implements WebMvcConfigurer {
 
         try {
             cpds.setDriverClass("com.mysql.cj.jdbc.Driver");
-            
+
 
         } catch (PropertyVetoException e) {
             e.printStackTrace();
@@ -70,7 +74,7 @@ public class MainConfig implements WebMvcConfigurer {
 
         Properties hibernateProps = new Properties();
         hibernateProps.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        hibernateProps.put("hibernate.hbm2ddl.auto", "validate");
+        hibernateProps.put("hibernate.hbm2ddl.auto", HIBERNATE_DDL_AUTO);
         hibernateProps.put("hibernate.show_sql", "true");
 
         factory.setHibernateProperties(hibernateProps);
@@ -86,7 +90,7 @@ public class MainConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public NullChecker nullChecker(){
+    public NullChecker nullChecker() {
         return new NullChecker();
     }
 

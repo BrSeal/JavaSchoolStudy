@@ -1,8 +1,5 @@
 package main.core.driver.services;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import main.core.driver.DTO.DriverUpdateDTO;
 import main.core.driver.entity.Driver;
 import main.core.driver.entity.DriverStatus;
@@ -13,9 +10,6 @@ import main.global.exceptionHandling.exceptions.UpdateFailException;
 import static main.core.driver.entity.DriverStatus.ON_DUTY_DRIVING;
 import static main.core.driver.entity.DriverStatus.ON_REST;
 
-@Getter
-@Setter
-@NoArgsConstructor
 public class DriverCheckProvider {
     private static final int MAX_WORKING_HOURS_VALUE = 176;
     private static final int MIN_WORKING_HOURS_VALUE = 0;
@@ -50,7 +44,7 @@ public class DriverCheckProvider {
         int newHoursWorked = updates.getHoursWorked();
         int newOrder = updates.getCurrentOrder();
 
-        int currentOrderId = currentOrder==null ? 0 : currentOrder.getId();
+        int currentOrderId = currentOrder==null ? NOT_PRESENT : currentOrder.getId();
 
         if (newFirstName == null || newLastName == null || newFirstName.isEmpty() || newLastName.isEmpty()) {
             String errMsg = String.format(UPDATE_FAIL_EMPTY_NAME, driver.getId());

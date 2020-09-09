@@ -5,6 +5,9 @@ public class NotFoundException extends RestException{
     public NotFoundException(Class clazz, int id){
         super(String.format(NOT_FOUND,clazz.getSimpleName(),id));
     }
+    public NotFoundException(Class clazz, String id){
+        super(String.format(NOT_FOUND,clazz.getSimpleName(),id));
+    }
 
     public NotFoundException(String errMsg){
         super(errMsg);

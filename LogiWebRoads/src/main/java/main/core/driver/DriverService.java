@@ -21,5 +21,5 @@ public interface DriverService {
 
     List<DriverInfoDTO> getAvailable(int orderId);
 
-    DriverDeskInfoDTO getDriverDeskInfo(int id);
+    DriverDeskInfoDTO getDriverDeskInfo(String username);
 }

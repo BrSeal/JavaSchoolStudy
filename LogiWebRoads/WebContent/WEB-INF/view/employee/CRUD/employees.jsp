@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html>
 <head>
@@ -21,16 +22,16 @@
     <div id="navb" class="navbar-collapse collapse hide">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/home">Home</a>
+                <a class="nav-link" href="../home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="about">About</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Employee list</a>
+                <a class="nav-link" href="../about">About</a>
             </li>
         </ul>
     </div>
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+    </form:form>
 </nav>
 
 <div id="content">
@@ -56,7 +57,7 @@
             </c:url>
             <tr>
                 <td>${employee.id}</td>
-                <td><a href="${pageContext.request.contextPath}/employees/employeeDesk">${employee.login}</a></td>
+                <td><a href="../employeeDesk/">${employee.login}</a></td>
                 <td>${employee.password}</td>
                 <td><a href="${updateLink}">Update</a>
                     <a href="${deleteLink}"

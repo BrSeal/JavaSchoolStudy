@@ -39,6 +39,9 @@
     <h1>Access denied!</h1>
     <h5>You are not authorized to access this resource!</h5>
     <a href="${pageContext.request.contextPath}/">Back to home page</a>
+
+    <div>User:<security:authentication property="principal.username"/></div>
+    <div>Roles:<security:authentication property="principal.authorities"/></div>
 </div>
 <footer class="footer mt-auto py-3"
         style="position: absolute; bottom: 0; width: 100%; background-color: rgba(199,199,199,0.56); padding-left: 15px">

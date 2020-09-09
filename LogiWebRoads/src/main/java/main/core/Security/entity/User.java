@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,16 +17,22 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "username")
+    @Column(name = "username",
+            unique = true,
+            nullable = false,
+            length = 50)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password",
+            nullable = false,
+            length = 50)
     private String password;
 
-    @Column(name = "enabled")
+    @Column(name = "enabled",
+            nullable = false)
     private boolean enabled;
 
     @Column(name = "authorities")
-    @OneToMany(mappedBy = "user")
-    private List<Authorities> authorities;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Authority> authorities;
 }

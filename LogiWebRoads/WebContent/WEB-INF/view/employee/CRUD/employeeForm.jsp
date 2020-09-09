@@ -31,11 +31,14 @@
             </li>
         </ul>
     </div>
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+    </form:form>
 </nav>
 
 <div id="content">
     <h3>Save new employee form</h3>
-   <form:form action="save" modelAttribute="employee" method="POST">
+   <form:form action="save" modelAttribute="employeeDTO" method="POST">
        <form:hidden path="id"/>
         <table>
             <tbody>

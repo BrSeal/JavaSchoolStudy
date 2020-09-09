@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import main.core.Security.entity.User;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
@@ -40,4 +41,7 @@ public class Driver extends IdClass {
     @JoinColumn(name = "current_order_id")
     @Nullable
     private Order currentOrder;
+
+    @OneToOne
+    private User user;
 }
