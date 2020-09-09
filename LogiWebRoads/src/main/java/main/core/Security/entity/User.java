@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Getter
@@ -21,11 +22,13 @@ public class User {
             unique = true,
             nullable = false,
             length = 50)
+    @Size(min = 3, max = 50)
     private String username;
 
     @Column(name = "password",
             nullable = false,
             length = 50)
+    @Size(min = 3, max = 50)
     private String password;
 
     @Column(name = "enabled",

@@ -8299,7 +8299,9 @@ var DriverAddButton = /*#__PURE__*/function (_Component) {
       var driver = {
         firstName: '',
         lastName: '',
-        currentCityId: 1
+        currentCityId: 1,
+        login: '',
+        password: ''
       };
 
       var showForm = function showForm() {
@@ -8440,7 +8442,26 @@ var DriverForm = /*#__PURE__*/function (_Component) {
           value: city.id
         }, city.name);
       });
-      var updateDriverInputs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Hours worked:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      var loginAndPassword = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Username:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        name: "username",
+        type: "text",
+        minLength: 5,
+        maxLength: 50,
+        defaultValue: this.state.driver.username,
+        onChange: this.handleInputChange,
+        required: true
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Password:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        name: "password",
+        type: "text",
+        minLength: 5,
+        maxLength: 50,
+        defaultValue: this.state.driver.password,
+        onChange: this.handleInputChange,
+        required: true
+      })));
+      var updateDriverInputs = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Hours worked:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "hoursWorked",
         type: "number",
@@ -8454,26 +8475,26 @@ var DriverForm = /*#__PURE__*/function (_Component) {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Driver form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "First name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "First name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "firstName",
         type: "text",
         defaultValue: this.state.driver.firstName,
         onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Last name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Last name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
         name: "lastName",
         type: "text",
         defaultValue: this.state.driver.lastName,
         onChange: this.handleInputChange,
         required: true
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Location:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         className: "form-control",
         name: "currentCityId",
         defaultValue: this.state.driver.currentCityId,
         onChange: this.handleInputChange
-      }, options), this.props.action === "new" ? '' : updateDriverInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, options)), this.props.action === "new" ? loginAndPassword : updateDriverInputs, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "btn btn-sm btn-secondary",
         type: "button",
         onClick: this.handleSubmit,
@@ -10295,7 +10316,7 @@ var VehicleForm = /*#__PURE__*/function (_Component) {
         name: "dutySize",
         type: "number",
         min: 1,
-        max: 3,
+        max: 5,
         defaultValue: this.state.vehicle.lastName,
         onChange: this.handleInputChange,
         required: true
@@ -10478,8 +10499,9 @@ var VehicleInfo = /*#__PURE__*/function (_Component) {
       };
 
       var deleteVehicle = function deleteVehicle() {
-        confirm('You really want to delete vehicle #' + vehicle.id + '?');
-        _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](vehicle.id);
+        if (confirm('You really want to delete vehicle #' + vehicle.id + '?')) {
+          _resourceHandler_repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_2__["default"]["delete"](vehicle.id);
+        }
       };
 
       var showEditForm = function showEditForm() {
@@ -10663,14 +10685,15 @@ var ResourceService = /*#__PURE__*/function () {
   function ResourceService() {
     _classCallCheck(this, ResourceService);
 
+    var token;
     $(function () {
-      var token = $("meta[name='_csrf']").attr("content");
-      this.token = token;
+      token = $("meta[name='_csrf']").attr("content");
       var header = $("meta[name='_csrf_header']").attr("content");
       $(document).ajaxSend(function (e, xhr, options) {
         xhr.setRequestHeader(header, token);
       });
     });
+    this.token = token;
     this.drivers = _repositories_DriverRepository__WEBPACK_IMPORTED_MODULE_2__["default"].init();
     this.orders = _repositories_OrderRepositoty__WEBPACK_IMPORTED_MODULE_0__["default"].init();
     this.vehicles = _repositories_VehicleRepository__WEBPACK_IMPORTED_MODULE_3__["default"].init();

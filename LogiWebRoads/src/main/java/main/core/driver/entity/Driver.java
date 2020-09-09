@@ -11,6 +11,9 @@ import main.global.mappedSuperclass.IdClass;
 import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "drivers")
@@ -20,13 +23,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Driver extends IdClass {
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",
+            nullable = false,
+            length = 50)
+    @Size(min=5, max = 50)
     private String firstName;
 
     @Column(name = "last_name")
+    @Size(min=5, max = 50)
     private String lastName;
 
     @Column(name = "hours_worked_current_month")
+    @Min(0)
+    @Max(176)
     private int hoursWorked;
 
     @Enumerated(EnumType.STRING)

@@ -1,6 +1,7 @@
 package main.global.defaultController;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,14 +22,15 @@ public class DefaultController {
         return "adminPage";
     }
 
-    @RequestMapping({"/about"})
+    @RequestMapping("/about")
     public String showAbout() {
         return "about";
     }
 
-    @RequestMapping({"/accessDenied"})
+    @RequestMapping("/accessDenied")
     public String showAccessDenied() {
         return "accessDenied";
     }
+
 }
 

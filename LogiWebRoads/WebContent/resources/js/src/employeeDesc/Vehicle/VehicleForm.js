@@ -27,7 +27,6 @@ export class VehicleForm extends Component {
         const value = target.name === 'ok' ? target.checked : target.value;
         const name = target.name;
 
-
         vehicle[name] = value;
         this.setState({
             vehicle: vehicle
@@ -88,7 +87,7 @@ export class VehicleForm extends Component {
                         name="dutySize"
                         type="number"
                         min={1}
-                        max={3}
+                        max={5}
                         defaultValue={this.state.vehicle.lastName}
                         onChange={this.handleInputChange}
                         required/>

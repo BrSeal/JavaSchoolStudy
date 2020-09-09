@@ -36,7 +36,7 @@ public class DriverCRUDController {
         return service.getAvailable(orderId);
     }
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/info/{username}")
     public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable String username) {
         return service.getDriverDeskInfo(username);
     }

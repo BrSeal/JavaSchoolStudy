@@ -31,20 +31,21 @@
             </li>
         </ul>
     </div>
-    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout" method="post">
+    <form:form class="form-inline mt-2 mt-md-0 pull-right" action="${pageContext.request.contextPath}/logout"
+               method="post">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
     </form:form>
 </nav>
 
 <div id="content">
     <h3>Save new employee form</h3>
-   <form:form action="save" modelAttribute="employeeDTO" method="POST">
-       <form:hidden path="id"/>
+    <form:form action="save" modelAttribute="employeeDTO" method="POST">
+        <form:hidden path="id"/>
         <table>
             <tbody>
             <tr>
-            <td><label>Login</label></td>
-            <td><form:input path="login"/></td>
+                <td><label>Login</label></td>
+                <td><form:input path="login"/></td>
             </tr>
             <tr>
                 <td><label>Password</label></td>
@@ -52,14 +53,15 @@
             </tr>
             <tr>
                 <td><input type="submit" value="Save"/></td>
-                <td> <input type="button" value="Back to list" onclick="location.href='${pageContext.request.contextPath}/employees/';return false;"/></td>
+                <td><input type="button" value="Back to list"
+                           onclick="location.href='${pageContext.request.contextPath}/employees/';return false;"/></td>
 
             </tr>
             </tbody>
         </table>
 
 
-   </form:form>
+    </form:form>
 </div>
 
 <footer class="footer mt-auto py-3"

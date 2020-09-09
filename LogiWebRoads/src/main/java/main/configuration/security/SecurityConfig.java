@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(
                         "/",
+                        "/me",
                         "/about",
                         "/home",
                         "/city/**",

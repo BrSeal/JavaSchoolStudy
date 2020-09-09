@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 public class DriverDeskInfoDTO {
 
     private int id;
+    private int hoursWorked;
+    private String firstName;
+    private String lastName;
+
     private DriverStatus status;
     private List<Integer> drivers;
     private String vehicleRegNum;
@@ -29,6 +33,9 @@ public class DriverDeskInfoDTO {
         Order order=driver.getCurrentOrder();
 
         id=driver.getId();
+        hoursWorked=driver.getHoursWorked();
+        firstName=driver.getFirstName();
+        lastName=driver.getLastName();
         status=driver.getStatus();
         if(order!=null) {
             orderId = order.getId();

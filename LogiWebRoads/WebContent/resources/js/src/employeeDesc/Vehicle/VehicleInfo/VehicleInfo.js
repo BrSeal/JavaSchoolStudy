@@ -17,8 +17,9 @@ export class VehicleInfo extends Component {
         }
 
         const deleteVehicle = function () {
-            confirm('You really want to delete vehicle #'+vehicle.id+'?');
-            vehicleRepository.delete(vehicle.id);
+            if(confirm('You really want to delete vehicle #'+vehicle.id+'?')) {
+                vehicleRepository.delete(vehicle.id);
+            }
         }
 
         const showEditForm = function () {

@@ -17,7 +17,6 @@ public class DriverConfig {
 
     @Bean
     public DriverLogic driverLogic(DriverCheckProvider provider, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, NullChecker nullChecker){
-
         return new DriverLogic(provider,orderCheckProvider,orderLogic,nullChecker);
     }
 }

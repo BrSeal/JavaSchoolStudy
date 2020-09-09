@@ -21,7 +21,6 @@ public class DriverDeskController {
     public String getDriverDesk(@PathVariable String username, Model model){
         DriverDeskInfoDTO driverDeskInfo=driverService.getDriverDeskInfo(username);
         model.addAttribute("dto",driverDeskInfo);
-
         return "driver/driverDesk";
     }
 }
