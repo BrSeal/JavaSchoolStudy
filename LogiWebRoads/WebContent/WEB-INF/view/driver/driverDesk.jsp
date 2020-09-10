@@ -15,7 +15,12 @@
     <title>LogiWeb</title>
 </head>
 
-<body data-url="${pageContext.request.contextPath}" data-status="${dto.status.ordinal()}">
+<body
+        data-url="${pageContext.request.contextPath}"
+        data-driverStatus="${dto.status.ordinal()}"
+        data-cargoStatus="${dto.currentTarget.cargo.status.ordinal()}"
+        data-cargoId="${dto.currentTarget.cargo.id}"
+>
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
     <a class="navbar-brand" href="#">LogiWeb</a>
@@ -96,16 +101,8 @@
                    <div> <label><b>Cargo weight: ${dto.currentTarget.cargo.weight}</b></label></div>
                    <div> <label><b>Action: ${dto.currentTarget.type}</b></label></div>
 
-                    <form:form
-                            action="${pageContext.request.contextPath}/cargo/updateStatus/"
-                            method="post"
-                            modelAttribute="cargo">
-                        <form:select path="status">
-                            <form:option value="1">Transporting</form:option>
-                            <form:option value="2">Delivered</form:option>
-                        </form:select>
-                        <input class="btn btn-secondary" type="submit" value="Complete">
-                    </form:form>
+                    <div id="cargoStatusForm">
+                    </div>
 
                 </div>
 
@@ -158,9 +155,9 @@
 <script src='${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/popper.min.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/bootstrap.min.js'></script>
-<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone@7.11.6/babel.min.js" crossorigin></script>
+<script src="${pageContext.request.contextPath}/resources/js/react.development.js" crossorigin></script>
+<script src="${pageContext.request.contextPath}/resources/js/react-dom.development.js" crossorigin></script>
+<script src="${pageContext.request.contextPath}/resources/js/babel.min.js" crossorigin></script>
 
 <script type="text/babel" src="${pageContext.request.contextPath}/resources/js/src/driverDesk/main.js"></script>
 </body>

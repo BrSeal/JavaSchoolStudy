@@ -11,7 +11,6 @@ import main.core.orderManagement.cargo.entity.CargoStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateStatusCargoDTO {
-
     private int id;
     private CargoStatus status;
 }

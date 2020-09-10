@@ -14,7 +14,7 @@ class ChangeStatusButton extends React.Component {
         return(
             <button
             className={"btn btn-secondary"}
-            onClick={ () => ReactDOM.render(e(ChangeStatusForm), domContainer)}
+            onClick={ () => ReactDOM.render(e(ChangeDriverStatusForm), domContainer)}
             >
             Change status
         </button>
@@ -22,7 +22,7 @@ class ChangeStatusButton extends React.Component {
     }
 }
 
-class ChangeStatusForm extends React.Component {
+class ChangeDriverStatusForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,5 +79,67 @@ class ChangeStatusForm extends React.Component {
 
 }
 
-const domContainer = document.getElementById('details');
-ReactDOM.render(e(ChangeStatusButton), domContainer);
+class ChangeCargoStatusForm extends React.Component {
+    constructor(props) {
+        super(props);
+        alert(document.body.dataset.cargoid+' '+document.body.dataset.cargostatus)
+        this.state = {
+            id: document.body.dataset.cargoid,
+            status: document.body.dataset.cargostatus
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onChange(e) {
+        this.setState({
+            status: Number(e.target.value)
+        })
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+        let data = {
+            id:Number(this.state.id),
+            status:Number(this.state.status)
+        };
+
+        $.ajax({
+            method: 'POST',
+            url: '../cargo/updateStatus/',
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function () {
+                alert('Waypoint done!');
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.onSubmit} method={"post"}>
+                <div><b>Status:</b></div>
+                <select
+                    className={"form-control"}
+                    name={"status"}
+                    onChange={this.onChange}
+                    defaultValue={this.state.status}>
+                    <option value={"0"}>Prepared</option>
+                    <option value={"1"}>Loaded</option>
+                    <option value={"2"}>Delivered</option>
+                </select>
+                <input className={"btn btn-secondary"} type={"submit"} name={"Finish waypoint"}/>
+            </form>
+        );
+    }
+
+
+}
+
+const details = document.getElementById('details');
+const cargoStatusForm = document.getElementById('cargoStatusForm');
+ReactDOM.render(e(ChangeStatusButton), details);
+ReactDOM.render(e(ChangeCargoStatusForm), cargoStatusForm);
