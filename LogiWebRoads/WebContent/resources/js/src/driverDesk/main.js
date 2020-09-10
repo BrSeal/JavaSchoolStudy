@@ -14,7 +14,7 @@ class ChangeStatusButton extends React.Component {
         return(
             <button
             className={"btn btn-secondary"}
-            onClick={ () => ReactDOM.render(e(ChangeDriverStatusForm), domContainer)}
+            onClick={ () => ReactDOM.render(e(ChangeDriverStatusForm), details)}
             >
             Change status
         </button>
@@ -82,7 +82,6 @@ class ChangeDriverStatusForm extends React.Component {
 class ChangeCargoStatusForm extends React.Component {
     constructor(props) {
         super(props);
-        alert(document.body.dataset.cargoid+' '+document.body.dataset.cargostatus)
         this.state = {
             id: document.body.dataset.cargoid,
             status: document.body.dataset.cargostatus
