@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
         List<Integer> cityIds = cityRepository.getAll().stream().map(City::getId).collect(Collectors.toList());
         orderCheckProvider.validateNew(dto, cityIds);
 
-        Order order = orderLogic.getOrderFromDTO(dto);
+        Order order = dto.toOrder();
 
         orderLogic.calculateRoute(order, roadRepository.getAll());
         return orderRepository.save(order);
@@ -64,7 +64,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public InfoOrderDTO get(int id) {
-        return new InfoOrderDTO(orderRepository.get(id));
+        Order order =orderRepository.get(id);
+        nullChecker.throwNotFoundIfNull(order,Order.class,id);
+        return new InfoOrderDTO(order);
     }
 
     @Override
@@ -78,12 +80,9 @@ public class OrderServiceImpl implements OrderService {
         Vehicle vehicle = vehicleRepository.get(assignedVehicleId);
         nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, assignedVehicleId);
 
-        int minDutySize=orderLogic.calculateMinDutySize(order);
-        int maxLoad=orderLogic.calculateMaxLoad(order.getWaypoints());
+        orderCheckProvider.vehicleAssignmentCheck(order, vehicle);
 
-        orderCheckProvider.vehicleAssignmentCheck(order, vehicle,maxLoad ,minDutySize);
-
-        if (orderCheckProvider.isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
+        if (order.getAssignedVehicle()!=null) order.getAssignedVehicle().setCurrentOrder(null);
 
         vehicle.setCurrentOrder(order);
         order.setAssignedVehicle(vehicle);
@@ -98,16 +97,14 @@ public class OrderServiceImpl implements OrderService {
         nullChecker.throwNotFoundIfNull(order, Order.class, id);
 
         List<Driver> drivers = dto.getDriverIds().stream()
-                        .map(driverId -> {
+                .map(driverId -> {
                             Driver driver=  driverRepository.get(driverId);
                             nullChecker.throwNotFoundIfNull(driver,Driver.class,driverId);
                             return driver;
                         })
                         .collect(Collectors.toList());
 
-        int hoursPerWorker = orderLogic.calculateOrderWorkTimeFirstMonth(order);
-        int minDutySize=orderLogic.calculateMinDutySize(order);
-        orderCheckProvider.driverAssignmentCheck(order, drivers, hoursPerWorker,minDutySize);
+        orderCheckProvider.driverAssignmentCheck(order, drivers);
 
         order.setAssignedDrivers(drivers);
         drivers.forEach(d -> d.setCurrentOrder(order));

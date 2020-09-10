@@ -20,10 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +30,7 @@ public class DriverServiceImpl implements DriverService {
     private static final int WORKING_HOURS_PER_MONTH = 176;
     private static final String ORDER_IS_NULL = "Update failed!";
     private static final String NO_DRIVER_FOR_USER = "No drivers found associated with user %s";
-    private static final String DRIVER_BY_ORDER_HQL = "from Driver d where d.currentOrder=%d";
+
 
 
     private final DriverRepository driverRepository;
@@ -73,9 +70,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public List<DriverInfoDTO> getByOrderId(int orderId) {
-        String hql = String.format(DRIVER_BY_ORDER_HQL, orderId);
-
-        return driverRepository.getByQuery(hql, null).stream()
+        return driverRepository.getByOrderId(orderId).stream()
                 .map(DriverInfoDTO::new)
                 .collect(Collectors.toList());
     }
@@ -110,13 +105,17 @@ public class DriverServiceImpl implements DriverService {
         String username = authentication.getName();
 
         Driver driver = getByUsername(username);
+
+        Order order=driver.getCurrentOrder();
         Waypoint currentTarget=null;
         List<Driver> companions;
-        if (driver.getCurrentOrder() != null) {
-            String hql = String.format(DRIVER_BY_ORDER_HQL, driver.getCurrentOrder().getId());
-            companions = driverRepository.getByQuery(hql, null);
+        if ( order!= null) {
+            order.getWaypoints().sort(Comparator.comparingInt(Waypoint::getPathIndex));
 
-            currentTarget=driver.getCurrentOrder().getWaypoints().stream()
+
+            companions = driverRepository.getByOrderId(order.getId());
+
+            currentTarget=order.getWaypoints().stream()
                     .filter(waypoint -> !waypoint.isDone())
                     .findFirst()
                     .get();

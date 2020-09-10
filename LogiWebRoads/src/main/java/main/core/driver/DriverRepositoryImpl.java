@@ -12,6 +12,9 @@ import java.util.Map;
 
 @Repository
 public class DriverRepositoryImpl implements DriverRepository {
+    private static final String DRIVER_BY_ORDER_HQL = "from Driver d where d.currentOrder=";
+
+
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -37,6 +40,12 @@ public class DriverRepositoryImpl implements DriverRepository {
             }
         }
         return query.list();
+    }
+
+    @Override
+    public List<Driver> getByOrderId(int orderId) {
+        String hql = DRIVER_BY_ORDER_HQL+orderId;
+        return sessionFactory.getCurrentSession().createQuery(hql, Driver.class).list();
     }
 
     @Override

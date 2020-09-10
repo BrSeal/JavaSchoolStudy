@@ -10,7 +10,6 @@ import main.global.exceptionHandling.exceptions.SaveFailedException;
 import main.global.exceptionHandling.exceptions.UpdateFailException;
 
 import java.util.List;
-import java.util.Objects;
 
 public class VehicleCheckProvider {
     private static final String REGNUM_PATTERN= "^[A-Z]\\d{3}[A-Z]{2}$";
@@ -20,26 +19,39 @@ public class VehicleCheckProvider {
     private static final String WRONG_CAPACITY = "Can't save new vehicle! Capacity must be from 100 to 4000!";
     private static final String DELETE_ERR = "Deletion failed! Vehicle #%d is currently on order #%d! Vehicle can be deleted after finishing current order!";
 
-    private static final String UPDATE_FAIL_ON_ORDER_DUTY_SIZE = "Duty size can't be updated while vehicle is assigned on order!";
-    private static final String UPDATE_FAIL_ON_ORDER_CAPACITY = "Capacity can't be updated while vehicle is assigned on order!";
-    private static final String UPDATE_FAIL_ON_ORDER_CITY = "Location can't be updated while vehicle is assigned on order!";
-    private static final String UPDATE_FAIL_ORDER_UPDATE_ERR = "You cant reassign vehicle!";
+    private static final String ON_ORDER_DUTY_SIZE = "Duty size can't be updated while vehicle is assigned on order!";
+    private static final String ON_ORDER_CAPACITY = "Capacity can't be updated while vehicle is assigned on order!";
+    private static final String ON_ORDER_CITY = "Location can't be updated while vehicle is assigned on order!";
+    private static final String ORDER_UPDATE_ERR = "You cant reassign vehicle on order!";
+    private static final String ALREADY_ASSIGNED_ERR = "Vehicle #%d is already assigned to order #%d!";
+    private static final String BROKEN_VEHICLE_ERR = "Vehicle #%d is broken and can't be used!";
+    private static final String LOW_CAPACITY_ERR = "Capacity of the vehicle #%d is too low! Need at least %d.";
+    private static final String LOW_DUTY_SIZE = "Vehicle #%d has too little duty size to be assigned!";
 
     public void canBeUpdated(Vehicle vehicle, VehicleFullInfoDTO dto, List<String> regNums) {
+        String regNumFromDTO=dto.getRegNumber();
+        int orderIdFromDto=dto.getCurrentOrder();
+        int dutySizeFromDto=dto.getDutySize();
+        int capacityFromDto=dto.getCapacity();
+        int cityFromDto=dto.getCurrentCityId();
 
-        if(!vehicle.getRegNumber().equals(dto.getRegNumber())) {
-            regNumCheck(dto.getRegNumber(), regNums);
+        if(!vehicle.getRegNumber().equals(regNumFromDTO)) {
+            regNumCheck(regNumFromDTO, regNums);
         }
 
-        if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ORDER_UPDATE_ERR);
-
-
-
-        if(Objects.nonNull(vehicle.getCurrentOrder())){
-            if(dto.getDutySize()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_DUTY_SIZE);
-            if(dto.getCapacity()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CAPACITY);
-            if(dto.getCurrentCityId()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CITY);
-            if(dto.getCurrentOrder()!=0) throw new UpdateFailException(UPDATE_FAIL_ON_ORDER_CAPACITY);
+        if(vehicle.getCurrentOrder()!=null){
+            if(dutySizeFromDto!=0&&dutySizeFromDto!=vehicle.getDutySize()) {
+                throw new UpdateFailException(ON_ORDER_DUTY_SIZE);
+            }
+            if(capacityFromDto!=0&&capacityFromDto!=vehicle.getCapacity()) {
+                throw new UpdateFailException(ON_ORDER_CAPACITY);
+            }
+            if(cityFromDto!=0&&cityFromDto!=vehicle.getCurrentCity().getId()) {
+                throw new UpdateFailException(ON_ORDER_CITY);
+            }
+            if(orderIdFromDto!=0&&orderIdFromDto!=vehicle.getCurrentOrder().getId()) {
+                throw new UpdateFailException(ORDER_UPDATE_ERR);
+            }
         }
     }
 
@@ -77,5 +89,32 @@ public class VehicleCheckProvider {
             String errMsg = String.format(NOT_UNIQUE_REGNUM, regNumber);
             throw new UpdateFailException(errMsg);
         }
+    }
+
+    public void canBeAssigned(Vehicle vehicle, int minDutySize, int maxLoad){
+        int capacity = vehicle.getCapacity();
+
+        if(minDutySize>vehicle.getDutySize()) {
+            String errMsg=String.format(LOW_DUTY_SIZE, vehicle.getId());
+            throw new UpdateFailException(errMsg);
+        }
+
+        if (!vehicle.isOk()) {
+            String errMsg = String.format(BROKEN_VEHICLE_ERR, vehicle.getId());
+            throw new UpdateFailException(errMsg);
+        }
+
+        if (vehicle.getCurrentOrder() != null) {
+            String errMsg = String.format(ALREADY_ASSIGNED_ERR, vehicle.getId(), vehicle.getCurrentOrder().getId());
+            throw new UpdateFailException(errMsg);
+        }
+
+        if (capacity < maxLoad) {
+            throw new UpdateFailException(String.format(LOW_CAPACITY_ERR, vehicle.getId(), maxLoad));
+        }
+    }
+
+    public void isOk(Vehicle vehicle) {
+        if(!vehicle.isOk()) throw new UpdateFailException(BROKEN_VEHICLE_ERR);
     }
 }

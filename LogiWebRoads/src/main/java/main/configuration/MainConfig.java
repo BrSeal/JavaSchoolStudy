@@ -35,6 +35,7 @@ import java.util.Properties;
 })
 public class MainConfig implements WebMvcConfigurer {
     private static final String HIBERNATE_DDL_AUTO  = "validate";
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();

@@ -11,6 +11,7 @@ import main.core.orderManagement.waypoint.WaypointDTO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class InfoOrderDTO {
 
         waypoints = o.getWaypoints().stream()
                 .map(WaypointDTO::new)
+                .sorted(Comparator.comparingInt(WaypointDTO::getPathIndex))
                 .collect(Collectors.toList());                                                                         
 
         if (o.getAssignedDrivers() == null) {

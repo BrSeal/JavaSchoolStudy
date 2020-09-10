@@ -1,19 +1,15 @@
 package main.core.orderManagement.order.services;
 
-import main.core.cityAndRoads.cities.entity.City;
 import main.core.cityAndRoads.roads.entity.Road;
-import main.core.orderManagement.cargo.DTO.NewCargoDTO;
-import main.core.orderManagement.cargo.entity.Cargo;
-import main.core.orderManagement.cargo.entity.CargoStatus;
-import main.core.orderManagement.order.DTO.NewOrderDTO;
 import main.core.orderManagement.order.entity.Order;
-import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.entity.Waypoint;
-import main.core.orderManagement.waypoint.entity.WaypointType;
 import main.core.vehicle.entity.Vehicle;
 import main.global.exceptionHandling.NullChecker;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 import static main.core.orderManagement.waypoint.entity.WaypointType.LOAD;
 
@@ -65,7 +61,6 @@ public class OrderLogic {
         return orderLength;
     }
 
-    //TODO Написать логику подсчета пути!!!!!!
     public void calculateRoute(Order order, List<Road> roadMap) {
         List<Waypoint> waypoints = order.getWaypoints();
         int count = 1;
@@ -95,45 +90,13 @@ public class OrderLogic {
         return (int) Math.ceil((double) calculateOrderWorkTimeFirstMonth(order) / dutySize);
     }
 
-    public Order getOrderFromDTO(NewOrderDTO dto) {
-        Order order = new Order();
-        List<Waypoint> waypoints = new ArrayList<>();
-
-        dto.getDeliveryObjects().forEach(d -> {
-            NewCargoDTO cargoDTO = d.getCargo();
-
-            Cargo cargo = new Cargo(cargoDTO.getName(), cargoDTO.getWeight(), CargoStatus.PREPARED);
-
-            int fromCityId = d.getCityIdFrom();
-            int toCityId = d.getCityIdTo();
-
-            Waypoint from = waypointFromDeliveryObj(fromCityId, order, cargo, WaypointType.LOAD);
-            Waypoint to = waypointFromDeliveryObj(toCityId, order, cargo, WaypointType.UNLOAD);
-            waypoints.add(from);
-            waypoints.add(to);
-        });
-
-        order.setCreationDate(new Date());
-        order.setWaypoints(waypoints);
-        order.setStatus(OrderStatus.ASSIGNED);
-
-        return order;
-    }
-
-    private Waypoint waypointFromDeliveryObj(int cityId, Order o, Cargo cargo, WaypointType type) {
-        City city = new City();
-        city.setId(cityId);
-
-        return new Waypoint(city, cargo, type, 0, 0, false, o);
-    }
-
     public int calculateMinDutySize(Order order) {
         int workingHoursFirstMonth = calculateOrderWorkTimeFirstMonth(order);
         int orderLength = calcOrderLength(order);
         int hoursAfterFirstMonth = orderLength - workingHoursFirstMonth;
 
         double maxWorkHoursPerMonth = Math.max(workingHoursFirstMonth, hoursAfterFirstMonth);
-        maxWorkHoursPerMonth = Math.min(maxWorkHoursPerMonth,MAX_HOURS_IN_MONTH);
+        maxWorkHoursPerMonth = Math.min(maxWorkHoursPerMonth, MAX_HOURS_IN_MONTH);
 
         return (int) Math.ceil(maxWorkHoursPerMonth / WORKING_HOURS_PER_MONTH);
     }

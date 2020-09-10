@@ -1,6 +1,7 @@
 package main.core.orderManagement.cargo;
 
-
+import main.core.driver.DriverRepository;
+import main.core.driver.entity.Driver;
 import main.core.orderManagement.cargo.DTO.InfoCargoDTO;
 import main.core.orderManagement.cargo.DTO.SmallCargoDTO;
 import main.core.orderManagement.cargo.DTO.UpdateStatusCargoDTO;
@@ -33,9 +34,10 @@ public class CargoServiceImpl implements CargoService {
     private final WaypointRepository waypointRepository;
     private final OrderRepository orderRepository;
     private final NullChecker nullChecker;
+    private final DriverRepository driverRepository;
 
     @Autowired
-    public CargoServiceImpl(CargoRepository cargoRepository, CargoCheckProvider cargoCheckProvider, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic, NullChecker nullChecker) {
+    public CargoServiceImpl(CargoRepository cargoRepository, CargoCheckProvider cargoCheckProvider, WaypointRepository waypointRepository, OrderRepository orderRepository, CargoLogic cargoLogic, NullChecker nullChecker, DriverRepository driverRepository) {
 
         this.cargoRepository = cargoRepository;
         this.cargoCheckProvider = cargoCheckProvider;
@@ -43,6 +45,7 @@ public class CargoServiceImpl implements CargoService {
         this.orderRepository = orderRepository;
         this.cargoLogic = cargoLogic;
         this.nullChecker = nullChecker;
+        this.driverRepository = driverRepository;
     }
 
     @Override
@@ -84,8 +87,10 @@ public class CargoServiceImpl implements CargoService {
         Cargo cargo = cargoRepository.get(dto.getId());
         List<Waypoint> waypoints = waypointRepository.getByCargo(cargo);
         Order order = waypoints.get(0).getOrder();
-        cargoLogic.updateStatusLogic(cargo, dto, order);
+        List<Driver> drivers=driverRepository.getByOrderId(order.getId());
 
+        cargoCheckProvider.canBeUpdated(drivers, cargo.getStatus(),dto.getStatus(),order.getAssignedVehicle());
+        cargoLogic.updateStatus(cargo, dto, order);
         orderRepository.update(order);
     }
 

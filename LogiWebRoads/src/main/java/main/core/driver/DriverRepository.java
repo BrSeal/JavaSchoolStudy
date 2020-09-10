@@ -12,6 +12,8 @@ public interface DriverRepository {
 
     List<Driver> getByQuery(String hql, Map<String,Object> params);
 
+    List<Driver> getByOrderId(int orderId);
+
     int save(Driver driver);
 
     void update( Driver driver);
