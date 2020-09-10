@@ -28,8 +28,8 @@ public class CargoCRUDController {
         return service.get(id);
     }
 
-    @PutMapping("/updateStatus/")
-    public void updateCargo(@RequestBody UpdateStatusCargoDTO cargo) {
+    @PostMapping("/updateStatus/")
+    public void updateCargo(@ModelAttribute UpdateStatusCargoDTO cargo) {
       service.update(cargo);
     }
 }

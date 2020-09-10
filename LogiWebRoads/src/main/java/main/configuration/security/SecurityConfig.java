@@ -41,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(
                         "/",
-                        "/me",
                         "/about",
                         "/home",
                         "/city/**",
@@ -51,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/adminPage/**").hasRole(ADMIN)
                 .antMatchers(
                         "/driverDesk/**",
-                        "/driver/info/**").hasRole(DRIVER)
+                        "/driver/info/**",
+                        "/driver/updateStatus/**").hasRole(DRIVER)
                 .antMatchers(
                         "/employeeDesk/**",
                         "/driver/**",

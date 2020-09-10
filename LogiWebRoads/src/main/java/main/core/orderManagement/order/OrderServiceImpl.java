@@ -78,10 +78,10 @@ public class OrderServiceImpl implements OrderService {
         Vehicle vehicle = vehicleRepository.get(assignedVehicleId);
         nullChecker.throwNotFoundIfNull(vehicle, Vehicle.class, assignedVehicleId);
 
-        int workingHours=orderLogic.calculateOrderWorkTimeFirstMonth(order);
+        int minDutySize=orderLogic.calculateMinDutySize(order);
         int maxLoad=orderLogic.calculateMaxLoad(order.getWaypoints());
 
-        orderCheckProvider.vehicleAssignmentCheck(order, vehicle,maxLoad ,workingHours);
+        orderCheckProvider.vehicleAssignmentCheck(order, vehicle,maxLoad ,minDutySize);
 
         if (orderCheckProvider.isVehicleAssigned(order)) order.getAssignedVehicle().setCurrentOrder(null);
 

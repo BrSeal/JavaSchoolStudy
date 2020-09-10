@@ -11,6 +11,5 @@ import main.core.driver.entity.DriverStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateStatusDriverDTO {
-    private int id;
     private DriverStatus status;
 }

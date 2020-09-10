@@ -79,7 +79,7 @@ public class DriverCheckProvider {
         if (driver.getStatus() == status) throw new IllegalArgumentException(SAME_STATUS_ERR);
 
         boolean isSomeoneDriving = order.getAssignedDrivers().stream()
-                .anyMatch(dr -> dr.getStatus() == ON_DUTY_DRIVING);
+                .anyMatch(dr -> dr.getStatus() == ON_DUTY_DRIVING&&!dr.equals(driver));
 
         if (isSomeoneDriving) throw new IllegalArgumentException(ALREADY_DRIVING);
 

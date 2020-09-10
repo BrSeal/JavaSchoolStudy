@@ -15,11 +15,11 @@ public interface DriverService {
 
     int update(DriverUpdateDTO dto);
 
-    int update(UpdateStatusDriverDTO dto);
+    int update(UpdateStatusDriverDTO dto, String username);
 
     int delete(int id);
 
     List<DriverInfoDTO> getAvailable(int orderId);
 
-    DriverDeskInfoDTO getDriverDeskInfo(String username);
+    DriverDeskInfoDTO getDriverDeskInfo();
 }

@@ -52,7 +52,7 @@
     </security:authorize>
 
     <security:authorize access="hasRole('DRIVER')">
-        <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/driverDesk/<security:authentication property="principal.username"/>">Drivers Desk (Driver)</a>
+        <div><a class="btn btn-primary" href="${pageContext.request.contextPath}/driverDesk/">Drivers Desk (Driver)</a>
         </div>
     </security:authorize>
 

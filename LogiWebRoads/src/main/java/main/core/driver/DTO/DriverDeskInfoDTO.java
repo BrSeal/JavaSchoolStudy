@@ -7,7 +7,7 @@ import lombok.Setter;
 import main.core.driver.entity.Driver;
 import main.core.driver.entity.DriverStatus;
 import main.core.orderManagement.order.entity.Order;
-import main.core.orderManagement.waypoint.WaypointDTO;
+import main.core.orderManagement.waypoint.entity.Waypoint;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,29 +24,26 @@ public class DriverDeskInfoDTO {
     private String lastName;
 
     private DriverStatus status;
-    private List<Integer> drivers;
+    private List<Driver> drivers;
     private String vehicleRegNum;
     private int orderId;
-    private List<WaypointDTO> waypoints;
+    private Waypoint currentTarget;
+    private List<Waypoint> waypoints;
 
-    public DriverDeskInfoDTO(Driver driver){
-        Order order=driver.getCurrentOrder();
+    public DriverDeskInfoDTO(Driver driver, List<Driver> companions, Waypoint currentTarget) {
+        Order order = driver.getCurrentOrder();
 
-        id=driver.getId();
-        hoursWorked=driver.getHoursWorked();
-        firstName=driver.getFirstName();
-        lastName=driver.getLastName();
-        status=driver.getStatus();
-        if(order!=null) {
+        id = driver.getId();
+        hoursWorked = driver.getHoursWorked();
+        firstName = driver.getFirstName();
+        lastName = driver.getLastName();
+        status = driver.getStatus();
+        if (order != null) {
             orderId = order.getId();
             vehicleRegNum = order.getAssignedVehicle().getRegNumber();
-            drivers = order.getAssignedDrivers().stream()
-                    .filter(d -> d.getId() != id)
-                    .map(Driver::getId)
-                    .collect(Collectors.toList());
-            waypoints = order.getWaypoints().stream()
-                    .map(WaypointDTO::new)
-                    .collect(Collectors.toList());
+            waypoints = order.getWaypoints();
+            drivers = companions.stream().filter(d->d.getId()!=id).collect(Collectors.toList());
+            this.currentTarget=currentTarget;
         }
     }
 }

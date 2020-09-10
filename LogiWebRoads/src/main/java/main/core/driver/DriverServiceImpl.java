@@ -11,12 +11,16 @@ import main.core.driver.services.DriverLogic;
 import main.core.orderManagement.order.OrderRepository;
 import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderLogic;
+import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,8 @@ public class DriverServiceImpl implements DriverService {
     private static final int WORKING_HOURS_PER_MONTH = 176;
     private static final String ORDER_IS_NULL = "Update failed!";
     private static final String NO_DRIVER_FOR_USER = "No drivers found associated with user %s";
+    private static final String DRIVER_BY_ORDER_HQL = "from Driver d where d.currentOrder=%d";
+
 
     private final DriverRepository driverRepository;
     private final DriverCheckProvider checkProvider;
@@ -67,7 +73,7 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public List<DriverInfoDTO> getByOrderId(int orderId) {
-        String hql = "from Driver d where d.currentOrder= " + orderId;
+        String hql = String.format(DRIVER_BY_ORDER_HQL, orderId);
 
         return driverRepository.getByQuery(hql, null).stream()
                 .map(DriverInfoDTO::new)
@@ -99,16 +105,24 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public DriverDeskInfoDTO getDriverDeskInfo(String username) {
-        User user = userService.get(username);
-        nullChecker.throwNotFoundIfNull(user, User.class,username);
+    public DriverDeskInfoDTO getDriverDeskInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
-        String hql="from Driver d where d.user=:user";
+        Driver driver = getByUsername(username);
+        Waypoint currentTarget=null;
+        List<Driver> companions;
+        if (driver.getCurrentOrder() != null) {
+            String hql = String.format(DRIVER_BY_ORDER_HQL, driver.getCurrentOrder().getId());
+            companions = driverRepository.getByQuery(hql, null);
 
-       List<Driver> result=driverRepository.getByQuery(hql, Map.of("user",user));
-        nullChecker.throwNotFoundIfEmptyList(result, String.format(NO_DRIVER_FOR_USER,username));
-        Driver driver = result.get(0);
-        return new DriverDeskInfoDTO(driver);
+            currentTarget=driver.getCurrentOrder().getWaypoints().stream()
+                    .filter(waypoint -> !waypoint.isDone())
+                    .findFirst()
+                    .get();
+
+        } else companions = new ArrayList<>();
+        return new DriverDeskInfoDTO(driver, companions,currentTarget);
     }
 
     @Override
@@ -147,18 +161,28 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public int update(UpdateStatusDriverDTO dto) {
-        DriverStatus status = dto.getStatus();
-        int driverId = dto.getId();
+    public int update(UpdateStatusDriverDTO dto, String username) {
 
-        Driver driver = driverRepository.get(driverId);
-        nullChecker.throwNotFoundIfNull(driver, Driver.class, driverId);
+        DriverStatus status = dto.getStatus();
+
+        Driver driver = getByUsername(username);
 
         Order order = driver.getCurrentOrder();
         nullChecker.throwNotFoundIfNull(order, ORDER_IS_NULL);
 
         driverLogic.updateStatus(order, driver, status);
         driverRepository.update(driver);
-        return driverId;
+        return driver.getId();
+    }
+
+    private Driver getByUsername(String username) {
+        User user = userService.get(username);
+        nullChecker.throwNotFoundIfNull(user, User.class, username);
+
+        String hql = "from Driver d where d.user=:user";
+
+        List<Driver> result = driverRepository.getByQuery(hql, Map.of("user", user));
+        nullChecker.throwNotFoundIfEmptyList(result, String.format(NO_DRIVER_FOR_USER, username));
+        return result.get(0);
     }
 }

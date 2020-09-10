@@ -2,6 +2,8 @@ package main.core.driver;
 
 import main.core.driver.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,11 +38,6 @@ public class DriverCRUDController {
         return service.getAvailable(orderId);
     }
 
-    @GetMapping("/info/{username}")
-    public DriverDeskInfoDTO getDriverDeskInfo(@PathVariable String username) {
-        return service.getDriverDeskInfo(username);
-    }
-
     @PostMapping("/new/")
     public int saveDriver(@RequestBody NewDriverDTO dto) {
         return service.save(dto);
@@ -51,9 +48,11 @@ public class DriverCRUDController {
         return service.update(dto);
     }
 
-    @PutMapping("/updateStatus/")
+    @PostMapping("/updateStatus/")
     public int updateDriver(@RequestBody UpdateStatusDriverDTO dto) {
-        return service.update(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return service.update(dto, username);
     }
 
     @DeleteMapping("delete/{id}")
