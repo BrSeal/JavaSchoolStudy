@@ -99,12 +99,12 @@ public class App {
                 Hashtable<String, String> props = new Hashtable<String, String>();
                 props.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
                 props.put("java.naming.provider.url", "tcp://localhost:61616");
-                props.put("queue.js-queue", "test");
+                props.put("topic.js-queue", "test");
                 props.put("connectionFactoryNames", "queueCF");
 
                 Context context = new InitialContext(props);
-                QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup("queueCF");
-                Queue queue = (Queue) context.lookup("js-queue");
+                TopicConnectionFactory connectionFactory = (TopicConnectionFactory) context.lookup("queueCF");
+                Topic queue = (Topic) context.lookup("js-queue");
 
 
                 // Create a Connection

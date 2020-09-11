@@ -24,10 +24,7 @@ public class NewOrderDTO {
         List<Waypoint> waypoints = new ArrayList<>();
 
         deliveryObjects.forEach(d -> {
-            Waypoint from = d.toWaypoint(WaypointType.LOAD, order);
-            Waypoint to = d.toWaypoint(WaypointType.UNLOAD, order);
-            waypoints.add(from);
-            waypoints.add(to);
+            waypoints.addAll(d.toWaypoints(order));
         });
 
         order.setCreationDate(new Date());

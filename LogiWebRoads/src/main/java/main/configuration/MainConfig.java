@@ -2,7 +2,6 @@ package main.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import main.configuration.security.UserConfig;
-import main.core.employee.entity.Employee;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

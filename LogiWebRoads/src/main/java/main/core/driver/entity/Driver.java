@@ -13,12 +13,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "drivers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "drivers")
 public class Driver extends IdClass {
 
     @Column(name = "first_name",
@@ -44,7 +44,7 @@ public class Driver extends IdClass {
     @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @ManyToOne
+    @ManyToOne(optional=false)
     @JoinColumn(name = "current_order_id")
     @Nullable
     private Order currentOrder;
@@ -52,3 +52,5 @@ public class Driver extends IdClass {
     @OneToOne
     private User user;
 }
+
+

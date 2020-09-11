@@ -32,10 +32,9 @@ public class Order extends IdClass {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Driver> assignedDrivers;
 
     @OneToOne(cascade =CascadeType.ALL)
     private Vehicle assignedVehicle;
-
 }
