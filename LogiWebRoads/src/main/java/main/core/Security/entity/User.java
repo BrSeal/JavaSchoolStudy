@@ -27,7 +27,7 @@ public class User {
 
     @Column(name = "password",
             nullable = false,
-            length = 50)
+            length = 68)
     @Size(min = 3, max = 50)
     private String password;
 

@@ -20,9 +20,8 @@ public class CargoConfig {
     public CargoLogic cargoLogic
             (
                     CargoCheckProvider cargoCheckProvider,
-                    OrderCheckProvider orderCheckProvider,
                     NullChecker nullChecker
             ) {
-        return new CargoLogic(cargoCheckProvider, orderCheckProvider, nullChecker);
+        return new CargoLogic(cargoCheckProvider, nullChecker);
     }
 }
