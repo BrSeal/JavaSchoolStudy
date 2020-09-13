@@ -38,9 +38,10 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private String beautifyStackTrace(Throwable ex){
-        PrintWriter pw=new PrintWriter(new StringWriter());
+        StringWriter stringWriter=new StringWriter();
+        PrintWriter pw=new PrintWriter(stringWriter);
         ex.printStackTrace(pw);
-        return ex.getMessage()+'\n'+pw;
+        return ex.getMessage()+'\n'+stringWriter.toString();
 
     }
 }
