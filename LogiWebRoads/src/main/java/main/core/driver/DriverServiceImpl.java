@@ -1,7 +1,7 @@
 package main.core.driver;
 
-import main.core.Security.UserService;
-import main.core.Security.entity.User;
+import main.core.security.UserService;
+import main.core.security.entity.User;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.driver.DTO.*;
 import main.core.driver.entity.Driver;

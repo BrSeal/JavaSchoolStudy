@@ -1,6 +1,6 @@
 package main.core.employee;
 
-import main.core.Security.UserService;
+import main.core.security.UserService;
 import main.core.employee.DTO.EmployeeDTO;
 import main.core.employee.entity.Employee;
 import main.global.exceptionHandling.NullChecker;

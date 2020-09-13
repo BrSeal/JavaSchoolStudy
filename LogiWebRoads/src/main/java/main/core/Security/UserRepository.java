@@ -1,7 +1,7 @@
-package main.core.Security;
+package main.core.security;
 
 
-import main.core.Security.entity.User;
+import main.core.security.entity.User;
 
 import java.util.List;
 

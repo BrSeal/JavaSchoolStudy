@@ -1,8 +1,6 @@
-package main.core.Security;
+package main.core.security;
 
-import main.core.Security.entity.User;
-import main.core.driver.entity.Driver;
-import org.hibernate.QueryException;
+import main.core.security.entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

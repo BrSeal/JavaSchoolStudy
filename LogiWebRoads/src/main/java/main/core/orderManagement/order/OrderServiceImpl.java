@@ -12,6 +12,7 @@ import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.VehicleRepository;
 import main.core.vehicle.entity.Vehicle;
 import main.global.exceptionHandling.NullChecker;
+import main.global.messaging.JMSProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +31,11 @@ public class OrderServiceImpl implements OrderService {
     private final OrderLogic orderLogic;
     private final CityRepository cityRepository;
     private final NullChecker nullChecker;
+    private final JMSProvider jmsProvider;
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, CityRepository cityRepository, NullChecker nullChecker) {
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, CityRepository cityRepository, NullChecker nullChecker, JMSProvider jmsProvider) {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
@@ -42,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
         this.orderLogic = orderLogic;
         this.cityRepository = cityRepository;
         this.nullChecker = nullChecker;
+        this.jmsProvider = jmsProvider;
     }
 
     @Override
@@ -52,6 +55,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = dto.toOrder();
 
         orderLogic.calculateRoute(order, roadRepository.getAll());
+
+        jmsProvider.sendMessage();
+
         return orderRepository.save(order);
     }
 

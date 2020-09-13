@@ -1,7 +1,7 @@
 package main.core.driver.entity;
 
 import lombok.*;
-import main.core.Security.entity.User;
+import main.core.security.entity.User;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;

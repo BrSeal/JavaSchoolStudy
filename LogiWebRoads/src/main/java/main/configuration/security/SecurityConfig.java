@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -20,10 +21,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String USER = "USER";
 
     private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(DataSource dataSource) {
+    public SecurityConfig(DataSource dataSource, PasswordEncoder passwordEncoder) {
         this.dataSource = dataSource;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -33,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder);
     }
 
     @Override

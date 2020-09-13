@@ -1,4 +1,4 @@
-package main.core.Security.entity;
+package main.core.security.entity;
 
 
 import lombok.Getter;

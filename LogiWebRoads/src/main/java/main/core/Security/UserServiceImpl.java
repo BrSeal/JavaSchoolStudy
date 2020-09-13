@@ -1,10 +1,11 @@
-package main.core.Security;
+package main.core.security;
 
-import main.core.Security.entity.Authority;
-import main.core.Security.entity.User;
-import main.core.Security.entity.UserRole;
+import main.core.security.entity.Authority;
+import main.core.security.entity.User;
+import main.core.security.entity.UserRole;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,17 +17,17 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
     private static final String NO_USER_ERR="Save failed! No user to save!";
-    private static final String ENCRYPT = "{noop}";
-
 
     private final NullChecker nullChecker;
     private final UserRepository userRepository;
     private final UserCheckProvider userCheckProvider;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public UserServiceImpl(NullChecker nullChecker, UserRepository userRepository, UserCheckProvider userCheckProvider) {
+    public UserServiceImpl(NullChecker nullChecker, UserRepository userRepository, UserCheckProvider userCheckProvider, PasswordEncoder passwordEncoder) {
         this.nullChecker = nullChecker;
         this.userRepository = userRepository;
         this.userCheckProvider = userCheckProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
         userCheckProvider.saveCheck(user, users);
 
-        user.setPassword(ENCRYPT+user.getPassword());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

@@ -29,11 +29,10 @@ import java.util.Properties;
         DriverConfig.class,
         OrderConfig.class,
         VehicleConfig.class,
-        UserConfig.class,
-        EmployeeConfig.class
+        UserConfig.class
 })
 public class MainConfig implements WebMvcConfigurer {
-    private static final String HIBERNATE_DDL_AUTO  = "create";
+    private static final String HIBERNATE_DDL_AUTO  = "validate";
 
     @Bean
     public ViewResolver viewResolver() {

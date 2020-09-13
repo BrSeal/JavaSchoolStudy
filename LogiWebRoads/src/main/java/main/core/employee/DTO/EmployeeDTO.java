@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import main.core.Security.entity.User;
+import main.core.security.entity.User;
 import main.core.employee.entity.Employee;
 
 @Getter

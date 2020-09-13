@@ -1,7 +1,7 @@
-package main.core.Security;
+package main.core.security;
 
-import main.core.Security.entity.Authority;
-import main.core.Security.entity.User;
+import main.core.security.entity.Authority;
+import main.core.security.entity.User;
 import main.global.exceptionHandling.exceptions.SaveFailedException;
 
 import java.util.List;

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Arrays;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @ControllerAdvice
 @Log4j2
@@ -27,12 +28,19 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     protected ResponseEntity<String> handleE(RuntimeException ex) {
-        log.error(RUNTIME_ERROR_MARKER,ex.getMessage()+'\n'+ Arrays.toString(ex.getStackTrace()));
+        log.error(RUNTIME_ERROR_MARKER,beautifyStackTrace(ex));
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> handleE(Exception ex) {
-        log.error(FATAL_ERROR_MARKER,ex.getMessage()+'\n'+ Arrays.toString(ex.getStackTrace()));
+        log.error(FATAL_ERROR_MARKER,beautifyStackTrace(ex));
         return new ResponseEntity<>("Nobody hears your screams but you can press any button!", HttpStatus.BAD_REQUEST);
+    }
+
+    private String beautifyStackTrace(Throwable ex){
+        PrintWriter pw=new PrintWriter(new StringWriter());
+        ex.printStackTrace(pw);
+        return ex.getMessage()+'\n'+pw;
+
     }
 }

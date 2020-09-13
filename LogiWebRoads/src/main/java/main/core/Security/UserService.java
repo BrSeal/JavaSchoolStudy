@@ -1,6 +1,6 @@
-package main.core.Security;
+package main.core.security;
 
-import main.core.Security.entity.User;
+import main.core.security.entity.User;
 
 public interface UserService {
     User get(String username);
