@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.jms.JMSException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,11 @@ public class OrderServiceImpl implements OrderService {
 
         orderLogic.calculateRoute(order, roadRepository.getAll());
 
-        jmsProvider.sendMessage();
+        try {
+            jmsProvider.sendMessage();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
 
         return orderRepository.save(order);
     }

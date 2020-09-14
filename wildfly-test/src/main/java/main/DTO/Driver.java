@@ -12,5 +12,4 @@ public class Driver {
     int id;
     String firstName;
     String lastName;
-    int orderId;
 }
