@@ -5,10 +5,9 @@ import lombok.Setter;
 import main.DTO.*;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.jms.MessageListener;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,17 +15,8 @@ import java.util.List;
 @Getter
 @Setter
 @Named
-@MessageDriven
-        (
-                name = "logiweb",
-                messageListenerInterface = MessageListener.class,
-                activationConfig =
-                        {
-                                @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "topic/logiweb"),
-                                @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-                                @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")
-                        }
-        )
+@ApplicationScoped
+
 public class InfoContainer implements Serializable {
     private final static ObjectMapper objectMapper = new ObjectMapper();
     private List<Order> orders;

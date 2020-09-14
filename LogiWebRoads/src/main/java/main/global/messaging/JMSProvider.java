@@ -11,6 +11,8 @@ public class JMSProvider {
     @Autowired
     public JMSProvider(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
+
+        
     }
 
     public void sendMessage() {
