@@ -13,7 +13,9 @@ import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
+import main.global.board.BoardInfo;
 import main.global.exceptionHandling.NullChecker;
+import main.global.messaging.JMSProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,10 +42,12 @@ public class DriverServiceImpl implements DriverService {
     private final OrderRepository orderRepository;
     private final NullChecker nullChecker;
     private final OrderLogic orderLogic;
+    private final JMSProvider jmsProvider;
+    private final BoardInfo boardInfo;
 
 
     @Autowired
-    public DriverServiceImpl(DriverRepository driverRepository, UserService userService, OrderRepository orderRepository, DriverCheckProvider checkProvider, DriverLogic driverLogic, NullChecker nullChecker, OrderLogic orderLogic) {
+    public DriverServiceImpl(DriverRepository driverRepository, UserService userService, OrderRepository orderRepository, DriverCheckProvider checkProvider, DriverLogic driverLogic, NullChecker nullChecker, OrderLogic orderLogic, JMSProvider jmsProvider, BoardInfo boardInfo) {
         this.driverRepository = driverRepository;
         this.userService = userService;
         this.orderRepository = orderRepository;
@@ -51,6 +55,8 @@ public class DriverServiceImpl implements DriverService {
         this.driverLogic = driverLogic;
         this.nullChecker = nullChecker;
         this.orderLogic = orderLogic;
+        this.jmsProvider = jmsProvider;
+        this.boardInfo = boardInfo;
     }
 
     @Override
@@ -129,8 +135,11 @@ public class DriverServiceImpl implements DriverService {
         String username = dto.getUsername();
         String password = dto.getPassword();
         User user = new User(username, password, true, null);
-
+        jmsProvider.sendMessage();
         userService.saveDriver(user);
+
+        boardInfo.addDriver();
+        boardInfo.updateRemoteBoard();
 
         return driverRepository.save(dto.toDriver());
     }
@@ -143,6 +152,10 @@ public class DriverServiceImpl implements DriverService {
 
         userService.delete(driver.getUser());
         driverRepository.delete(driver);
+
+        boardInfo.deleteDriver();
+        boardInfo.updateRemoteBoard();
+
         return id;
     }
 

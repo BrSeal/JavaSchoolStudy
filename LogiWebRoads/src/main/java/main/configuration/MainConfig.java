@@ -32,7 +32,7 @@ import java.util.Properties;
         UserConfig.class
 })
 public class MainConfig implements WebMvcConfigurer {
-    private static final String HIBERNATE_DDL_AUTO  = "validate";
+    private static final String HIBERNATE_DDL_AUTO  = "create";
 
     @Bean
     public ViewResolver viewResolver() {

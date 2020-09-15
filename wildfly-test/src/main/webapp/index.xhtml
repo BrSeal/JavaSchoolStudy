@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+        >
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
-      lang="jsf">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" lang="en">
 
 <h:head>
     <title>Logiweb overall table</title>
+    <script type="text/javascript">
+        function socketListener() {
+            alert("reload!");
+            window.location.reload();
+        }
+    </script>
 </h:head>
 
 <h:body>
@@ -20,7 +27,7 @@
 
             <p:tab title="Orders">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="order" value="#{infoContainer.orders}">
+                    <p:dataTable var="order" value="#{infoContainer.info.orders}">
                         <p:column headerText="Id">
                             <h:outputText value="#{order.id}"/>
                         </p:column>
@@ -34,7 +41,7 @@
                         </p:column>
 
                         <p:column headerText="Assigned vehicle">
-                            <h:outputText value="#{order.assignedVehicle.regNumber}"/>
+                            <h:outputText value="#{order.vehicleRegNum}"/>
                         </p:column>
 
                         <p:column headerText="Assigned drivers">
@@ -42,69 +49,31 @@
                                 #{driver.id}  #{driver.firstName} #{driver.lastName}
                             </p:dataList>
                         </p:column>
+                        <p:column headerText="Last modified">
+                            <h:outputText value="#{order.lastModifyDate}"/>
+                        </p:column>
                     </p:dataTable>
                 </h:panelGrid>
             </p:tab>
             <p:tab title="Vehicles">
-                <div>
-                    <p:fieldset legend="Statistics" toggleable="true" toggleSpeed="500">
-                        <div><p:outputLabel value="Total:#{infoContainer.vehicleStats[0]}"/></div>
-                        <div><p:outputLabel value="In order:#{infoContainer.vehicleStats[1]}"/></div>
-                        <div><p:outputLabel value="Free:#{infoContainer.vehicleStats[0]-infoContainer.vehicleStats[1]}"/></div>
-                        <div><p:outputLabel value="Need service:#{infoContainer.vehicleStats[2]}"/></div>
-                </p:fieldset>
-                </div>
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:dataTable var="vehicle" value="#{infoContainer.vehicles}">
-                        <p:column headerText="Registration number">
-                            <h:outputText value="#{vehicle.regNumber}"/>
-                        </p:column>
-
-                        <p:column headerText="Is ok">
-                            <h:outputText value="#{vehicle.ok?'Good':'Needs service'}"/>
-                        </p:column>
-
-                        <p:column headerText="Current order">
-                            <h:outputText value="#{vehicle.orderId==0?'None':vehicle.orderId}"/>
-                        </p:column>
-                    </p:dataTable>
-
-                </h:panelGrid>
+                        <div><p:outputLabel value="Total:#{infoContainer.info.vehiclesCount}"/></div>
+                        <div><p:outputLabel value="In order:#{infoContainer.info.vehiclesOnOrder}"/></div>
+                        <div><p:outputLabel value="Free:#{infoContainer.info.vehiclesCount-infoContainer.info.vehiclesOnOrder}"/></div>
+                        <div><p:outputLabel value="Good:#{infoContainer.info.vehiclesOkCount}"/></div>
+                        <div><p:outputLabel value="Need service:#{infoContainer.info.vehiclesCount-infoContainer.info.vehiclesOkCount}"/></div>
             </p:tab>
             <p:tab title="Drivers">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <div>
-                        <p:fieldset legend="Statistics" toggleable="true" toggleSpeed="500">
-                            <div><p:outputLabel value="Total:#{infoContainer.driverStats[0]}"/></div>
-                            <div><p:outputLabel value="In order:#{infoContainer.driverStats[1]}"/></div>
-                            <div><p:outputLabel value="Free:#{infoContainer.driverStats[0]-infoContainer.driverStats[1]}"/></div>
-                        </p:fieldset>
-                    </div>
-                    <p:dataTable var="driver" value="#{infoContainer.drivers}">
-                        <p:column headerText="Id">
-                            <h:outputText value="#{driver.id}"/>
-                        </p:column>
+                            <div><p:outputLabel value="Total:#{infoContainer.info.driversCount}"/></div>
+                            <div><p:outputLabel value="In order:#{infoContainer.info.driversOnOrderCount}"/></div>
+                            <div><p:outputLabel value="Free:#{infoContainer.info.driversCount-infoContainer.info.driversOnOrderCount}"/></div>
 
-                        <p:column headerText="First name">
-                            <h:outputText value="#{driver.firstName}"/>
-                        </p:column>
-
-                        <p:column headerText="LastName">
-                            <h:outputText value="#{driver.lastName}"/>
-                        </p:column>
-
-                        <p:column headerText="Current order">
-                            <h:outputText value="#{driver.orderId==0?'None':driver.orderId}"/>
-                        </p:column>
-                    </p:dataTable>
-
-
-                </h:panelGrid>
             </p:tab>
         </p:tabView>
 
 
     </h:form>
+
+    <f:websocket channel="websocket" onMessage="socketListener"/>
 
 
 </h:body>

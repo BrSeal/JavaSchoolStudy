@@ -11,13 +11,12 @@ import main.core.orderManagement.order.services.OrderCheckProvider;
 import main.core.orderManagement.order.services.OrderLogic;
 import main.core.vehicle.VehicleRepository;
 import main.core.vehicle.entity.Vehicle;
+import main.global.board.BoardInfo;
 import main.global.exceptionHandling.NullChecker;
-import main.global.messaging.JMSProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jms.JMSException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,11 +31,11 @@ public class OrderServiceImpl implements OrderService {
     private final OrderLogic orderLogic;
     private final CityRepository cityRepository;
     private final NullChecker nullChecker;
-    private final JMSProvider jmsProvider;
+    private final BoardInfo boardInfo;
 
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, CityRepository cityRepository, NullChecker nullChecker, JMSProvider jmsProvider) {
+    public OrderServiceImpl(OrderRepository orderRepository, VehicleRepository vehicleRepository, DriverRepository driverRepository, RoadRepository roadRepository, OrderCheckProvider orderCheckProvider, OrderLogic orderLogic, CityRepository cityRepository, NullChecker nullChecker, BoardInfo boardInfo) {
         this.orderRepository = orderRepository;
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
@@ -45,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
         this.orderLogic = orderLogic;
         this.cityRepository = cityRepository;
         this.nullChecker = nullChecker;
-        this.jmsProvider = jmsProvider;
+        this.boardInfo = boardInfo;
     }
 
     @Override
@@ -57,13 +56,13 @@ public class OrderServiceImpl implements OrderService {
 
         orderLogic.calculateRoute(order, roadRepository.getAll());
 
-        try {
-            jmsProvider.sendMessage();
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+        int id=orderRepository.save(order);
 
-        return orderRepository.save(order);
+        order.setId(id);
+        boardInfo.addOrUpdateOrderInfo(order);
+        boardInfo.updateRemoteBoard();
+
+        return id;
     }
 
     @Override
@@ -93,10 +92,16 @@ public class OrderServiceImpl implements OrderService {
 
         orderCheckProvider.vehicleAssignmentCheck(order, vehicle);
 
-        if (order.getAssignedVehicle()!=null) order.getAssignedVehicle().setCurrentOrder(null);
+        if (order.getAssignedVehicle()!=null) {
+            order.getAssignedVehicle().setCurrentOrder(null);
+            boardInfo.decrementVehiclesOnOrder();
+        }
 
         vehicle.setCurrentOrder(order);
         order.setAssignedVehicle(vehicle);
+
+        boardInfo.addOrUpdateOrderInfo(order);
+        boardInfo.updateRemoteBoard();
 
         orderRepository.update(order);
     }
@@ -118,7 +123,15 @@ public class OrderServiceImpl implements OrderService {
         orderCheckProvider.driverAssignmentCheck(order, drivers);
 
         order.setAssignedDrivers(drivers);
-        drivers.forEach(d -> d.setCurrentOrder(order));
+        drivers.forEach(d ->{
+            d.setCurrentOrder(order);
+            boardInfo.addAssignedDriver();
+                }
+
+        );
+
+        boardInfo.addOrUpdateOrderInfo(order);
+        boardInfo.updateRemoteBoard();
 
         orderRepository.update(order);
     }

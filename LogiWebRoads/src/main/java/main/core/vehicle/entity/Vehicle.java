@@ -37,4 +37,6 @@ public class Vehicle extends IdClass {
     @OneToOne
     @JoinColumn(name = "current_order_id")
     private Order currentOrder;
+
+    
 }

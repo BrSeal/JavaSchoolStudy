@@ -12,6 +12,7 @@ import main.core.vehicle.DTO.VehicleSmallInfoDTO;
 import main.core.vehicle.entity.Vehicle;
 import main.core.vehicle.services.VehicleCheckProvider;
 import main.core.vehicle.services.VehicleLogic;
+import main.global.board.BoardInfo;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,10 @@ public class VehicleServiceImpl implements VehicleService {
     private final OrderLogic orderLogic;
     private final NullChecker nullChecker;
     private final VehicleLogic vehicleLogic;
+    private final BoardInfo boardInfo;
 
     @Autowired
-    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderRepository orderRepository, VehicleCheckProvider vehicleCheckProvider, CityRepository cityRepository, OrderLogic orderLogic, NullChecker nullChecker, VehicleLogic vehicleLogic) {
+    public VehicleServiceImpl(VehicleRepository vehicleRepository, OrderRepository orderRepository, VehicleCheckProvider vehicleCheckProvider, CityRepository cityRepository, OrderLogic orderLogic, NullChecker nullChecker, VehicleLogic vehicleLogic, BoardInfo boardInfo) {
         this.vehicleRepository = vehicleRepository;
         this.orderRepository = orderRepository;
         this.vehicleCheckProvider = vehicleCheckProvider;
@@ -42,6 +44,7 @@ public class VehicleServiceImpl implements VehicleService {
         this.orderLogic = orderLogic;
         this.nullChecker = nullChecker;
         this.vehicleLogic = vehicleLogic;
+        this.boardInfo = boardInfo;
     }
 
     @Override
@@ -106,6 +109,9 @@ public class VehicleServiceImpl implements VehicleService {
 
         vehicleCheckProvider.validateNew(dto, regNums, cityIds);
 
+        boardInfo.addVehicle();
+        boardInfo.updateRemoteBoard();
+
         return vehicleRepository.save(dto.toVehicle());
     }
 
@@ -114,6 +120,9 @@ public class VehicleServiceImpl implements VehicleService {
         Vehicle vehicle=vehicleRepository.get(id);
         nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,id);
         vehicleCheckProvider.canBeDeleted(vehicle);
+
+        boardInfo.deleteVehicle();
+        boardInfo.updateRemoteBoard();
 
         vehicleRepository.delete(vehicle);
         return id;
@@ -131,6 +140,15 @@ public class VehicleServiceImpl implements VehicleService {
         nullChecker.throwNotFoundIfNull(vehicle,Vehicle.class,dto.getId());
 
         vehicleCheckProvider.canBeUpdated(vehicle,dto, regNums);
+
+        if(vehicle.isOk()!=dto.isOk()) {
+            if (dto.isOk()) {
+                boardInfo.decrementBrokenVehiclesCount();
+            } else {
+                boardInfo.incrementBrokenVehiclesCount();
+            }
+            boardInfo.updateRemoteBoard();
+        }
 
         vehicleLogic.updateFields(vehicle,dto);
 

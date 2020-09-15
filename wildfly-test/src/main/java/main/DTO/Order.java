@@ -13,9 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Order {
     private int id;
+    private String status;
     private String creationDate;
-    private String changeStatusDate;
-    private OrderStatus status;
-    private String assignedVehicleRegNumber;
-    private List<Driver> drivers;
+    private String lastModifyDate;
+    String vehicleRegNum;
+    List<Driver> drivers;
 }

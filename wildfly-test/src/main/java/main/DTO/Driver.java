@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Driver {
-    int id;
-    String firstName;
-    String lastName;
+    private int id;
+    private String firstName;
+    private String lastName;
 }

@@ -4,6 +4,7 @@ import main.core.security.UserService;
 import main.core.employee.DTO.EmployeeDTO;
 import main.core.employee.entity.Employee;
 import main.global.exceptionHandling.NullChecker;
+import main.global.messaging.JMSProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +44,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public int save(Employee employee) {
+
         userService.saveEmployee(employee.getUser());
+
         return repository.save(employee);
     }
 

@@ -9,6 +9,7 @@ import main.core.orderManagement.order.entity.Order;
 import main.core.orderManagement.order.entity.OrderStatus;
 import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
+import main.global.board.BoardInfo;
 import main.global.exceptionHandling.NullChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,13 +27,14 @@ public class CargoLogic {
     private static final String WAYPOINT_UNLOAD_NOT_FOUND="Unloading waypoint for cargo %s not found!";
 
     private final CargoCheckProvider cargoCheckProvider;
-
     private final NullChecker nullChecker;
+    private final BoardInfo boardInfo;
 
     @Autowired
-    public CargoLogic(CargoCheckProvider cargoCheckProvider,NullChecker nullChecker) {
+    public CargoLogic(CargoCheckProvider cargoCheckProvider,NullChecker nullChecker,BoardInfo boardInfo) {
         this.cargoCheckProvider = cargoCheckProvider;
         this.nullChecker = nullChecker;
+        this.boardInfo=boardInfo;
     }
 
     public void updateStatus(Cargo cargo, UpdateStatusCargoDTO dto, Order order) {
@@ -85,11 +87,17 @@ public class CargoLogic {
 
     private void ifWasLastWaypoint(Order order) {
         order.setStatus(OrderStatus.COMPLETED);
+        boardInfo.addOrUpdateOrderInfo(order);
         order.getAssignedDrivers().forEach(d -> {
             d.setStatus(ON_REST);
+            boardInfo.decrementAssignedDrivers();
+
             d.setCurrentOrder(null);
         });
         order.getAssignedVehicle().setCurrentOrder(null);
+        boardInfo.decrementVehiclesOnOrder();
+
+        boardInfo.updateRemoteBoard();
     }
 
     private void setCurrentCity(List<Driver> drivers, Vehicle vehicle, City city) {

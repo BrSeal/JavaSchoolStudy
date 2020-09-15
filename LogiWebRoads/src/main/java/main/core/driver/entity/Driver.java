@@ -44,9 +44,8 @@ public class Driver extends IdClass {
     @JoinColumn(name = "current_city_id")
     private City currentCity;
 
-    @ManyToOne(optional=false)
+    @ManyToOne
     @JoinColumn(name = "current_order_id")
-    @Nullable
     private Order currentOrder;
 
     @OneToOne
