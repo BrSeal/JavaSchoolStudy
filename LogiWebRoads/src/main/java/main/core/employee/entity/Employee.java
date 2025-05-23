@@ -5,9 +5,9 @@ import lombok.*;
 import main.core.security.entity.User;
 import main.global.mappedSuperclass.IdClass;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "employees")

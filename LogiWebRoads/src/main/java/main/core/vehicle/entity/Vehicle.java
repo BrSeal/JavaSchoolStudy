@@ -8,7 +8,7 @@ import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "vehicles")

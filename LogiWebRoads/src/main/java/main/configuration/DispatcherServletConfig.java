@@ -1,6 +1,5 @@
 package main.configuration;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -15,7 +14,7 @@ public class DispatcherServletConfig extends AbstractAnnotationConfigDispatcherS
     }
 
     @Override
-    protected String @NotNull [] getServletMappings() {
+    protected String[] getServletMappings() {
         return new String[]{"/"};
     }
 }

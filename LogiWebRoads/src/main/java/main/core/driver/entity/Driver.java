@@ -5,12 +5,11 @@ import main.core.security.entity.User;
 import main.core.cityAndRoads.cities.entity.City;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
-import org.jetbrains.annotations.Nullable;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Getter

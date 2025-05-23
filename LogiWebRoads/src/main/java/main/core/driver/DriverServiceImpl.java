@@ -1,5 +1,6 @@
 package main.core.driver;
 
+import lombok.RequiredArgsConstructor;
 import main.core.security.UserService;
 import main.core.security.entity.User;
 import main.core.cityAndRoads.cities.entity.City;
@@ -15,8 +16,7 @@ import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
 import main.global.board.BoardInfo;
 import main.global.exceptionHandling.NullChecker;
-import main.global.messaging.JMSProvider;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.dialect.PostgreSQLDialect;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class DriverServiceImpl implements DriverService {
 
     private static final int WORKING_HOURS_PER_MONTH = 176;
     private static final String ORDER_IS_NULL = "Update failed!";
     private static final String NO_DRIVER_FOR_USER = "No drivers found associated with user %s";
-
-
 
     private final DriverRepository driverRepository;
     private final DriverCheckProvider checkProvider;
@@ -42,22 +41,7 @@ public class DriverServiceImpl implements DriverService {
     private final OrderRepository orderRepository;
     private final NullChecker nullChecker;
     private final OrderLogic orderLogic;
-    private final JMSProvider jmsProvider;
     private final BoardInfo boardInfo;
-
-
-    @Autowired
-    public DriverServiceImpl(DriverRepository driverRepository, UserService userService, OrderRepository orderRepository, DriverCheckProvider checkProvider, DriverLogic driverLogic, NullChecker nullChecker, OrderLogic orderLogic, JMSProvider jmsProvider, BoardInfo boardInfo) {
-        this.driverRepository = driverRepository;
-        this.userService = userService;
-        this.orderRepository = orderRepository;
-        this.checkProvider = checkProvider;
-        this.driverLogic = driverLogic;
-        this.nullChecker = nullChecker;
-        this.orderLogic = orderLogic;
-        this.jmsProvider = jmsProvider;
-        this.boardInfo = boardInfo;
-    }
 
     @Override
     public List<DriverMinInfoDTO> getAll() {
@@ -135,7 +119,6 @@ public class DriverServiceImpl implements DriverService {
         String username = dto.getUsername();
         String password = dto.getPassword();
         User user = new User(username, password, true, null);
-        jmsProvider.sendMessage();
         userService.saveDriver(user);
 
         boardInfo.addDriver();

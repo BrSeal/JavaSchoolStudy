@@ -3,3 +3,4 @@ target/
 out/
 *.iml
 node_modules/
+application-*.yaml

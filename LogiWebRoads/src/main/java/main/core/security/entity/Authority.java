@@ -1,6 +1,6 @@
 package main.core.security.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 import lombok.Getter;

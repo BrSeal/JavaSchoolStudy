@@ -7,7 +7,7 @@ import main.core.orderManagement.waypoint.entity.Waypoint;
 import main.core.vehicle.entity.Vehicle;
 import main.global.mappedSuperclass.IdClass;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 

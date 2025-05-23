@@ -10,7 +10,7 @@ import main.core.orderManagement.cargo.entity.Cargo;
 import main.core.orderManagement.order.entity.Order;
 import main.global.mappedSuperclass.IdClass;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 @Entity
